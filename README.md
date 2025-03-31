@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Age Verification Solution Technical Specification
 
 ## Overview
@@ -31,7 +30,3 @@ We use SemVer for versioning. For the versions available, see the [tags](https:/
 
 ## License
 See the LICENCE file for details.
-=======
-# av-doc-technical-specification
-European Age Verification solution documentation
->>>>>>> 3d27dc8 (Initial commit)

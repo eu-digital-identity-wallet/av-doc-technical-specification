@@ -368,7 +368,7 @@ The Digital Services Act does not contain provisions mandating the trust framewo
 
 The trust framework for the Proof of Age attestation is based on trusted lists developed and operated pursuant to Article 22 of the eIDAS Regulation. The trusted lists are available on the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/home). Proof of Age Attestation Providers should be either qualified or non-qualified trust service providers and they should be published in a trusted list that is made available to the eIDAS Dashboard. Their publication should follow the requirements laid out in Implementing Regulation 2015/1505, and the Trust Anchor defined therein (Service Digital Identifier) should be used by relying parties to validate the attestation.
 
-TThe registration of Relying Parties that request age verification, or the registration of Age Verification App Providers is not required. Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue such attestations to, and Age Verification App Providers may set similar conditions regarding Relying Parties.
+The registration of Relying Parties that request age verification, or the registration of Age Verification App Providers is not required. Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue such attestations to, and Age Verification App Providers may set similar conditions regarding Relying Parties.
 
 Considering the need for reliability and trust in the age verification solution, a method comparable at least to LoA Substantial should be required as laid out in Implementing Regulation 2015/1502.
 

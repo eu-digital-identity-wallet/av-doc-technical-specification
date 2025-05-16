@@ -42,7 +42,7 @@ This framework serves as a reference for the harmonized implementation of age ve
 Annex 3 describes the features included in the Age Verification white label solution that serves as a reference implementation for the Member States and other actors in the ecosystem. The architecture specifications are designed to support the development of a reference implementation for the white-label solution while remaining adaptable to technological and regulatory advancements. 
 
 Annex 4 introduces an Age Verification Profile prioritizing the Age Verification remote and online use case, aiming at achieving equivalence to Level of Assurance (LoA) substantial.
-.
+
 
 ### 1.6 Further Enhancements and Open Topics
 
@@ -499,8 +499,8 @@ For undated references, the latest version available applies.
 
 | **Item Reference** | **Standard name/details**|
 |--------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| [OpenID4VCI] | [OpenID for Verifiable Credential Issuance](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html) |
-| [OpenID4VP] | [OpenID for Verifiable Presentations](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html)  |
+| [OpenID4VCI] | [OpenID for Verifiable Credential Issuance](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html) |
+| [OpenID4VP] | [OpenID for Verifiable Presentations](https://openid.net/specs/openid-4-verifiable-presentations-1_0-24.html)  |
 | [HAIP] | [OpenID4VC High Assurance Interoperability Profile with SD-JWT VC](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html)  |
 | [OIDC] | [Final: OpenID Connect Core 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-core-1_0.html)  |
 | [ISO/IEC 18013-5] | [ISO/IEC 18013-5:2021: Personal identification — ISO-compliant driving licence. Part 5: Mobile driving licence (mDL) application. Edition 1, 2021.](https://www.iso.org/standard/69084.html) |
@@ -515,4 +515,5 @@ For undated references, the latest version available applies.
 - Definitions - [Annex 1](./annexes/annex-1/annex-1-definitions.md)
 - High Level Technical Requirements - [Annex 2](./annexes/annex-2/annex-2-high-level-requirements.md)
 - Features of the White Label solution - [Annex 3](./annexes/annex-3/annex-3-features-white-label-app.md)
-- AV Profile - [Annex 4](./annexes/annex-4/annex-4-av-profile.md)
+- Age Verification Profile - [Annex 4](./annexes/annex-4/annex-4-av-profile.md)
+

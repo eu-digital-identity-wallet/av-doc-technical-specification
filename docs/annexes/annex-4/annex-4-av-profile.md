@@ -88,7 +88,7 @@ TBD
 - RP MUST send the request by value (i.e., support for JAR is not required)
 - The client identifier scheme MUST be `redirect_uri` followed by the `response_uri`
 - A request MUST specify the nonce parameter
-- A request MUST include a comma-separated list of scopes. The first item in this list MUST be `proof_of_age`, followed by zero or more scopes specifying the desired attributes of the Proof of Age attestation (e.g.,  `age_over_18` etc.).
+- The DCQL query and response as defined in Section 6 of [OID4VP] MUST be used
 
 
 ## A.4.6 OpenID for Verifiable Presentations over W3C Digital Credentials API
@@ -156,15 +156,12 @@ existence of a trust list of RPs. For this reason the Age Verification solution
 uses the simpler `redirect_uri` scheme.  An alternative could be the use of `x509_san_dns`
 together with the Web PKI, however, any malicious entity can obtain a valid Web PKI
 certificate. 
-- HAIP uses DCQL. The Proof of Age attestation is a simple 
-attestation containing a limited set of attributes. Requests for such attestations
-(even with basic attribute filtering) can be easily handled using comma separated 
-scopes. For this reason the Age Verification solution does not use DCQL.
+
 
 #### OpenID for Verifiable Presentations over W3C Digital Credentials API
 - HAIP requires support for signed requests to enable RP authentication through mechanisms beyond the Web PKI. This is not a requirement for the Age Verification solution; therefore, unsigned requests are used instead.
 - HAIP requires encrypted responses, using the response mode `dc_api.jwt`. The Age Verification solution relies on the security of TLS and assumes that the operating system and the browser are trusted. For this reason unencrypted responses are used.
-- HAIP requires the use of DCQL. The Age Verification solution relies on scopes as discussed in the previous section.
+
 
 
 ## A.4.10 Examples

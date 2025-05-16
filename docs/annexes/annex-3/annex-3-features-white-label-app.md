@@ -16,7 +16,7 @@ A list of the abbreviations and acronyms used in this document. 
   |--------------|----------------------------------------------------------|
   | Implementer    | An implementer is an individual who is responsible for                 translating software designs, specifications, or concepts into functional, operational systems. Presumably this is a contractor of the Age Verification App Provider, Proof of      Age Attestation Provider or Proof of age verifier.
 
-## A.3.2 White label Application
+## A.3.2 White Label Application
 
 The White label App shall include key functionality that is highlighted in the following section.
 
@@ -97,5 +97,7 @@ Depending on the implementers' roles as an issuer, relying party or white label 
     b.  Verification Service
 
 3.  Finalize app configuration (i.e. translations), compile, secure and publish the Apps from the toolbox.
+
+All configurable features of the white label solution, such as attestation validity time and batch sizes follow the recommendations defined in the Architecture and technical Specifications document.
 
 Additional operational, security, performance and integration measures will be provided in the next version of this document.

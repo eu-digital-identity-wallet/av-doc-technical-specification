@@ -18,6 +18,7 @@ This repository contains:
   - [Annex 1 - Definitions](docs/annexes/annex-1/annex-1-definitions.md)
   - [Annex 2 - High-level requirements](docs/annexes/annex-2/annex-2-high-level-requirements.md)
   - [Annex 3 - Features of the White Label Solution](docs/annexes/annex-3/annex-3-features-white-label-app.md)
+  - [Annex 4 - Age Verification Profile](docs/annexes/annex-4/annex-4-av-profile.md)
 
 ## Contributing
 Contributions are welcome to enhance and refine the specifications. If you would like to contribute to this repository, please follow the [contribution guidelines](CONTRIBUTING.md).

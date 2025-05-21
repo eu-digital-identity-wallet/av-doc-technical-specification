@@ -132,10 +132,13 @@ The following referenced documents are essential for the application of this doc
 - [EU Digital Identity Architecture and Reference Framework][arf]
 
 [arf]: https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework
-
+<!---
+NF, Add more background about the issue, motivation, etc, Mentions mdoc with respect to ZKP, digital credentials API, security considerations
+-->
 ### 1.5.2 Informative References
 <!---
-NF, are you sure that all these are informative references? even [ISO/IEC 18013-5] 
+NF, are you sure that all these are informative references? even [ISO/IEC 18013-5],
+[OpenID4VCI] is informative, not all issuers have to implement vci
 -->
 
 References are classified as either specific (identified by date of publication and/or version number) or
@@ -213,9 +216,9 @@ Union law.
 ## 2.1 Perspective of the Age Verification Solution
 <!---
 NF, This exists in the original version as well, still I don't understand what
-"defines a device-based solution" means 
+"defines a device-based solution" means. Device-based means mobile 
 -->
-The present document defines a device-based solution enables secure and efficient age verification directly at the
+The present document defines a device-based solution that enables secure and efficient age verification directly at the
 device level. Once age-related attestations are issued to the device, they can be presented and verified by online
 services in a simple, secure, and privacy-preserving manner. This capability is supported by the following elements:
 
@@ -230,7 +233,7 @@ services in a simple, secure, and privacy-preserving manner. This capability is 
 
 - **Integration with the European Digital Identity Regulation:**
 <!---
-NF, Do we leverage "the existing eIDAS infrastructure"?
+NF, Do we leverage "the existing eIDAS infrastructure"? Yes
 -->
   The solution leverages the existing eIDAS infrastructure, including eIDAS nodes and the trust framework for trusted
   services, to ensure a high level of security and reliability. By aligning with the technical architecture of the EU
@@ -269,7 +272,7 @@ support for other age groups (e.g., "over 14" or "over 65") provided that approp
 
 ### 2.2.1 Flexible Enrollment Methods
 <!---
-NF, Is this section correct? These are methods for an AP to obtain information about the age of a user
+NF, Is this section correct? These are methods for an AP to obtain information about the age of a user. It is correct
 -->
 Users have the flexibility to choose from multiple enrollment methods to obtain their Proof of Age Attestation.
 Supported methods include, but are not limited to:
@@ -288,7 +291,7 @@ These enrollment methods ensure that the attestation is based on reliable and ve
 necessary, enrollment can also be conducted on-site to accommodate users who may not have access to electronic
 identification means.
 <!---
-NF, Is this correct? Shouldn't a solution support all methods?
+NF, Is this correct? Shouldn't a solution support all methods? It is correct
 -->
 Member States and solution providers retain the autonomy to determine which enrollment options they offer within the age
 verification solution. This flexibility acknowledges the diversity of national identification systems, regulatory
@@ -301,7 +304,7 @@ The system is optimized for secure and privacy-preserving online presentation, a
 without disclosing unnecessary personal information. In addition to online scenarios, the solution in principle can also
 be adapted to support offline or proximity-based presentations, where attestations can be verified locally.
 <!---
-NF, Do we need this?
+NF, Do we need this? Remove it. Write in fields that it is for future, proximity based uses
 -->
 For proximity scenarios, the Proof of Age Attestation may optionally include a user photo. This enables the user to
 demonstrate possession of the device and further strengthens the binding between the attestation and the legitimate
@@ -309,7 +312,7 @@ holder.
 
 ### 2.2.3 Revocation and Re-Issuance
 <!---
-NF, We do not support revocation and re-issuance. To remove?
+NF, We do not support revocation and re-issuance. To remove? Yes. Or write why do not have revocation
 -->
 
 The solution provides mechanisms for users to revoke and re-issue Proof of Age Attestations as needed. This ensures that
@@ -392,7 +395,7 @@ detailed below:
   physical retailers.
 
 <!---
-NF, I thinks this creates confusion and should be removed
+NF, I thinks this creates confusion and should be removed. High-level description of scenarios, consistent with the rest of the text
 -->
 - Decoupled Issuance Based on Pre-Authorized Codes : The issuance process for a Proof of Age can be also decoupled from
   the identity verification process. This can be achieved through pre-authorised secure codes provided to the user after
@@ -470,7 +473,7 @@ approach:
   solutions, including mobile operating system providers, wallet solution providers, and operators of citizen-facing
   applications.
 
-To ensure a robust and reliable solution, the framework applies the following design principles:
+To ensure a robust and reliable solution, the framework is driven by the following design principles:
 
 - **Data protection:**
 <!---
@@ -505,9 +508,11 @@ NF, Re-write to something "use available solutions for protecting..."
 - **Data security:** User data and credentials are securely stored to ensure confidentiality, authenticity, integrity,
   and availability. This protection safeguards data against unauthorized access, destruction, misuse, alteration,
   disclosure or loss.
-
 <!---
-NF, Re-write to something "will use..."
+It is suggested...
+-->
+<!---
+NF, Re-write to something "will use..." for example.... safenet so that no rooted etc. 
 -->
 - **Cloning protection:** Cloning protection prevents the unauthorized duplication of credentials and user data. This
   measure ensures that illicit reproduction of credentials does not grant unauthorized parties privileges they would not
@@ -593,10 +598,10 @@ Party. In the Age Verification application there is no certification or registra
 the Relying Parties.
 
 <!---
-NF, Is this correct? It should be hign
+NF, Is this correct? It should be high
 -->
 Onboarding of users to the European Digital Identity Wallet will be facilitated by relying on identity proofing process
-comparable to LoA substantial.
+comparable to LoA high.
 
 ![Figure 8](./docs/media/Figure_8_comparison_with_eudiw.png)
 *Figure 8: Differences in trust frameworks depending on the way of making the age verification functionality available.*
@@ -673,9 +678,7 @@ NF, Is the following correct?
 -->
 - The Attestation Provider should be a qualified or non-qualified trust service provider (TSP) registered in the
   eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.
-  <!---
-NF, Is the following correct?
--->
+
 - The Attestation Provider SHALL NOT issue a Proof of Age attestation before verifying the attestation subject's age at
   the Level of Assurance 'substantial' or 'high'.
 <!---
@@ -709,10 +712,11 @@ regulatory priority. By focusing on this specific use case, the deployment of th
 accelerated, ensuring that it meets urgent regulatory needs while maintaining the potential for future expansion.
 
 A further goal is to enable rapid and wide-scale deployment. Design decisions are made to support swift development,
-integration, and rollout of the solution, making it broadly accessible across the European Union. To ensure inclusivity,
+integration, and rollout of the solution, making it broadly accessible across the European Union. To ensure inclusion,
 the solution is designed for compatibility with all common devices used by Europeans to access online services,
 including mobile phones, tablets, laptops, and desktop computers. The primary delivery channel will be a white-label
 mobile application.
+
 
 The solution relies on a device-based proof of age model, leveraging widely available mobile devices such as smartphones
 and tablets to store age attestations. This approach supports the goal of rapid deployment and broad accessibility.
@@ -730,7 +734,11 @@ Certain elements are currently considered out of scope. Specifically, the use of
 access to online services-such as for purchasing age-restricted products, obtaining age-related discounts, or other
 applications - is not a current priority. However, where feasible, design choices that allow for broader applicability
 of
-age verification may be considered. Additionally, the storage of proof of age attestations by remote services is
+age verification may be considered. 
+<!---
+NF, write it better
+-->
+Additionally, the storage of proof of age attestations by remote services is
 excluded from the initial scope, as this would add complexity and potentially hinder rapid deployment. The possibility
 of utilizing remote services for attestation storage may be revisited in future iterations, but, for now, technical
 standards that necessitate such reliance should be avoided.
@@ -746,12 +754,18 @@ relationships to each other. The subsequent section provides a detailed definiti
 All entities shown in blue are provided by the toolbox, at minimum as mock services. Entities marked in green represent
 existing governmental entities. Entities marked in yellow are proprietary. A solution implementation does not
 necessarily need to include all components.
+<!---
+NF, Check figure numbering
+-->
 
 ![Figure 2](./docs/media/Figure_2_functional_architecture.png)
 *Figure 2: Functional Architecture*
 
 ## 4.2 Actors and Entities in an Age Verification Solution
-
+<!---
+NF, This section is very confusing. Why there are "Attestation Provider" and "Attestation Issuer",  "Age Verification Verifier" and
+"Relying Party". I propose to minimize it. 
+-->
 An age verification solution involves several key actors and entities, each with distinct roles and responsibilities to
 ensure secure, interoperable, and privacy-preserving verification of age attributes across digital services.
 
@@ -783,6 +797,9 @@ ensure secure, interoperable, and privacy-preserving verification of age attribu
   authorization of entities participating in the ecosystem.
 
 ### 4.2.1 Interaction Overview
+<!---
+NF, Update based on the correct roles
+-->
 
 - The user initiates an age verification process by enrolling with a credential issuer, which collects the necessary
   evidence from authentic sources or trusted 3rd party privater data sources.
@@ -795,13 +812,18 @@ ensure secure, interoperable, and privacy-preserving verification of age attribu
 - The verifier checks the validity of the attestation, referencing the trusted list to confirm the issuer’s
   authorization.
 
+<!---
+NF, What is a reference point? Probably it means "interfaces", "interactions"
+-->
 ## 4.3 Reference Points
 
 A reference point consists of one or more interfaces of any kind. The following reference points are supported by the
 Age Verification Solution:
 
 ### 4.3.1 Authentic Source to Issuer Communication
-
+<!---
+NF, Update based on the correct roles
+-->
 Communication flows between an Authentic Source (e.g., government register, trusted private entity) and an Age
 Attestation Issuer cross the Rsrc-n reference point.
 
@@ -828,7 +850,9 @@ point.
   to obtain attestations from diverse authorized providers (e.g., national eID schemes, banks, or mobile operators).
 
 #### Compliance
-
+<!---
+NF, Is the following correct?
+-->
 This implementation aligns with the EU Digital Identity Wallet's Architecture and Reference Framework (ARF) , ensuring
 cross-border interoperability while allowing Member States to maintain control over authorized issuers through
 national trusted lists.
@@ -862,6 +886,9 @@ To distinguish authorized Age Attestation Providers from unauthorized issuers, a
 EU and included in a centrally maintained trusted list. This registration process ensures compliance with EU regulatory,
 technical, and security standards.
 
+<!---
+NF, Is the registration interface proprietary?  Shouldn't be provided by the commission?
+-->
 The registration interface follows a proprietary design.
 
 ### 4.3.5 Relying Party to Trust Provider or App to Trust Provider Communication
@@ -904,8 +931,13 @@ specifically the notified electronic identification (eID) schemes recognized und
    Cross-border authentication is facilitated via eIDAS nodes, which act as gateways between national eID schemes and
    Relying Parties (e.g., service providers). These nodes ensure secure, standardized communication and data exchange.
 
+<!---
+NF,Authentication Workflow is not a component
+-->
 3. Authentication Workflow
-
+<!---
+NF, "returns the eIDAS Minimum Data Set to the **issuing party**". Is that correct? Does it mean to the app?
+-->
     - The user initiates enrollment by selecting their national eID scheme.
     - The Age Verification App redirects the authentication request to the relevant eIDAS node.
     - The national eID scheme authenticates the user and returns the eIDAS Minimum Data Set (e.g., name, date of birth,
@@ -913,7 +945,9 @@ specifically the notified electronic identification (eID) schemes recognized und
       identifier) to the issuing party.
 
 #### Technical Standards
-
+<!---
+NF, What does it mean here with service providers?
+-->
 - SAML 2.0: Used for authentication requests and responses between eIDAS nodes and service providers.
 - eIDAS Cryptographic Requirements: Compliance with TS 119 461 for identity proofing and cryptographic protocols.
 
@@ -923,13 +957,17 @@ specifically the notified electronic identification (eID) schemes recognized und
 - GDPR Alignment: Enrollment processes adhere to GDPR principles, including user consent and purpose limitation.
 
 The age verification solution comprises two core components to support this:
-
+<!---
+NF, Update roles
+-->
 1. Age Verification Unit: Integrated into the user-facing Age Verification Application to perform age verification
    checks.
 2. Age Attestation Issuing Service: A backend service responsible for generating and managing Proof of Age attestations.
 
 #### Component Interactions
-
+<!---
+NF, Update roles and put references to annex 4
+-->
 1. Age Verification Unit
    The Age Verification Unit shall connect to the Attestation Issuing Service via secure, standards-based protocols to:
 
@@ -962,6 +1000,9 @@ Implementation Requirements:
 The Age Verification white label solution includes options for interconnection to (a) Notified eID (eIDAS 1.0 connector
 configuration), and (b) National iDP (OIDC configuration and SAML configuration) that implementors shall configure.
 
+<!---
+NF, Do we need this section? 
+-->
 #### *Relevant technical specifications:*
 
 - Technical specifications on
@@ -976,13 +1017,15 @@ configuration), and (b) National iDP (OIDC configuration and SAML configuration)
 - Specifications of national electronic identification schemes published by their providers.
 
 ### 4.4.2 Enrollment Methods without existing Identification
-
-In the approaches below, the age verification unit shall connect to the attestation issuing service. but it may not need
+<!---
+NF, Update roles
+-->
+In the approaches below, the age verification unit shall connect to the attestation issuing service, but it may not need
 to connect directly to an existing identity provider service online or to use it fully.
 
 #### Identity Cards and Passports (ICAO 9303)
 
-The Age Verification Application SHALL interface with physical identity documents compliant with ICAO Doc 9303
+The Age Verification Application shall interface with physical identity documents compliant with ICAO Doc 9303
 specifications for Machine Readable Travel Documents (MRTDs), including:
 
 - National ID cards (TD1/TD2 size per ICAO Doc 9303 Parts 5/6)
@@ -1031,7 +1074,9 @@ specifications for Machine Readable Travel Documents (MRTDs), including:
 - [Technical Guideline TR-03110-1 Advanced Security Mechanisms for Machine Readable Travel Documents](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/TechGuidelines/TR03110/BSI_TR-03110_Part-1_V2-1.pdf?__blob=publicationFile&v=1)
 
 #### 3rd Party activation (out of band)
-
+<!---
+NF, Update roles
+-->
 The Age Verification Application may implement an issuance workflow that separates the identity verification process
 from the subsequent generation and delivery of the age verification attestation. This can be achieved, for example, by
 utilizing a pre-authorized code flow in OpenID4VCI.
@@ -1051,6 +1096,9 @@ their age verification proof within the application.
 - OpenID for Verifiable Credential Issuance (
   Section [3.5.](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#section-3.5) [Pre-Authorized Code Flow](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow))
 
+<!---
+NF, Is there any difference with the previous? Probably merge
+-->
 #### Link to pre-installed apps with age information
 
 The Age Verification Application may support an issuance workflow analogous to the "third-party activation" flow
@@ -1084,7 +1132,7 @@ The attribute set for Proof of Age attestations consists of:
 - **Mandatory Attribute:**
     - *age_over_18:* This attribute is present in all Proof of Age attestations and indicates that the
       holder is above a specified age threshold. The value is a boolean value.
-    - *issue date:* Date (and if possible time) when the Proof of Age attestation was issued. The value is a tdate or
+    - *issue_date:* Date (and if possible time) when the Proof of Age attestation was issued. The value is a tdate or
       full-date value.
     - *expiry_date:* Date (and if possible time) when the Proof of age attestation will expire. The value is a tdate or
       full-date value.
@@ -1151,6 +1199,9 @@ maximum period of three (3) months from the date of issuance. If a revocation me
 be utilized as an effective solution for managing the revocation status of attestations.
 
 Furthermore, it should be noted that Relying Parties are not necessarily required to request a new attestation for each
+<!---
+NF, Fix chapter
+-->
 individual transaction, as outlined in Chapter 2.3.2, Section "8. Verification options for subsequent interactions."
 
 ### 4.6.4 Validation of Trust
@@ -1172,14 +1223,21 @@ attestation.
 *Figure 5: Enrollment options with and without existing identification.*
 
 The registration of Relying Parties that request age verification, or the registration of Age Verification App Providers
-is not required. Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue
+is not required. 
+<!---
+NF, "Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue
+such attestations to" How? Apps are public clients
+-->
+Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue
 such attestations to, and Age Verification App Providers may set similar conditions regarding Relying Parties.
 
 Considering the need for reliability and trust in the age verification solution, a method comparable at least to LoA
 Substantial should be required as laid out in Implementing Regulation 2015/1502.
 
 #### Trusted List solution for the Proof of Age Attestation Providers (PAAP)
-
+<!---
+NF, Fix roles and acronyms
+-->
 It must be decided whether the Proof of Age Attestation Provider (PAAP) requires its own dedicated trust anchor CA.
 Both implementation options are presented below. The final implementation approach will be defined in a later version of
 this document.
@@ -1216,7 +1274,9 @@ Comparison table of the options is shown below.
 | Option 2 – PAAP without trust anchor CA | The Trusted List is expected to be very small in size. ​<br><br>The validity period of the Trusted List may be relatively long (e.g., one year), allowing Relying Parties to cache the Trusted List locally and download a new version only upon expiration. | The Trusted List Provider or Registrar is responsible for operating the AV trust anchor PKI. <br><br> Information about the PAAP is not included in the Trusted List; instead, Relying Parties must follow the URL provided in the PAAP certificate to access the relevant PAAP information.                                                 |
 
 # 5. Detailed Technical Architecture
-
+<!---
+NF, Fix acronyms. This is the same as section 4. Merge????
+-->
 The proposed high-level architecture of the age verification solution is presented in Figure 11 (Same Device) and Figure
 12 (Cross Device). The Same Device flow means that the User presents their Proof of Age attestation to a Relying Party
 interacting with the User (through the web browser or an app) on the same device that the device the Age Verification
@@ -1372,7 +1432,9 @@ the [SOG-IS](https://bmi.usercontent.opencode.de/eudi-wallet/eidas-2.0-architekt
     - AES-256-GCM
 - Hashing, PKCE (code challenge method):
     - SHA-256
-
+<!---
+NF, Move to annex
+-->
 # 6. Age Verification Profile
 
 This chapter defines a set of requirements for the existing specifications to enable interoperability among Attestation
@@ -1606,7 +1668,10 @@ A list of the abbreviations and acronyms used in this document.
 | Implementer | An implementer is an individual who is responsible for                 translating software designs, specifications, or concepts into functional, operational systems. Presumably this is a contractor of the Age Verification App Provider, Proof of      Age Attestation Provider or Proof of age verifier. 
 
 ## 7.2 White Label Application
-
+<!---
+NF, Needs update. I guess statements like "The credential-offer flow in
+the \[OpenID4VCI\] is not within the scope of the white label solution" are not correct
+-->
 The White label App shall include key functionality that is highlighted in the following section.
 
 The white label app shall include an enrollment and issuing functionality to support \[OpenID4VCI\] Authorization Code
@@ -1701,7 +1766,9 @@ authenticity. In order to check the authenticity based on ETSI Trusted
 lists validation shall be provided by the implementers.
 
 ## 7.6 Overview of implementers\' actions for deployment of age verification
-
+<!---
+NF, Fix the roles
+-->
 Depending on the implementers' roles as an issuer, Relying Party or white label app provider, one or more of the
 following actions shall be performed:
 

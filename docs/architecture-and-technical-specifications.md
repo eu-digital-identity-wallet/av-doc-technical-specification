@@ -250,14 +250,14 @@ ecosystem, future-proofing investments and simplifying eventual transitions.
 
 ## 2.2 Functions of the Age Verification Solution
 
-The primary function of the solution is the issuance of Proof of Age Attestations that can be used across the European
+The primary function of the solution is the issuance of Proof of Age attestations that can be used across the European
 Union. These attestations enable individuals to demonstrate that they meet a specific age threshold, currently focused
 on "over 18", to access age-restricted online services and content. The solution is designed to be extensible, allowing
 support for other age groups (e.g., "over 14" or "over 65") provided that appropriate enrollment methods are available.
 
 ### 2.2.1 Flexible Enrollment Methods
 
-Users have the flexibility to choose from multiple enrollment methods to obtain their Proof of Age Attestation.
+Users have the flexibility to choose from multiple enrollment methods to obtain their Proof of Age attestation.
 Supported methods include, but are not limited to:
 
 - Scanning or reading an electronic identity card (eID) or a passport
@@ -267,39 +267,30 @@ Supported methods include, but are not limited to:
 These enrollment methods ensure that the attestation is based on reliable and verifiable identity documents. Where
 necessary, enrollment can also be conducted on-site to accommodate users who may not have access to electronic
 identification means.
-<!---
-NF, Is this correct? Shouldn't a solution support all methods? It is correct
--->
+
 Member States and solution providers retain the autonomy to determine which enrollment options they offer within the age
 verification solution. This flexibility acknowledges the diversity of national identification systems, regulatory
 environments, and user needs across the European Union.
 
-### 2.2.2 Presentation of Proof of Age Attestation
+### 2.2.2 Presentation of a Proof of Age attestation
 
-The solution enables users to present their Proof of Age Attestation to Relying Parties, primarily for online use cases.
+The solution enables users to present their Proof of Age attestation to Relying Parties, primarily for online use cases.
 The system is optimized for secure and privacy-preserving online presentation, allowing users to prove their eligibility
 without disclosing unnecessary personal information. In addition to online scenarios, the solution in principle can also
 be adapted to support offline or proximity-based presentations, where attestations can be verified locally.
-<!---
-NF, Do we need this? Remove it. Write in fields that it is for future, proximity based uses
--->
-For proximity scenarios, the Proof of Age Attestation may optionally include a user photo. This enables the user to
-demonstrate possession of the device and further strengthens the binding between the attestation and the legitimate
-holder.
+
 
 ### 2.2.3 Revocation and Re-Issuance
 <!---
 NF, We do not support revocation and re-issuance. To remove? Yes. Or write why do not have revocation
 -->
 
-The solution provides mechanisms for users to revoke and re-issue Proof of Age Attestations as needed. This ensures that
-attestations remain valid and up-to-date and allows users to maintain control over their attestations in the event of
-loss, theft, or other changes in status.
+In its current form, the solution does not support revocation or re-issuance. Adding support for these features would introduce additional complexity, which could hinder the rapid adoption of the solution. 
 
 ### 2.2.4 Verifiable across Europe
 
 A Trusted List is maintained as part of the solution, allowing Relying Parties and users to validate which entities are
-legally authorized to issue Proof of Age Attestations. This enhances trust and interoperability across Member States by
+legally authorized to issue Proof of Age attestations. This enhances trust and interoperability across Member States by
 ensuring that only recognized authorities participate in the issuance process.
 
 ### 2.2.5 Note about the extensibility of the solution (for distributors):
@@ -330,24 +321,25 @@ service.
 <!---
 NF, Is the picture correct? Specifically step 2
 -->
-![Figure 1](./docs/media/Figure_1_user_journey.png)
+![Figure 1](./media/Figure_1_user_journey.png)
+
 *Figure 1: User Journey of an Proof of Age attestation user*
 
 The age verification process consists of two main phases: Activation and Use. The steps are illustrated in Figure 1 and
 detailed below:
 
-### 2.4.1 Activation of the App
+**Activation** 
 
-**1. App installation and registration**
+*App installation and registration (step 1)*
 
 - The user downloads and installs the AV app on their mobile device.
 
-- If required by the app, notably if it supports multiple user profiles, the user creates a local profile in the app to
-  facilitate subsequent verification processes.
+- If required by the app, notably if it supports multiple user profiles, the user 
+creates a local profile in the app to facilitate subsequent verification processes.
 
-**2. Requesting a Proof of Age attestation**
+*Requesting a Proof of Age attestation (step 2)*
 
-- The user requests a Proof of Age from a designated AP, which will issue it after
+- The user requests a Proof of Age attestation from a designated AP, which will issue it after
   verifying the user’s identity at a level of assurance equivalent to "substantial" or "high" pursuant to Commission
   Implementing Regulation (EU) 2015/1502 through the following methods:
 
@@ -364,76 +356,60 @@ detailed below:
       ID cards, passports, or other government-issued credentials. The link between the document and the user should be
       verified.
 
-**3. Issuance of Proof of Age attestations**
+*Issuance of Proof of Age attestations (step 3)*
 
-- Once the user’s age is verified, the AV app receives a digital Proof of Age attestation.
+- Once the user’s age has been verified, the AP may either issue the attestation directly to the user's AVI or generate a pre-authorized code and provide it to the user as part of a credential offer. At a later stage, the user can present this credential offer through their AVI to obtain the Proof of Age attestation
 
-- This attestation is securely stored within the AV app and can be used to prove the user’s age to online service or
-  physical retailers.
+- This attestation is securely stored within the AVI and can be used to prove the user’s age to online services.
 
-<!---
-NF, I thinks this creates confusion and should be removed. High-level description of scenarios, consistent with the rest of the text
--->
-- Decoupled Issuance Based on Pre-Authorized Codes : The issuance process for a Proof of Age can be also decoupled from
-  the identity verification process. This can be achieved through pre-authorised secure codes provided to the user after
-  successful identity verification or generated on demand by third-party applications, such as banking apps. These codes
-  can then be used to retrieve a valid Proof of Age attestation, enabling a streamlined, flexible, and user-friendly
-  issuance process while maintaining high standards of security and compliance.
 
-### 2.4.2 Usage of the Age Verification solution
+**Usage**
 
-**4. User requests access to age-restricted services**
+*User requests access to age-restricted services (step 4)*
 
-- After activation, the user can use the AV app to present their Proof of Age attestation to access age-restricted content
+- After activation, the user can use the AVI to present their Proof of Age attestation to access age-restricted content
   or services (e.g., gambling, adult media, alcohol purchases).
 
-- The user initiates access by requesting a service or content on the target service.
+- The user initiates access by requesting a service or content on the RP.
 
-**5. Service requests Proof of Age attestation**
+*Service requests Proof of Age attestation (step 5)*
 
-- The service replies by requesting a Proof of Age, typically through one of the following mechanisms:
+- The RP replies by requesting a Proof of Age, typically through one of the following mechanisms:
 
-    - Same-Device App Integration: The user's browser or a native app opens the AV app directly (if on the
+    - Same-Device App Integration: The user's browser or a native app opens the AVI directly (if on the
       same device).
 
-    - Cross-Device QR Code: The service displays a QR code that the user scans with their mobile device to open the age
-      verification app.
+    - Cross-Device QR Code: The RP displays a QR code that the user scans with their mobile device to open the AVI.
 
-<!---
-NF, Do we need this here?
--->
-- In addition the possibility for Cross-Device Shareable Links will be analysed, considering possible risks associated
-  with their use. Such a link could be sent by the user to their mobile device, for example using a messaging service.
+*Confirmation and presentation (step 5)*
 
-**6. Confirmation and presentation**
-
-- The AV app receives the Proof of Age request and presents it to the user. The user reviews the request
+- The AVI receives the Proof of Age request and presents it to the user. The user reviews the request
   details, verifies the information, and confirms the transaction to proceed.
 
-- The AV app securely transmits the Proof of Age attestation to the service.
+- The AVI securely transmits the Proof of Age attestation to the RP.
 
-**7. Verification and access**
+*Verification and access (step 6)*
 
-- The service verifies the Proof of Age by:
+- The RP verifies the Proof of Age attestation by:
 
     - Checking the attestation's validity and digital signature.
 
     - Ensuring the attestation's details meet the required criteria (e.g., age threshold).
 
-- If the verification is successful, the service grants the user access to the requested service or product.
+- If the verification is successful, the RP grants the user access to the requested service or product.
 
-**8. Verification options for subsequent interactions**
+*Verification options for subsequent interactions(steps 8a/8b)*
 
-- On-Demand Verification (8a): Services may request the Proof of Age each time the user attempts to access restricted
+- On-Demand Verification (8a): RPs may request the Proof of Age each time the user attempts to access restricted
   content or services, without storing it in any session or account, ensuring privacy and minimising data retention.
 
-- Stored Verification(8b): Services may optionally store information derived from the Proof of Age in the user's
+- Stored Verification(8b): RPs may optionally store information derived from the Proof of Age attestation in the user's
   account, allowing the user to bypass repeated verification for future visits or purchases, streamlining the user
   experience. In this case, authentication methods such as WebAuthN should be utilised to ensure secure access while
   enabling the user to choose a pseudonym, preserving privacy. Risks in case of the device sharing should be
   considered.
 
-## 2.5 Constraints
+## 2.5 Design principles
 
 To enable rapid and reliable deployment of the age verification solution, the solution adheres to the following
 approach:
@@ -450,63 +426,35 @@ approach:
   solutions, including mobile operating system providers, wallet solution providers, and operators of citizen-facing
   applications.
 
-To ensure a robust and reliable solution, the framework is driven by the following design principles:
+Furthermore, to ensure a robust and reliable solution, the framework is driven by the following design principles:
 
 - **Data protection:**
-<!---
-NF, Do we do that? what are attribute statements? transaction? domain-specific identifiers?
--->
     - **Data minimisation:** Only the necessary user attributes or attribute statements for a specific transaction are
       released, in accordance with the principle of data minimisation. This is achieved by implementing technologies
       that inherently restrict data exposure and safeguard user privacy. Domain-specific identifiers, or pseudonyms, are
       used to enable users to avoid relying on the same unique identifier when interacting with online services.
-<!---
-NF, Do we do that? May be saying something like "initially we will use multiple attestations
-then ZKP"
--->
-    - **Unlinkability:** Cryptographic or protocol-level unlinkability is implemented to ensure that only the
-      identifiers required for specific linkable transactions are disclosed. Protocols that enable default linkability
-      across transactions are avoided, as they may violate data minimisation principles and compromise privacy.
-      Profiling and tracking of individuals is prevented. The solution seeks to attain as many types of unlinkability (
-      with respect to attestation providers, Relying Parties, or both) as possible, while maintaining technological
-      practicability.
-
-<!---
-NF, Our solution does not do something about that. 
--->
+    - **Unlinkability:** The goal of the solution is to prevent user profiling and 
+    tracking by avoiding linkable transactions. Initially, the solution will rely 
+    on batch issuance to protect users from colluding RPs. At a later stage, 
+    Zero-Knowledge Proof (ZKP) mechanisms will be considered to offer protection 
     - **Storage limitation:** Data is retained by all involved parties only for as long as necessary for the purposes of
       age verification.
 
     - **Transparency:** Users receive clear information about how their personal data is used.
-
-<!---
-NF, Re-write to something "use available solutions for protecting..."
--->
 - **Data security:** User data and credentials are securely stored to ensure confidentiality, authenticity, integrity,
   and availability. This protection safeguards data against unauthorized access, destruction, misuse, alteration,
   disclosure or loss.
-<!---
-It is suggested...
--->
-<!---
-NF, Re-write to something "will use..." for example.... safenet so that no rooted etc. 
--->
 - **Cloning protection:** Cloning protection prevents the unauthorized duplication of credentials and user data. This
   measure ensures that illicit reproduction of credentials does not grant unauthorized parties privileges they would not
   otherwise possess.
 
-<!---
-NF, The protocols are using TLS, the protocols themselves do not do that
--->
-- **Eavesdropping protection:** The protocols implemented within the age verification solution safeguard communications,
-  preventing unauthorized interception and exposure of personal data.
+
+- **Eavesdropping protection:** The protocols implemented within the age verification solution 
+leverage secure communications channels preventing unauthorized interception and exposure of personal data.
 
 - **Interoperability:** The solution ensures seamless integration across diverse device operating systems, wallet
   applications, and online services.
 
-<!---
-NF, Are they? May be "When possible"
--->
 - **User binding:** User attributes and credentials are securely bound to the legitimate user to whom they are issued.
   This ensures the fundamental functionality of any government-issued document: accurately associating attributes with
   the individual to whom they apply.
@@ -533,7 +481,7 @@ This specification operates under the following foundational assumptions:
 ### 2.6.1 Legal Compliance in Member States
 
 It is assumed that EU Member States have established appropriate legal frameworks to authorize the collection and
-processing of data required for issuing Proof of Age Attestations. This includes compliance with GDPR, the Digital
+processing of data required for issuing Proof of Age attestations. This includes compliance with GDPR, the Digital
 Services Act (DSA) , and national laws governing identity verification and age-restricted services. The enrollment
 methods (e.g., eID, passport scans) rely on these legal bases to ensure lawful data handling.
 
@@ -570,26 +518,24 @@ enabling the incorporation of the age verification functionality in them. This s
 between the Age Verification application and the age verification functionality in the EUDI Wallet.
 
 The trust framework of EUDI Wallet requires that the Wallet Solution is certified, and the Wallet Solution provider is
-registered. Also, the Relying Parties are registered, and a wallet unit needs to be able to authenticate the Relying
+registered. Also, the Relying Parties are registered, and a Wallet Unit needs to be able to authenticate the Relying
 Party. In the Age Verification application there is no certification or registration need for the Age Verification App providers or
 the Relying Parties.
 
-<!---
-NF, Is this correct? It should be high
--->
+
 Onboarding of users to the European Digital Identity Wallet will be facilitated by relying on identity proofing process
 comparable to LoA high.
 
-![Figure 8](./docs/media/Figure_8_comparison_with_eudiw.png)
-*Figure 8: Differences in trust frameworks depending on the way of making the age verification functionality available.*
+![Figure 2](./media/Figure_8_comparison_with_eudiw.png)
+*Figure 2: Differences in trust frameworks depending on the way of making the age verification functionality available.*
 
 The AV app is a stand-alone application that provides only the minimum functions. In case of authentication to the
 national eIDAS node, only the age verification attestation is stored. In this application no other ID data is stored
 than the ones described in section [data architecture].
 
-![Figure 9](./docs/media/Figure_9_auth_national_eidas.png)
+![Figure 3](./media/Figure_9_auth_national_eidas.png)
 
-*Figure 9: Authenticating
+*Figure 3: Authenticating
 to a national eIDAS node to receive the age verification attestation.
 Additional issuing options are available and analytically presented in
 the next sections.*
@@ -606,12 +552,12 @@ This section defines requirements, that applies to Age Verification Apps:
   the Play Store and App Store, respectively.
 - The Age Verification App shall verify that an an Attestation Provider is included on the age verification trust
   list and is therefore authorized.
-- An Age Verification App shall not store any data other than the proof of age attestation.
+- An Age Verification App shall not store any data other than the Proof of Age attestation.
 - An Age Verification App shall implement the protocols specified in Annex 4
 <!---
 NF, Do we need the following here?
 -->
-- The app must always maintain at least 10 proof of age attestation batches in reserve.
+- The app must always maintain at least 10 Proof of Age attestation batches in reserve.
 <!---
 NF, Check the following. It has been re-written
 -->
@@ -623,17 +569,17 @@ NF, What does this mean? Is this correct?
 - The Age Verification App is provided as a stand-alone app, its Age Verification App Provider SHOULD strive for
   equivalence with Level of Assurance "Substantial" pursuant to Commission Implementing Regulation (EU) 2015/1502.
 
-## 3.2 Proof of age Attestation Requirements
+## 3.2 Proof of Age attestation Requirements
 
-This section lists the requirements to be met by proof of age attestations:
+This section lists the requirements to be met by Proof of Age attestations:
 
-- The Proof of age Attestation shall only contain the attributes included in the data model.
+- The Proof of Age attestation shall only contain the attributes included in the data model.
 <!---
 NF, Is the following correct?
 -->
-- The proof of age attestation shall be signed in a manner that enables the generation of a zero-knowledge proof;
+- The Proof of Age attestation shall be signed in a manner that enables the generation of a zero-knowledge proof;
   otherwise, batch issuing must be utilized.
-- The proof of age attestation shall expire after three months and be reissued.
+- The Proof of Age attestation shall expire after three months and be reissued.
 - The Proof of Age attestations shall be compliant with mDoc in CBOR encoding [ISO/IEC TS 23220-2], [ISO/IEC 18013-5],
   except for the attribute schema that shall be compliant with the attribute schema defined in the section Data
   Model.
@@ -642,7 +588,7 @@ NF, Is the following correct?
   attestation provided that its attributes are compliant with the attribute schema defined in the section Data
   Architecture.
 
-## 3.3 Proof of age Attestation Provider Requirements
+## 3.3 Proof of Age attestation Provider Requirements
 
 This section lists the requirements to be met by Attestation Providers:
 <!---
@@ -668,8 +614,8 @@ NF, The following is impossible. The provider authenticates the user. I suggest 
 
 This section lists the requirements to be met by Relying Parties:
 
-- The Relying Party shall validate the authenticity and the integrity of a proof of age attestation.
-- The Relying Party shall validate that the Attestation Provider is authorized to issue proof of age attestations.
+- The Relying Party shall validate the authenticity and the integrity of a Proof of Age attestation.
+- The Relying Party shall validate that the Attestation Provider is authorized to issue Proof of Age attestations.
 <!---
 NF, Is the following correct?
 -->
@@ -678,7 +624,7 @@ NF, Is the following correct?
 NF, Is the following correct?
 -->
 - A Relying Party shall not be able to link two presentation transactions to the same user.
-- Two Relying Parties shall not be able to link two proof of age attestation presentation transactions to the same user
+- Two Relying Parties shall not be able to link two Proof of Age attestation presentation transactions to the same user
   by sharing the received presentations.
 
 # 4. Architecture Model
@@ -715,7 +661,7 @@ age verification may be considered.
 <!---
 NF, write it better
 -->
-Additionally, the storage of proof of age attestations by remote services is
+Additionally, the storage of Proof of Age attestations by remote services is
 excluded from the initial scope, as this would add complexity and potentially hinder rapid deployment. The possibility
 of utilizing remote services for attestation storage may be revisited in future iterations, but, for now, technical
 standards that necessitate such reliance should be avoided.
@@ -735,7 +681,7 @@ necessarily need to include all components.
 NF, Check figure numbering
 -->
 
-![Figure 2](./docs/media/Figure_2_functional_architecture.png)
+![Figure 2](./media/Figure_2_functional_architecture.png)
 *Figure 2: Functional Architecture*
 
 ## 4.2 Actors and Entities in an Age Verification Solution
@@ -749,14 +695,14 @@ ensure secure, interoperable, and privacy-preserving verification of age attribu
 - **Attestation Provider (Actor)**: An attestation provider operates the Age Attestation Issuer which in turn uses and
   Authentic Source or a 3rd Party Data Source.
 - **Authentic Source (Entity)**: A legally recognized and authoritative source from which the issuer extracts the
-  necessary attributes to generate the proof of age attestation. Examples include government population registers,
+  necessary attributes to generate the Proof of Age attestation. Examples include government population registers,
   passport databases or other official registries.
 - **Age Attestation Issuer (Entity)**: An authorized entity responsible for generating and issuing proof of age
   attestations (credentials) to users. The issuer validates the user’s age using authentic and trusted information
   sources, such as national identity registers, passports, or other official documents, or trusted 3rd party data
   sources before creating a digitally signed attestation that certifies the user meets the required age threshold.
 - **Age Verification App (Entity)**: The Age Verification App is used by individual seeking to access age-restricted
-  content or services. The user requests, receives, and manages their proof of age attestation with this app and
+  content or services. The user requests, receives, and manages their Proof of Age attestation with this app and
   presents the attestation using this app when required to Relying Parties.
 - **Age Verification App Provider (Actor)**: Provides the EU-compliant Age Verification App.
 - **3rd Party Data Sources (Entity)**: A trusted private data source is a non-governmental, commercially operated entity
@@ -781,7 +727,7 @@ NF, Update based on the correct roles
 - The user initiates an age verification process by enrolling with a credential issuer, which collects the necessary
   evidence from authentic sources or trusted 3rd party privater data sources.
 
-- The attestation issuer generates a proof of age attestation and issues it to the user.
+- The attestation issuer generates a Proof of Age attestation and issues it to the user.
 
 - The user presents the attestation to a verifier of a Relying Party (content provider) when attempting to access
   age-restricted services.
@@ -844,14 +790,14 @@ point.
 - OpenID4VP Compliance: The Rp interface implements the OpenID for Verifiable Presentations (OpenID4VP) protocol,
   ensuring standardized and interoperable presentation of verifiable credentials.
 - Multi-Relying Party Support: The verification application can interact with multiple Relying Parties (verifiers),
-  presenting any number of proof of age attestations as required. All such interactions are conducted exclusively via
+  presenting any number of Proof of Age attestations as required. All such interactions are conducted exclusively via
   the Rp interface.
 
 #### Key Features
 
 - Interoperability: By adopting OpenID4VP, the solution guarantees compatibility with a wide range of verifiers and
   Relying Parties across different domains and jurisdictions.
-- Flexible Presentation: Users can present one or more proof of age attestations to various verifiers, supporting
+- Flexible Presentation: Users can present one or more Proof of Age attestations to various verifiers, supporting
   diverse use cases and regulatory requirements.
 
 ### 4.3.4 Age Attestation Provider to Trust Provider Communication
@@ -886,7 +832,7 @@ In the following two sub-sections, attestation issuance approaches are introduce
 At a high level, the issuing options are illustrated in the figure below. At least one of the options must be
 implemented.
 
-![Figure 3](./docs/media/Figure_3_enrollment_options.png)
+![Figure 3](./media/Figure_3_enrollment_options.png)
 *Figure 3: Enrollment options with and without existing identification.*
 The above architecture diagram is a functional diagram. For examples of physical mappings, see next clause.
 
@@ -1039,7 +985,7 @@ specifications for Machine Readable Travel Documents (MRTDs), including:
   build an extension module for identity and passport reading based on an open-source module which implements the
   interfaces.
 
-![Figure 4](./docs/media/Figure_4_sw_interfaces.png)
+![Figure 4](./media/Figure_4_sw_interfaces.png)
 *Figure 4: Enrollment options with and without existing identification.*
 
 ##### *Relevant technical specifications:*
@@ -1091,7 +1037,7 @@ calls for app-to-app communication or QR codes for cross-device activation.
 - OpenID for Verifiable Credential Issuance (
   Section [3.5.](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#section-3.5) [Pre-Authorized Code Flow](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow))
 
-## 4.5 Data Model Definition for Proof of Age Attestation
+## 4.5 Data Model Definition for Proof of Age attestation
 
 The data model for the Proof of Age attestation is defined as a profile of the attribute schema specified in ISO/IEC
 18013-5 (Mobile Driving Licence [mDL] Application) and ISO/IEC 23220-2 (Generalized Personal Identification Attributes).
@@ -1111,7 +1057,7 @@ The attribute set for Proof of Age attestations consists of:
       holder is above a specified age threshold. The value is a boolean value.
     - *issue_date:* Date (and if possible time) when the Proof of Age attestation was issued. The value is a tdate or
       full-date value.
-    - *expiry_date:* Date (and if possible time) when the Proof of age attestation will expire. The value is a tdate or
+    - *expiry_date:* Date (and if possible time) when the Proof of Age attestation will expire. The value is a tdate or
       full-date value.
     - *issuing_authority:* Name of the administrative authority that issued the Proof of Age attestation. The value is a
       tstr value.
@@ -1143,10 +1089,10 @@ Future iterations of this specification MAY incorporate additional age threshold
 
 ### 4.6.1 Issuing of Proof of Age batches
 
-Since Proof of Age Attestations are designed for single use, the system must support the issuance of attestations in
+Since Proof of Age attestations are designed for single use, the system must support the issuance of attestations in
 batches. It is recommended that each batch consist of thirty (30) attestations.
 
-### 4.6.2 Re-Issuance of Proof of Age Attestations
+### 4.6.2 Re-Issuance of Proof of Age attestations
 
 The re-issuance process varies depending on the method of initial attestation issuance:
 
@@ -1169,9 +1115,9 @@ The re-issuance process varies depending on the method of initial attestation is
 ### 4.6.3 Attestation revocation and validity period
 
 Attestation revocation is not required for age verification purposes. Implementing revocation mechanisms would
-significantly increase the complexity for both Proof of Age Attestation providers and Relying Parties.
+significantly increase the complexity for both Proof of Age attestation providers and Relying Parties.
 
-It is recommended that the Proof of Age Attestation be designed as a single-use credential and remain valid for a
+It is recommended that the Proof of Age attestation be designed as a single-use credential and remain valid for a
 maximum period of three (3) months from the date of issuance. If a revocation mechanism is required, a status list may
 be utilized as an effective solution for managing the revocation status of attestations.
 
@@ -1190,32 +1136,32 @@ established under the eIDAS Regulation (EU) No 910/2014.
 
 The trust framework for the Proof of Age attestation is based on trusted lists developed and operated pursuant to
 Article 22 of the eIDAS Regulation. The trusted lists are available on
-the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/home). Proof of Age Attestation Providers should be either
+the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/home). Proof of Age attestation Providers should be either
 qualified or non-qualified trust service providers and they should be published in a trusted list that is made available
 to the eIDAS Dashboard. Their publication should follow the requirements laid out in Implementing Regulation 2015/1505,
 and the Trust Anchor defined therein (Service Digital Identifier) should be used by Relying Parties to validate the
 attestation.
 
-![Figure 5](./docs/media/Figure_5_trusted-list.png)
+![Figure 5](./media/Figure_5_trusted-list.png)
 *Figure 5: Enrollment options with and without existing identification.*
 
 The registration of Relying Parties that request age verification, or the registration of Age Verification App Providers
 is not required. 
 <!---
-NF, "Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue
+NF, "Proof of Age attestation Providers may however set specific conditions as to which apps they can issue
 such attestations to" How? Apps are public clients
 -->
-Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue
+Proof of Age attestation Providers may however set specific conditions as to which apps they can issue
 such attestations to, and Age Verification App Providers may set similar conditions regarding Relying Parties.
 
 Considering the need for reliability and trust in the age verification solution, a method comparable at least to LoA
 Substantial should be required as laid out in Implementing Regulation 2015/1502.
 
-#### Trusted List solution for the Proof of Age Attestation Providers (PAAP)
+#### Trusted List solution for the Proof of Age attestation Providers (PAAP)
 <!---
 NF, Fix roles and acronyms
 -->
-It must be decided whether the Proof of Age Attestation Provider (PAAP) requires its own dedicated trust anchor CA.
+It must be decided whether the Proof of Age attestation Provider (PAAP) requires its own dedicated trust anchor CA.
 Both implementation options are presented below. The final implementation approach will be defined in a later version of
 this document.
 
@@ -1227,20 +1173,20 @@ this document.
 - The Trusted List Provider/Registrar adds the PAAP’s information and corresponding trust anchor to the Trusted List.
 - For each PAAP, the Trusted List shall include information about the PAAP, together with its associated trust anchor.
 
-![Figure 6](./docs/media/Figure_6_trusted-list-1.png)
+![Figure 6](./media/Figure_6_trusted-list-1.png)
 *Figure 6: Trusted List proposed approach*
 
 **Option 2 – PAAP without trust anchor CA**
 
-- The PAAP (or an entity acting on its behalf) generates a key pair for signing or sealing the Proof of Age Attestation,
+- The PAAP (or an entity acting on its behalf) generates a key pair for signing or sealing the Proof of Age attestation,
   along with a PAAP certificate request.
 - The Trusted List Provider/Registrar operates the AV trust anchor PKI and issues the PAAP certificate for signing or
-  sealing the Proof of Age Attestation (based on the public key contained in the PAAP’s certificate request).
+  sealing the Proof of Age attestation (based on the public key contained in the PAAP’s certificate request).
   Information about the PAAP is made publicly available via the eIDAS Dashboard, with a URL to this information included
   in the PAAP certificate.
 - The Trusted List shall include only one AV trust anchor.
 
-![Figure 7](./docs/media/Figure_7_trusted-list-2.png)
+![Figure 7](./media/Figure_7_trusted-list-2.png)
 *Figure 7: Trusted List proposed approach*
 
 Comparison table of the options is shown below.
@@ -1259,14 +1205,14 @@ The proposed high-level architecture of the age verification solution is present
 interacting with the User (through the web browser or an app) on the same device that the device the Age Verification
 App Instance (Age Verification App) resides on.
 
-![Figure 11](./docs/media/Figure_11_solution_same_device.png)
+![Figure 11](./media/Figure_11_solution_same_device.png)
 *Figure 11:Age verification solution components, interfaces and protocols – Same Device*
 
 The Cross Device flow means that the User presents their Proof of Age
 attestation to a Relying Party interacting with the User on a different device that the device the Age Verification App
 resides on. In this case the devices should be in proximity to each other to provide protection against certain attacks.
 
-![Figure 12](./docs/media/Figure_12_solution_cross_device.png)
+![Figure 12](./media/Figure_12_solution_cross_device.png)
 *Figure 12:Age verification solution components, interfaces and protocols – Cross Device*
 
 ## 5.1 Components of an Age Verification Unit
@@ -1338,7 +1284,7 @@ validations (e.g. registry lookups, manual approvals). If issuance exceeds 5 sec
 
 Due to the current unavailability of ARF-compliant zero-knowledge proofs (ZKPs), the issuer:
 
-- MUST issue proof of age attestations in batches (min. 30 attestations per batch).
+- MUST issue Proof of Age attestations in batches (min. 30 attestations per batch).
 
 The issuer SHALL publish attestation branding details in the /.well-known/openid-credential-issuer metadata:
 
@@ -1356,7 +1302,7 @@ The issuer SHALL publish attestation branding details in the /.well-known/openid
 
 ## 5.4 Verifier
 
-When presenting a proof of age attestation, the system SHALL support either:
+When presenting a Proof of Age attestation, the system SHALL support either:
 
 - Same Device Flow (as defined in Section 3.1 of OpenID4VP), or
 - Cross Device Flow (as defined in Section 3.2 of OpenID4VP).
@@ -1365,7 +1311,7 @@ For a detailed description of these workflows, refer to the OpenID4VP specificat
 
 #### Request Mechanism:
 
-A verifier requesting a proof of age attestation MUST utilize DCQL (Data Claim Query Language), as specified in Section
+A verifier requesting a Proof of Age attestation MUST utilize DCQL (Data Claim Query Language), as specified in Section
 6 of OpenID4VP, to formulate the query.
 
 #### Post-Validation Checks:
@@ -1388,7 +1334,7 @@ The ISO mdoc attestation format is used with
     - signed hashes in the valueDigests
 - deviceSignature as mdoc authentication method, a COSE_Sign1 MAC over the deviceAuthentication data (see ISO 18013-5
   9.1.3.5)
-  containing the proof of age attestation data
+  containing the Proof of Age attestation data
 
 ## 5.6 Cryptographic algorithms
 
@@ -1627,13 +1573,13 @@ Non-normative examples to be added
 # 7. Features of the White-Label Toolbox
 
 This chapter provides an overview on the features of the Age Verification White Label Solution. The white label
-solution is a toolbox and offers Age Verification App Providers, Proof of Age Attestation Providers and Proof of age
+solution is a toolbox and offers Age Verification App Providers, Proof of Age attestation Providers and Proof of age
 verifiers (Relying Parties) the opportunity to decide which services and software components they want to use and which
 functionalities they may want to supplement with commercial offers.
 
 The white label solution will be implemented based on the open source EUDI Wallet Reference implementation libraries.
 
-![Figure 10](./docs/media/Figure_10_solution.png)
+![Figure 10](./media/Figure_10_solution.png)
 *Figure 10: Solution Overview*
 
 ## 7.1	Definitions, Acronyms, and Abbreviations
@@ -1705,7 +1651,7 @@ The white label app does not include proximity capabilities (ISO 18013-5).
 The age verification issuing service included in the white label solution shall support mDoc and follow \[OpenID4VCI\]
 authentication code flow. The issuing service shall support batch issuing for the age over nn attestation.
 
-The claims of the proof of age attestation are statically calculated from the enrollment document. No zero-knowledge
+The claims of the Proof of Age attestation are statically calculated from the enrollment document. No zero-knowledge
 proof is used in the first version. Consequently, when an individual reaches the age of nn, they must obtain a new proof
 of age attestation.
 
@@ -1715,7 +1661,7 @@ passport/id data from the white label app to produce the age over nn attestation
 capabilities for Pre-Authorized Code Flow using QR code/token.
 
 Automatic attestation re-issuing is not in scope for the white label app deployment. A refresh token could theoretically
-be used to re-issue the proof of age attestation. However, since the claims do not contain the date of birth, the user
+be used to re-issue the Proof of Age attestation. However, since the claims do not contain the date of birth, the user
 would need to repeat the enrollment process to
 recalculate the claims. For this reason, refresh tokens are only practical when used in combination with zero-knowledge
 proofs. Additionally, revocation is not included in the first version of the issuing service.
@@ -1792,13 +1738,13 @@ We would like to kindly point out that this topic is already addressed in sectio
 there, a separate registration is required in any case. Initially, this registration process is expected to be
 carried out manually. Section 4.5 says:
 
-Proof of Age Attestation Providers should be either qualified or non-qualified trust service providers and they
+Proof of Age attestation Providers should be either qualified or non-qualified trust service providers and they
 should be published in a trusted list that is made available to the eIDAS Dashboard. Their publication should follow
 the requirements laid out in Implementing Regulation 2015/1505, and the Trust Anchor defined therein (Service Digital
 Identifier) should be used by Relying Parties to validate the attestation.
 
 The registration of Relying Parties that request age verification, or the registration of Age Verification App
-Providers is not required. Proof of Age Attestation Providers may however set specific conditions as to which apps
+Providers is not required. Proof of Age attestation Providers may however set specific conditions as to which apps
 they can issue such attestations to, and Age Verification App Providers may set similar conditions regarding Relying
 Parties.
 
@@ -1826,7 +1772,7 @@ contains only a true/false value for the age verification, without including the
 personal data.
 
 With a fully implemented EUDI Wallet, where the national ID card has been stored and zero-knowledge proofs are
-utilized, it is no longer necessary to pre-calculate the proof of age attestation. Instead, the user can generate the
+utilized, it is no longer necessary to pre-calculate the Proof of Age attestation. Instead, the user can generate the
 proof of age dynamically and securely within the wallet whenever required, without revealing their actual date of
 birth or other personal information.
 
@@ -1839,7 +1785,7 @@ user is over 18, who issued the credential, and the issuance date. Optionally, i
 example from the passport, but this is not mandatory. Storing the photo would likely require adjustments to
 legislation in order to permit reading and saving the photo during the enrollment process.
 
-The Relying Party requires a dedicated software component to receive and verify the user's proof of age attestation.
+The Relying Party requires a dedicated software component to receive and verify the user's Proof of Age attestation.
 This component is responsible for ensuring that the attestation is authentic and has not been tampered with by
 verifying the digital signature and the integrity of the data. Additionally, it must confirm the actual value of the
 age verification-such as whether the user is over 18 years old-as stated in the attestation. An essential part of the
@@ -1854,7 +1800,7 @@ to automatically validate both the status and the authorization of the issuer.
 Open technical specifications and reference implementations, including a white-label validation service and toolbox,
 are being developed to support Relying Parties in integrating these verification capabilities. The verification
 process itself can be performed using standard interfaces of OpenID4VP, such as the Presentation Interface, which
-enables the secure receipt and validation of the proof of age attestation from the user's age verification app.
+enables the secure receipt and validation of the Proof of Age attestation from the user's age verification app.
 Importantly, the Relying Party does not need to register or be certified to use the age verification solution, but
 must comply with the technical and trust framework requirements. The attestation only contains the necessary
 information-such as a simple true or false value for the age threshold-thereby ensuring privacy and data minimization
@@ -1906,7 +1852,7 @@ Within this project, we are delivering a toolbox consisting of various specifica
 then select which services they wish to use.
 
 In addition to the wallet, we will also provide open source reference implementations for both the issuer and verifier.
-These components can be used to receive and process a proof of age attestation.
+These components can be used to receive and process a Proof of Age attestation.
 
 If a Relying Party prefers to implement this functionality directly, they can use the reference implementation as
 documentation and make use of the underlying libraries or start its own implementation based on the specifications.

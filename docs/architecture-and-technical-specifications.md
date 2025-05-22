@@ -540,92 +540,47 @@ to a national eIDAS node to receive the age verification attestation.
 Additional issuing options are available and analytically presented in
 the next sections.*
 
-# 3. Specific Requirements for an Age verification Solution
+# 3.  Age verification Solution High Level Requirements
 
-## 3.1 Age Verification App Requirements
-<!---
-NF, TODO update using the conventions set in section 1.4
--->
-This section defines requirements, that applies to Age Verification Apps:
+## 3.1 Age Verification App 
 
-- The Age Verification App shall be functional on both Android and iOS operating systems and available on
-  the Play Store and App Store, respectively.
-- The Age Verification App shall verify that an an Attestation Provider is included on the age verification trust
+This section defines requirements, that applies to the Age Verification App:
+
+- The Age Verification App SHALL implement the protocols specified in Annex 4.
+- An Age Verification App made available as a mobile application SHOULD be published on the App Stores for Android and iOS operating systems and MAY be published on other App Stores (e.g. Huawei, Samsung).
+- An Age Verification App is provided as a stand-alone app separate from the European Digital Identity Wallet, its Age Verification App Provider SHOULD strive for equivalence with Level of Assurance "Substantial" pursuant to Commission Implementing Regulation (EU) 2015/1502.
+- An Age Verification App MAY include initialisation functionality that is required for the use of the app.
+- An Age Verification App MAY verify that an an Attestation Provider is included on the age verification trust
   list and is therefore authorized.
-- An Age Verification App shall not store any data other than the Proof of Age attestation.
-- An Age Verification App shall implement the protocols specified in Annex 4
-<!---
-NF, Do we need the following here?
--->
-- The app must always maintain at least 10 Proof of Age attestation batches in reserve.
-<!---
-NF, Check the following. It has been re-written
--->
-- The Age Verification app shall rely when possible on the device's native cryptographic hardware
+- An Age Verification App SHALL NOT store any attestation other than the Proof of Age attestation.
+- An Age Verification App SHALL rely when possible on the device's native cryptographic hardware.
   capabilities, such as the Secure Enclave on iOS, or the Trusted Execution Environment (TEE) and Strongbox on Android.
-<!---
-NF, What does this mean? Is this correct?
--->
-- The Age Verification App is provided as a stand-alone app, its Age Verification App Provider SHOULD strive for
-  equivalence with Level of Assurance "Substantial" pursuant to Commission Implementing Regulation (EU) 2015/1502.
+- An Age Verification Instance SHALL authenticate its User in a reliable manner (e.g. using a password, PIN code, biometric verification, pattern) before presenting the Proof of Age attestation.
 
-## 3.2 Proof of Age attestation Requirements
+## 3.2 Proof of Age attestation 
 
-This section lists the requirements to be met by Proof of Age attestations:
+This section lists the requirements to be met by the Proof of Age attestation:
 
-- The Proof of Age attestation shall only contain the attributes included in the data model.
-<!---
-NF, Is the following correct?
--->
-- The Proof of Age attestation shall be signed in a manner that enables the generation of a zero-knowledge proof;
-  otherwise, batch issuing must be utilized.
-- The Proof of Age attestation shall expire after three months and be reissued.
-- The Proof of Age attestations shall be compliant with mDoc in CBOR encoding [ISO/IEC TS 23220-2], [ISO/IEC 18013-5],
-  except for the attribute schema that shall be compliant with the attribute schema defined in the section Data
-  Model.
-- The Proof of Age attestation shall use the namespace "eu.europa.ec.agev10n".
-- A Photo ID compliant with \[ISO/IEC CD TS 23220-4\] (Annex C of the referenced standard) may be used as a Proof of Age
-  attestation provided that its attributes are compliant with the attribute schema defined in the section Data
-  Architecture.
+- The Proof of Age attestation SHALL comply with the data model set in Section 4.5
 
-## 3.3 Proof of Age attestation Provider Requirements
+## 3.3 Attestation Provider
 
 This section lists the requirements to be met by Attestation Providers:
-<!---
-NF, Is the following correct?
--->
-- The Attestation Provider shall register with the Federation Authority to obtain proper authorization for issuing proof of age
+- An Attestation Provider SHALL implement the protocols specified in Annex 4.
+- The Attestation Provider SHALL register with the Federation Authority to obtain proper authorization for issuing proof of age
   attestations.
-<!---
-NF, Is the following correct?
--->
-- The Attestation Provider should be a qualified or non-qualified trust service provider (TSP) registered in the
-  eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.
-
+- The Attestation Provider SHOULD be a qualified or non-qualified trust service provider (TSP) registered in the eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.
 - The Attestation Provider SHALL NOT issue a Proof of Age attestation before verifying the attestation subject's age at
   the Level of Assurance 'substantial' or 'high'.
-<!---
-NF, The following is impossible. The provider authenticates the user. I suggest to remove
--->
-- An Attestation Provider shall not be able to link two issuance transactions to the same age verification app or user.
-- The Attestation Provider shall provide support for the protocols defined in Annex 4.
 
-## 3.4 Relying Party (Verifier) Requirements
+## 3.4 Relying Party
 
 This section lists the requirements to be met by Relying Parties:
+- A  Relying Party  SHALL implement the protocols specified in Annex 4
+- A Relying Party SHALL validate the authenticity and the integrity of a presented Proof of Age attestation.
+- A Relying Party SHALL validate that the Attestation Provider of a presented Proof of Age attestation is authorized to issue Proof of Age attestations.
+- A Relying Party SHALL evaluate that a presented Proof of Age attestation.
 
-- The Relying Party shall validate the authenticity and the integrity of a Proof of Age attestation.
-- The Relying Party shall validate that the Attestation Provider is authorized to issue Proof of Age attestations.
-<!---
-NF, Is the following correct?
--->
-- The Relying Party shall evaluate the value of the age_over_18 claim.
-<!---
-NF, Is the following correct?
--->
-- A Relying Party shall not be able to link two presentation transactions to the same user.
-- Two Relying Parties shall not be able to link two Proof of Age attestation presentation transactions to the same user
-  by sharing the received presentations.
 
 # 4. Architecture Model
 
@@ -1360,215 +1315,7 @@ NF, Move to annex
 -->
 # 6. Age Verification Profile
 
-This chapter defines a set of requirements for the existing specifications to enable interoperability among Attestation
-Providers (APs), Age Verification App Instances (AVIs) and Relying Parties (RPs) where a substantial level of security
-and privacy is required. This document is an interoperability profile that can be used by implementations in various
-contexts, be it a certain industry or a certain regulatory environment.
 
-This profile is part of the EU Age Verification technical specifications. It builds on existing specifications commonly
-used for credential issuance and verification and defines a set of features to be implemented in the context of age
-verification
-
-This document outlines a profile for the age verification target architecture, serving as a conceptual framework rather
-than a comprehensive specification of all features and requirements. At the current stage of development, not all
-functionalities described herein have been implemented in the Age Verification Solution Toolbox. Furthermore, certain
-features are also absent in the present development state of the EUDI Wallet libraries. These functionalities will be
-developed and integrated incrementally over the course of the project.
-
-The profile uses OpenID for Verifiable Credential Issuance [OID4VCI] and OpenID for Verifiable Presentations [OID4VP] as
-the base protocols for issuance and presentation of Credentials, respectively. The attestation format used is ISO
-mDoc [ISO18013-5].
-
-A full list of the open standards used in this profile can be found in Overview of the Open Standards Requirements.
-
-## 6.1 Target audience
-
-The intended audience for this document comprises Member States and designated organizations that seek to implement an
-age verification solution. This profile, the referenced technical standards and accompanying guidelines are designed to
-support governmental authorities as well as commissioned organizations in the development, integration, and deployment
-of compliant age verification systems within their respective jurisdictions or operational domains. This approach
-ensures that both public sector bodies and their authorized private sector partners are equipped to realize and maintain
-robust, privacy-preserving age verification in alignment with European regulatory requirements, age verification digital
-services requirements, and digital identity initiatives.
-
-## 6.2 Scope
-
-The primary focus of this profile is on online services, with the intention that age verification should be conducted
-digitally in online environments. The solution is specifically designed to enable users to prove their age when
-accessing online content, products, or services that are subject to age restrictions. This approach addresses the
-increasing need for robust online age verification mechanisms, ensuring that age-restricted content is accessed only by
-individuals who meet the required legal age, and supporting compliance with relevant regulatory requirements for online
-platforms.
-
-The following aspects are in scope of this interoperability profile:
-
-- Profile of OpenID4VCI to issue ISO mDoc Proof of Age attestations
-- Profile of OpenID4VP to present ISO mDoc Proof of Age attestation
-- Crypto Suites
-
-Assumptions made are the following:
-
-- The APs and RPs cannot pre-discover Age Verification App’s capability
-- The AP is talking to the AVI supporting the features defined in this profile (via AVI invocation mechanism)
-- Support for mDoc only as the Proof of Age attestation format
-- No personal data, especially no information from personal identification documents such as national ID card, is stored
-  within an AVI. Only the Proof of Age attestation, specifically indicating "older than 18", is utilized for age
-  verification purposes
-
-## 6.3 Out of Scope
-
-The following items are out of scope for the current version of this profile, but might be added in future versions:
-
-- Support for Level of Assurance (LoA) "high".
-- Proof of Age attestation re-issuance (using refresh tokens) and revocation.
-- RP registration and trusted lists of RPs.
-- AVI attestations and trusted lists of Age Verification App providers.
-- Device bound Proof of Age attestations.
-- Proof of Age attestation presentation using proximity.
-- Profile of OpenID4VCI to issue ISO mDoc [ISO.18013-5] is defined in ISO 23220-3.
-- ISO mDoc specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
-
-## 6.4 Standards Requirements
-
-This specification enables interoperable implementations of the following flows:
-
-- Issuance of ISO mDoc Proof of Age attestation using OpenID4VCI
-- Presentation of ISO mDoc Proof of Age attestation using OpenID4VP
-  Implementations of this specification do not have to implement all of the flows listed above.
-  A parameter that is listed as optional to be implemented in a specification that is being profiled (i.e., OpenID4VCI,
-  OpenID4VP and ISO mDoc) remains optional unless it is stated otherwise in this specification.
-
-### 6.4.1 OpenID for Verifiable Credential Issuance
-
-* Both AVI and AP MUST support and use [RFC7636] with S256 as the code challenge method
-* Both AVI and AP MUST support and use authorization code flow
-
-#### 6.4.1.1 Credential Offer
-
-- As a way to invoke the AVI, at least a custom URL scheme avsp:// MUST be supported.
-- The Grant Type `authorization_code` MUST be used as defined in Section 4.1.1 in [OID4VCI]
-- For Grant Type `authorization_code`, the Issuer MUST include the scope parameter with value
-  `proof_of_age`. The Wallet MUST use the same value in the scope Authorization parameter
-
-#### 6.4.1.2 Authorization Endpoint
-
-- The AVI MUST use the scope parameter with value `proof_of_age`
-- The AVI MUST provide the `code_challenge` as per [RFC7636]
-
-#### 6.4.1.3 Token Endpoint
-
-- The AVI MUST provide the `code_verifier` as per [RFC7636]
-
-#### 6.4.1.4 Credential Endpoint
-
-- The AVI MUST use the `proofs` parameter providing an array of proofs of type JWT.
-
-#### 6.4.1.5 AP Metadata
-
-TBD
-
-### 6.4.2 OpenID for Verifiable Presentations profile Requirements
-
-- As a way to invoke the Age Verification App, at least a custom URL scheme avsp:// MUST be supported.
-- Response type MUST be `vp_token`
-- `response_mode` MUST be `direct_post`
-- RP MUST send the request by value (i.e., support for JAR is not required)
-- The client identifier scheme MUST be `redirect_uri` followed by the `response_uri`
-- A request MUST specify the nonce parameter
-- The DCQL query and response as defined in Section 6 of [OID4VP] MUST be used
-
-### 6.4.3 OpenID for Verifiable Presentations over W3C Digital Credentials API
-
-- AVI MUST support the W3C Digital Credentials API using the unsigned requests as defined in Annex A.3.1 of [OID4VP]
-- Wallet Invocation is done via the W3C Digital Credentials API or an equivalent platform API. Any other mechanism,
-  including Custom URL schemes, MUST NOT be used
-- Response mode MUST be `dc_api`
-- The Credential Format Identifier MUST be `mso_mdoc`
-
-## 6.5 Crypto Suites
-
-All entities MUST support P-256 (secp256r1) as a key type with ES256 JWT algorithm for signing and signature validation
-whenever this profile requires to do so.
-SHA256 MUST be supported by all the entities as the hash algorithm to generate and validate the digests in the MDOC VC.
-Note: When using this profile with other cryptosuites, it is recommended to be explicit about which entity is required
-to support which curve for signing and/or signature validation
-
-## 6.6 Security Considerations
-
-The security considerations in [OID4VCI] and [OID4VP] apply when compatible with Level of Assurance substantial only.
-
-## 6.7 Comparison with other profiles
-
-This section is non-normative
-
-Since this age verification profile aims at achieving equivalence to Level of Assurance (LoA) substantial there is more
-flexibility to use faster go to market approaches using the protocols that are mentioned in the EUDI ARF but adopt
-configuration and profile parameters that will make implementers work easier and simpler without compromising the scope
-and the business needs of the Age Verification solution.
-
-### 6.7.1 Comparison with [HAIP]
-
-#### OpenID for Verifiable Credential Issuance
-
-*Credential offer*
-
-No difference
-
-*Authorization Endpoint*
-
-- HAIP uses PAR [RFC9126]  to authenticate
-  a Wallet Instance (referred to as AVI in the Age Verification solution) through an
-  attestation verified via a trust chain. This mechanism relies on a predefined trust
-  list of recognized solution providers. However, the Age Verification solution does
-  not incorporate such a trust list. Using a self-signed
-  certificate does not offer any value. For this reason the Age Verification
-  Solution does not use PAR
-
-*Token Endpoint*
-
-- HAIP uses Client authentication using JWT Attestations. As already discussed
-  this form of client authentication offers value only when combined with trust lists.
-  For this reason the Age Verification solution does not use this approach.
-
-*Credential Endpoint*
-
-No difference
-
-#### OpenID for Verifiable Presentations
-
-Most differences compared to HAIP arise from the Age Verification solution’s reliance
-on TLS and the Web PKI for authenticating RPs and establishing secure communication
-channels. Similarly, when the Digital Credentials API is used, both the operating
-system and the browser are considered trusted components. As a result, an additional
-layer of authentication and encryption is deemed unnecessary. In more detail:
-
-- HAIP requires encrypted responses (using `direct_post.jwt`) The Age Verification solution
-  relies on the TLS for protecting the confidentiality of the `vp_token`, hence it
-  uses `direct_post`.
-- HAIP uses JAR [RFC 9101]  to protect the
-  integrity of the authorization request. However, its effectiveness depends on the
-  existence of a trust list of RPs. In the absence of such a list—as is the case with
-  the Age Verification solution—an attacker could obtain a valid certificate and
-  substitute a legitimate JAR with a malicious one, thereby undermining its intended
-  security benefits. For this reason the Age Verification solution does not use JAR
-- HAIP `x509_san_dns` and `verifier_attestation` as a client authentication
-  scheme. As in the case of JAR: the effectiveness of these schemes depends on the
-  existence of a trust list of RPs. For this reason the Age Verification solution
-  uses the simpler `redirect_uri` scheme. An alternative could be the use of `x509_san_dns`
-  together with the Web PKI, however, any malicious entity can obtain a valid Web PKI
-  certificate.
-
-#### OpenID for Verifiable Presentations over W3C Digital Credentials API
-
-- HAIP requires support for signed requests to enable RP authentication through mechanisms beyond the Web PKI. This is
-  not a requirement for the Age Verification solution; therefore, unsigned requests are used instead.
-- HAIP requires encrypted responses, using the response mode `dc_api.jwt`. The Age Verification solution relies on the
-  security of TLS and assumes that the operating system and the browser are trusted. For this reason unencrypted
-  responses are used.
-
-## 6.8 Examples
-
-Non-normative examples to be added
 
 # 7. Features of the White-Label Toolbox
 

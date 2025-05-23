@@ -566,7 +566,7 @@ the next sections.*
 
 This section defines requirements, that applies to the Age Verification App:
 
-- An Age Verification App SHALL implement the protocols specified in Annex 4.
+- An Age Verification App SHALL implement the protocols specified in Annex A.
 - An Age Verification App made available as a mobile application SHOULD be published on the App Stores for Android and iOS operating systems and MAY be published on other App Stores (e.g. Huawei, Samsung).
 - An Age Verification App is provided as a stand-alone app separate from the European Digital Identity Wallet, its Age Verification App Provider SHOULD strive for equivalence with Level of Assurance "Substantial" pursuant to Commission Implementing Regulation (EU) 2015/1502.
 - An Age Verification App MAY include initialisation functionality that is required for the use of the app.
@@ -586,7 +586,7 @@ This section lists the requirements to be met by the Proof of Age attestation:
 ## 3.3 Attestation Provider
 
 This section lists the requirements to be met by Attestation Providers:
-- An Attestation Provider SHALL implement the protocols specified in Annex 4.
+- An Attestation Provider SHALL implement the protocols specified in Annex A.
 - An Attestation Provider SHALL register with the Federation Authority to obtain proper authorization for issuing proof of age
   attestations.
 - An Attestation Provider SHOULD be a qualified or non-qualified trust service provider (TSP) registered in the eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.
@@ -596,7 +596,7 @@ This section lists the requirements to be met by Attestation Providers:
 ## 3.4 Relying Party
 
 This section lists the requirements to be met by Relying Parties:
-- A Relying Party  SHALL implement the protocols specified in Annex 4
+- A Relying Party  SHALL implement the protocols specified in Annex A
 - A Relying Party SHALL validate the authenticity and the integrity of a presented Proof of Age attestation.
 - A Relying Party SHALL validate that the Attestation Provider of a presented Proof of Age attestation is authorized to issue Proof of Age attestations.
 - A Relying Party SHALL evaluate that a presented Proof of Age attestation.
@@ -741,7 +741,7 @@ a Proof of Age attestation.
 #### Protocol Implementation
 
 - OpenID4VCI Compliance: This interface is implemented using the OpenID for Verifiable Credential Issuance (OpenID4VCI)
-  protocol, ensuring standardized, interoperable credential exchange across issuers and applications (see also Annex 4).
+  protocol, ensuring standardized, interoperable credential exchange across issuers and applications (see also Annex A).
 - Multi-AP Support: An Age Verification app can interface with any APs supporting OpenID4VCI, enabling users
   to obtain attestations from diverse  providers (e.g., national eID schemes, banks, or mobile operators).
 
@@ -757,7 +757,7 @@ attestation from an AVI, accommodating both remote and proximity interactions.
 #### Protocol Implementation
 
 - OpenID4VP Compliance: This interface is implemented using the OpenID for Verifiable Presentations (OpenID4VP) protocol,
-  ensuring standardized and interoperable presentation of verifiable credentials (see also Annex 4).
+  ensuring standardized and interoperable presentation of verifiable credentials (see also Annex A).
 - Multi-Relying Party Support: The verification application can interact with multiple Relying Parties (verifiers),
   presenting any number of Proof of Age attestations as required. All such interactions are conducted exclusively via
   the Rp interface.
@@ -1139,7 +1139,7 @@ Comparison table of the options is shown below.
 | Option 2 – AP with centralized trust anchor CA | The Trusted List is expected to be very small in size. ​<br><br>The validity period of the Trusted List may be relatively long (e.g., one year), allowing Relying Parties to cache the Trusted List locally and download a new version only upon expiration. | The Trusted List Provider or Registrar is responsible for operating the AV trust anchor PKI. <br><br> Information about the AP is not included in the Trusted List; instead, Relying Parties must follow the URL provided in the AP certificate to access the relevant AP information.  
 
 # 5. Age Verification Profile
-An age verification profile is defined in Annex 4. 
+An age verification profile is defined in Annex A. 
 
 
 # 6. Features of the White-Label Toolbox

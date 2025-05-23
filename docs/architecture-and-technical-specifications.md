@@ -1312,10 +1312,7 @@ We would like to kindly point out that this topic is already addressed in sectio
 there, a separate registration is required in any case. Initially, this registration process is expected to be
 carried out manually. Section 4.5 says:
 
-Proof of Age attestation Providers should be either qualified or non-qualified trust service providers and they
-should be published in a trusted list that is made available to the eIDAS Dashboard. Their publication should follow
-the requirements laid out in Implementing Regulation 2015/1505, and the Trust Anchor defined therein (Service Digital
-Identifier) should be used by Relying Parties to validate the attestation.
+Proof of Age attestation Providers should be either qualified or non-qualified trust service providers. The Trust Anchor defined in a Trusted List managed by the European Commission and this list should be used by Relying Parties to validate the attestation.
 
 The registration of Relying Parties that request age verification, or the registration of Age Verification App
 Providers is not required. Proof of Age attestation Providers may however set specific conditions as to which apps

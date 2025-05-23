@@ -854,9 +854,9 @@ Substantial requirements.
 NF, "returns the eIDAS Minimum Data Set to the **issuing party**". Is that correct? Does it mean to the app?
 JM - it should never return the minimum data set - the AP does only need to know the date of birth, so that he can issue the proof of age attestation. 
 -->
-    - The user initiates enrollment by selecting their national eID scheme.
-    - The AP redirects the authentication request to the relevant eIDAS node.
-    - The national eID scheme authenticates the user and returns the date of birth to the iAP.
+- The user initiates enrollment by selecting their national eID scheme.
+- The AP redirects the authentication request to the relevant eIDAS node.
+- The national eID scheme authenticates the user and returns the date of birth to the iAP.
 
 #### Technical Standards
 - SAML 2.0: Used for authentication requests and responses between eIDAS nodes and APs.

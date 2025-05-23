@@ -640,9 +640,9 @@ standards that necessitate such reliance should be avoided.
 In summary, the defined technical architecture design aims to balance regulatory compliance and practical deployment
 considerations, while remaining adaptable for future enhancements and broader use cases.
 
-## 4.1 Functional Architecture
+## 4.1 Overview
 
-The following functional architecture illustrates the different entities within an age verification system and their
+The following figure illustrates the different entities within an age verification system and their
 relationships to each other. The subsequent section provides a detailed definition of each interface.
 
 All entities shown in blue are provided by the toolbox, at minimum as mock services. Entities marked in green represent
@@ -655,11 +655,11 @@ NF, Check figure numbering
 -->
 
 ![Figure 2](./media/Figure_2_functional_architecture.png)
-*Figure 2: Functional Architecture*
+*Figure 2: Overview of the Age Verification Solution architecture*
 
-## 4.2 Entities in an Age Verification Solution
+## 4.2 Entities
 
-An age verification solution involves several key entities, each with distinct roles and responsibilities to
+The age verification solution involves several key entities, each with distinct roles and responsibilities to
 ensure secure, interoperable, and privacy-preserving verification of age attributes across digital services.
 - **3rd Party Data Sources**: A trusted private data source is a non-governmental, commercially operated entity
   that maintains accurate and verifiable user information, which can be leveraged for age verification purposes (e.g.
@@ -782,106 +782,95 @@ The registration interface follows a proprietary design.
 
 An RP can use an HTTP GET Method to retrieve the trusted list.
 
+
 ## 4.4 Supported Enrollment Configurations
+To achieve Level of Assurance "Substantial", the enrolment process must provide a 
+reasonable degree of confidence in the claimed identity, balancing security with usability. 
+The identity proofing must rely on notified eID means or on  evidence based on official documents 
+(such as a passport, national ID card, or equivalent), but it does not necessarily 
+require in-person presence. Remote identification procedures may be used, provided 
+that they ensure the reliability of the process and protect against impersonation and manipulation.
+
+At this level, identity verification may include automated or manual checks of the 
+identification document, cross-checks with authoritative sources (e.g., population registries), 
+and verification that the person presenting the identity is its rightful holder. 
+
+The enrolment process must still ensure that identity data is collected and verified 
+securely, and that it is resistant to common attacks (e.g., document forgery, replay attacks, 
+and social engineering). Auditability, traceability, and appropriate risk management measures are also expected.
 
 In the following two sub-sections, attestation issuance approaches are introduced grouped in:
 
+<!--- 
+JM - the names of these methods are not well chosen.
+--->
 - Methods with existing Identification, where only Authentication is needed by the citizen
 - Methods without existing Identification, where the citizen needs to provide proof of identification and binding to it.
 
 At a high level, the issuing options are illustrated in the figure below. At least one of the options must be
 implemented.
 
+<!---
+JM - I don't understand this figure.
+--->
+
 ![Figure 3](./media/Figure_3_enrollment_options.png)
 *Figure 3: Enrollment options with and without existing identification.*
 The above architecture diagram is a functional diagram. For examples of physical mappings, see next clause.
 
 ### 4.4.1 Enrollment Methods with existing Identification
+To achieve Level of Assurance "Substantial", enrolment processes can effectively 
+leverage existing identification mechanisms that have already been verified to 
+meet substantial (or higher) assurance levels. This includes the use of notified 
+eID schemes under eIDAS, accessed through eIDAS nodes, or integration with national 
+Identity Providers (IdPs) that offer authentication at a substantial level. 
 
-Enrollment leveraging existing identification mechanisms requires integration with the eIDAS 1.0 infrastructure,
-specifically the notified electronic identification (eID) schemes recognized under the eIDAS Regulation.
+When a user authenticates via one of these methods, the identity proofing has already 
+been conducted by a recognized authority in accordance with applicable standards, 
+allowing the Attestation Provider to reuse this assurance level for enrolment. 
+This approach simplifies the onboarding process while maintaining compliance with eIDAS LoA 
+Substantial requirements. 
 
 #### Key Components
 
 1. Notified eID Schemes
 
-   Member States’ nationally recognized eID schemes (e.g., Germany’s eID, Italy’s SPID) serve as the foundational
-   identity source. These schemes are pre-approved under eIDAS 1.0 and provide authentication at Substantial or High
-   Levels of Assurance (LoA).
+   Notified eID schemes are electronic identification systems that have been officially notified by a Member State under the eIDAS Regulation and published by the European Commission. These schemes have undergone an assessment process confirming that they meet specific requirements for security, reliability, and assurance levels. 
+   
+   For an Attestation Provider, integrating notified eID schemes at LoA "substantial" or "high", enables a streamlined and compliant identity proofing process, as the responsibility for identity verification lies with the Member State authority that operates the scheme. 
 
 2. eIDAS Nodes
 
-   Cross-border authentication is facilitated via eIDAS nodes, which act as gateways between national eID schemes and
+   Cross-border authentication is facilitated via eIDAS nodes, which act as gateways between notified national eID schemes and
    Relying Parties (e.g., service providers). These nodes ensure secure, standardized communication and data exchange.
 
-<!---
-NF,Authentication Workflow is not a component
--->
-3. Authentication Workflow
+3. National IdPs 
+
+   Member States’ national Identity Providers (IdPs) that offer authentication services with legal value within their jurisdiction are a valid and reliable source of identity for enrolment processes. These IdPs typically operate under national legal frameworks and may be aligned with or integrated into notified eID schemes under eIDAS.
+
+
+#### Authentication Workflow
 <!---
 NF, "returns the eIDAS Minimum Data Set to the **issuing party**". Is that correct? Does it mean to the app?
+JM - it should never return the minimum data set - the AP does only need to know the date of birth, so that he can issue the proof of age attestation. 
 -->
     - The user initiates enrollment by selecting their national eID scheme.
-    - The Age Verification App redirects the authentication request to the relevant eIDAS node.
-    - The national eID scheme authenticates the user and returns the eIDAS Minimum Data Set (e.g., name, date of birth,
-      unique
-      identifier) to the issuing party.
+    - The AP redirects the authentication request to the relevant eIDAS node.
+    - The national eID scheme authenticates the user and returns the date of birth to the iAP.
 
 #### Technical Standards
-<!---
-NF, What does it mean here with service providers?
--->
-- SAML 2.0: Used for authentication requests and responses between eIDAS nodes and service providers.
+- SAML 2.0: Used for authentication requests and responses between eIDAS nodes and APs.
 - eIDAS Cryptographic Requirements: Compliance with TS 119 461 for identity proofing and cryptographic protocols.
 
 #### Compliance
 
-- Data Minimization: Only the eIDAS Minimum Data Set is transmitted, avoiding unnecessary personal data exposure.
+<!---
+JM - the Attestation provider only needs to know the date of birth. 
+-->
+- Data Minimization: Only the date of birth is transmitted, avoiding unnecessary personal data exposure.
 - GDPR Alignment: Enrollment processes adhere to GDPR principles, including user consent and purpose limitation.
 
-The age verification solution comprises two core components to support this:
-<!---
-NF, Update roles
--->
-1. Age Verification Unit: Integrated into the user-facing Age Verification Application to perform age verification
-   checks.
-2. Age Attestation Issuing Service: A backend service responsible for generating and managing Proof of Age attestations.
 
-#### Component Interactions
-<!---
-NF, Update roles and put references to annex 4
--->
-1. Age Verification Unit
-   The Age Verification Unit shall connect to the Attestation Issuing Service via secure, standards-based protocols to:
-
-    - Request age verification attestations
-    - Validate attestation authenticity
-    - Enforce age-based access policies
-
-2. National Identification Scheme Integration
-   The age verification application SHALL implement functionality to verify users’ ages using the national
-   identification scheme. This requires:
-    - OpenID4VCI Issuing Service: A national implementation compliant with OpenID for Verifiable Credential Issuance (
-      OID4VCI)
-      draft 15.
-    - Attestation Formatting Module: Converts national ID data into interoperable mdoc-based attestation with
-      age_over_18
-      claims, adhering to ISO/IEC 18013-5 and EUDI Wallet ARF standards.
-
-#### Interconnection Requirements
-
-| Interconnection Type       | Protocol             | Configuration Reference                                                                                                                                                               |
-|----------------------------|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Notified eId (eIDAS 1.0)   | eIDAS Node Connector | [Annex 3.1, PID Rulebook, ARF](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md) |
-| National Identity Provider | OIDC/SAML 2.0        | [Annex 3.2, mDL Rulebook, ARF](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.02-mDL-rulebook.md) 
-
-Implementation Requirements:
-
-- eIDAS 1.0: Support for LoA "Substantial" or higher as per eIDAS Regulation.
-- OIDC/SAML: Compliance with OpenID Connect Core 1.0 and SAML 2.0 WebSSO profiles.
-
-The Age Verification white label solution includes options for interconnection to (a) Notified eID (eIDAS 1.0 connector
-configuration), and (b) National iDP (OIDC configuration and SAML configuration) that implementors shall configure.
 
 <!---
 NF, Do we need this section? 
@@ -903,12 +892,12 @@ NF, Do we need this section?
 <!---
 NF, Update roles
 -->
-In the approaches below, the age verification unit shall connect to the attestation issuing service, but it may not need
-to connect directly to an existing identity provider service online or to use it fully.
+In the approaches below, the AVI shall connect to the AP, providing identification information
+included in a physical identity card of passport.
 
 #### Identity Cards and Passports (ICAO 9303)
 
-The Age Verification Application shall interface with physical identity documents compliant with ICAO Doc 9303
+The Age Verification App shall interface with physical identity documents compliant with ICAO Doc 9303
 specifications for Machine Readable Travel Documents (MRTDs), including:
 
 - National ID cards (TD1/TD2 size per ICAO Doc 9303 Parts 5/6)
@@ -960,18 +949,18 @@ specifications for Machine Readable Travel Documents (MRTDs), including:
 <!---
 NF, Update roles
 -->
-The Age Verification Application may implement an issuance workflow that separates the identity verification process
-from the subsequent generation and delivery of the age verification attestation. This can be achieved, for example, by
-utilizing a pre-authorized code flow in OpenID4VCI.
+The Age Verification Solution supports an issuance workflow that separates the identity verification process
+from the subsequent generation and delivery of the Proof of Age attestation. This is achieved
+utilizing the pre-authorized code flow in OpenID4VCI.
 
 With this architecture, identity verification is conducted independently and may take place in various trusted
-environments, such as a bank, notary office, citizen service center or equivalent front office location. Upon
-successful completion of the identity verification step, the user is issued an authentication token, such as a QR
+physical or virtual environments, such as a bank, notary office, citizen service center or equivalent front office location, a banking application. Upon
+successful completion of the identity verification step, the user is issued a credential, e.g., in the form of a QR
 code, along with a secondary authentication factor. This second factor is derived from information provided during the
 front office interaction and may include a PIN code, SMS or email-based one-time password (OTP) or a
 similar mechanism.
 
-After completing this procedure, the user is able to use the provided code and second-factor credentials to retrieve
+After completing this procedure, the user is able to use the provided credential offer and second-factor credentials to retrieve
 their age verification proof within the application.
 
 ##### *Relevant technical specifications:*
@@ -979,36 +968,27 @@ their age verification proof within the application.
 - OpenID for Verifiable Credential Issuance (
   Section [3.5.](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#section-3.5) [Pre-Authorized Code Flow](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow))
 
-<!---
-NF, Is there any difference with the previous? Probably merge
--->
-#### Link to pre-installed apps with age information
 
-The Age Verification Application may support an issuance workflow analogous to the "third-party activation" flow
-described previously, leveraging external applications or websites, such as those operated by banks or mobile network
-operators, that already conduct identity verification using established processes.
-
-In this model, the third-party application is responsible for generating a pre-authorized code upon successful identity
-verification. This code can be incorporated into the user journey through various integration methods, including API
-calls for app-to-app communication or QR codes for cross-device activation.
-
-##### *Relevant technical specifications:*
-
-- OpenID for Verifiable Credential Issuance (
-  Section [3.5.](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#section-3.5) [Pre-Authorized Code Flow](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow))
-
-## 4.5 Data Model Definition for Proof of Age attestation
+## 4.4 Data Model Definition for Proof of Age Attestation
 
 The data model for the Proof of Age attestation is defined as a profile of the attribute schema specified in ISO/IEC
-18013-5 (Mobile Driving Licence [mDL] Application) and ISO/IEC 23220-2 (Generalized Personal Identification Attributes).
+18013-5 (Mobile Driving Licence [mDL] Application) and ISO/IEC 23220-2 
+<!---
+JM - is this the correct name of ISO/IEC 23220-2?
+--->
+(Generalized Personal Identification Attributes).
 
-### 4.5.1 Attribute Handling
+### 4.4.1 Attribute Handling
 
 The data model implements the rules for handling age_over_NN attributes as defined in ISO/IEC 18013-5 and ISO/IEC
 23220-2, in line with the principle of data minimization. Application logic in the wallet or app holding the attestation
 must support these rules, in addition to the generic logic for managing electronic attestations.
 
-### 4.5.2 Attribute Set
+### 4.4.2 Attribute Set
+
+<!--
+JM - please use the PID rulebook (section https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework-private/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md#3-isoiec-18013-5-compliant-encoding-of-pid) as an inspiration for this section 
+--->
 
 The attribute set for Proof of Age attestations consists of:
 
@@ -1017,7 +997,7 @@ The attribute set for Proof of Age attestations consists of:
       holder is above a specified age threshold. The value is a boolean value.
     - *issue_date:* Date (and if possible time) when the Proof of Age attestation was issued. The value is a tdate or
       full-date value.
-    - *expiry_date:* Date (and if possible time) when the Proof of Age attestation will expire. The value is a tdate or
+    - *expiry_date:* Date (and if possible time) when the Proof of age attestation will expire. The value is a tdate or
       full-date value.
     - *issuing_authority:* Name of the administrative authority that issued the Proof of Age attestation. The value is a
       tstr value.
@@ -1045,15 +1025,18 @@ Extending the solution to additional age thresholds would require:
 
 Future iterations of this specification MAY incorporate additional age thresholds as standardized use cases emerge.
 
-## 4.6 Procedures
+## 4.5 Procedures
 
-### 4.6.1 Issuing of Proof of Age batches
+### 4.5.1 Issuing of Proof of Age batches
 
-Since Proof of Age attestations are designed for single use, the system must support the issuance of attestations in
+Since Proof of Age Attestations are designed for single use, the system must support the issuance of attestations in
 batches. It is recommended that each batch consist of thirty (30) attestations.
 
-### 4.6.2 Re-Issuance of Proof of Age attestations
+### 4.5.2 Re-Issuance of Proof of Age Attestations
 
+<!---
+JM - Does the re-issuance process varies depending on the method of initial attestation issuance?
+--->
 The re-issuance process varies depending on the method of initial attestation issuance:
 
 - **eID-Based Issuance:**
@@ -1072,22 +1055,19 @@ The re-issuance process varies depending on the method of initial attestation is
 - **Other Issuance Methods:**
   Re-issuance procedures for other methods of attestation issuance require a re-identification as well.
 
-### 4.6.3 Attestation revocation and validity period
+### 4.5.3 Attestation revocation and validity period
 
 Attestation revocation is not required for age verification purposes. Implementing revocation mechanisms would
-significantly increase the complexity for both Proof of Age attestation providers and Relying Parties.
+significantly increase the complexity for both Proof of Age Attestation providers and Relying Parties.
 
-It is recommended that the Proof of Age attestation be designed as a single-use credential and remain valid for a
+It is recommended that the Proof of Age Attestation be designed as a single-use credential and remain valid for a
 maximum period of three (3) months from the date of issuance. If a revocation mechanism is required, a status list may
 be utilized as an effective solution for managing the revocation status of attestations.
 
 Furthermore, it should be noted that Relying Parties are not necessarily required to request a new attestation for each
-<!---
-NF, Fix chapter
--->
-individual transaction, as outlined in Chapter 2.3.2, Section "8. Verification options for subsequent interactions."
+individual transaction.
 
-### 4.6.4 Validation of Trust
+### 4.5.4 Validation of Trust
 
 The Digital Services Act (DSA) does not prescribe mandatory trust frameworks for age verification ecosystems. To
 minimize operational complexity, the solution prioritizes leveraging existing trust infrastructures over
@@ -1096,7 +1076,7 @@ established under the eIDAS Regulation (EU) No 910/2014.
 
 The trust framework for the Proof of Age attestation is based on trusted lists developed and operated pursuant to
 Article 22 of the eIDAS Regulation. The trusted lists are available on
-the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/home). Proof of Age attestation Providers should be either
+the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/home). Proof of Age Attestation Providers should be either
 qualified or non-qualified trust service providers and they should be published in a trusted list that is made available
 to the eIDAS Dashboard. Their publication should follow the requirements laid out in Implementing Regulation 2015/1505,
 and the Trust Anchor defined therein (Service Digital Identifier) should be used by Relying Parties to validate the
@@ -1108,42 +1088,42 @@ attestation.
 The registration of Relying Parties that request age verification, or the registration of Age Verification App Providers
 is not required. 
 <!---
-NF, "Proof of Age attestation Providers may however set specific conditions as to which apps they can issue
+NF, "Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue
 such attestations to" How? Apps are public clients
 -->
-Proof of Age attestation Providers may however set specific conditions as to which apps they can issue
+Proof of Age Attestation Providers may however set specific conditions as to which apps they can issue
 such attestations to, and Age Verification App Providers may set similar conditions regarding Relying Parties.
 
 Considering the need for reliability and trust in the age verification solution, a method comparable at least to LoA
 Substantial should be required as laid out in Implementing Regulation 2015/1502.
 
-#### Trusted List solution for the Proof of Age attestation Providers (PAAP)
+#### Trusted List solution for the Proof of Age Attestation Providers (AP)
 <!---
 NF, Fix roles and acronyms
 -->
-It must be decided whether the Proof of Age attestation Provider (PAAP) requires its own dedicated trust anchor CA.
+It must be decided whether the Proof of Age Attestation Provider (AP) requires its own dedicated trust anchor CA.
 Both implementation options are presented below. The final implementation approach will be defined in a later version of
 this document.
 
-**Option 1 – PAAP with trust anchor CA**
+**Option 1 – AP with its own trust anchor CA**
 
-- The PAAP (or an entity acting on its behalf) manages the PKI infrastructure – including software, hardware, and HSM –,
+- The AP (or an entity acting on its behalf) manages the PKI infrastructure – including software, hardware, and HSM –,
   establishes a trust anchor CA, generates a key pair, and issues a certificate for signing or sealing the Proof of Age
   Attestation.
-- The Trusted List Provider/Registrar adds the PAAP’s information and corresponding trust anchor to the Trusted List.
-- For each PAAP, the Trusted List shall include information about the PAAP, together with its associated trust anchor.
+- The Trusted List Provider/Registrar adds the AP’s information and corresponding trust anchor to the Trusted List.
+- For each AP, the Trusted List shall include information about the AP, together with its associated trust anchor.
 
 ![Figure 6](./media/Figure_6_trusted-list-1.png)
 *Figure 6: Trusted List proposed approach*
 
-**Option 2 – PAAP without trust anchor CA**
+**Option 2 – AP with centralized trust anchor CA**
 
-- The PAAP (or an entity acting on its behalf) generates a key pair for signing or sealing the Proof of Age attestation,
-  along with a PAAP certificate request.
-- The Trusted List Provider/Registrar operates the AV trust anchor PKI and issues the PAAP certificate for signing or
-  sealing the Proof of Age attestation (based on the public key contained in the PAAP’s certificate request).
-  Information about the PAAP is made publicly available via the eIDAS Dashboard, with a URL to this information included
-  in the PAAP certificate.
+- The AP (or an entity acting on its behalf) generates a key pair for signing or sealing the Proof of Age Attestation,
+  along with a AP certificate request.
+- The Trusted List Provider/Registrar operates the AV trust anchor PKI and issues the AP certificate for signing or
+  sealing the Proof of Age Attestation (based on the public key contained in the AP’s certificate request).
+  Information about the AP is made publicly available via the eIDAS Dashboard, with a URL to this information included
+  in the AP certificate.
 - The Trusted List shall include only one AV trust anchor.
 
 ![Figure 7](./media/Figure_7_trusted-list-2.png)
@@ -1153,9 +1133,8 @@ Comparison table of the options is shown below.
 
 | Option                                  | Advantages​                                                                                                                                                                                                                                                  | Disadvantages​                                                                                                                                                                                                                                                                                                                               |
 |-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Option 1 – PAAP with trust anchor CA​   | The PAAP may either operate its own trust anchor CA or choose a third-party trust anchor CA.                                                                                                                                                                 | The Trusted List is expected to be large, as it will include both the trust anchor and corresponding information for each PAAP.​ <br><br>The validity period of the Trusted List will be short, due to the frequent addition/removal of PAAPs.​ <br><br>Consequently, Relying Parties will need to update the Trusted List on a daily basis. |
-| Option 2 – PAAP without trust anchor CA | The Trusted List is expected to be very small in size. ​<br><br>The validity period of the Trusted List may be relatively long (e.g., one year), allowing Relying Parties to cache the Trusted List locally and download a new version only upon expiration. | The Trusted List Provider or Registrar is responsible for operating the AV trust anchor PKI. <br><br> Information about the PAAP is not included in the Trusted List; instead, Relying Parties must follow the URL provided in the PAAP certificate to access the relevant PAAP information.                                                 |
-
+| Option 1 – AP with its own trust anchor CA​   | The AP may either operate its own trust anchor CA or choose a third-party trust anchor CA.                                                                                                                                                                 | The Trusted List is expected to be large, as it will include both the trust anchor and corresponding information for each AP.​ <br><br>The validity period of the Trusted List will be short, due to the frequent addition/removal of APs.​ <br><br>Consequently, Relying Parties will need to update the Trusted List on a daily basis. |
+| Option 2 – AP with centralized trust anchor CA | The Trusted List is expected to be very small in size. ​<br><br>The validity period of the Trusted List may be relatively long (e.g., one year), allowing Relying Parties to cache the Trusted List locally and download a new version only upon expiration. | The Trusted List Provider or Registrar is responsible for operating the AV trust anchor PKI. <br><br> Information about the AP is not included in the Trusted List; instead, Relying Parties must follow the URL provided in the AP certificate to access the relevant AP information.  
 
 # 5. Age Verification Profile
 An age verification profile is defined in Annex 4. 

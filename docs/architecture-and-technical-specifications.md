@@ -1303,8 +1303,6 @@ requiring them to undergo a separate verification process. In a German context, 
 Proof of Age attestation based on their existing customer data. This service would function similarly to how the
 KulturPass app is used.
 
-We are pleased to share that Sparkasse is interested in providing such a service, which would facilitate a smooth and
-trusted age verification process leveraging their established identity verification capabilities.
 
 **Can existing trust service providers qualify as attestation providers? Do they need to fulfil additional
 requirements or is the qualification as trust service provider enough to be used for the age verification app? Or

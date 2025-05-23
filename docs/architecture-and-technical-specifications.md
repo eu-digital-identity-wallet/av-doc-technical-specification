@@ -654,8 +654,8 @@ necessarily need to include all components.
 NF, Check figure numbering
 -->
 
-![Figure 2](./media/Figure_2_functional_architecture.png)
-*Figure 2: Overview of the Age Verification Solution architecture*
+![Figure 4](./media/Figure_2_functional_architecture.png)
+*Figure 4: Overview of the Age Verification Solution architecture*
 
 ## 4.2 Entities
 
@@ -705,15 +705,17 @@ Device flow (figure 4) . The Same Device flow means that the User presents their
 interacting with the User (through the web browser or an app) on the same device that the device the Age Verification
 App Instance (Age Verification App) resides on.
 
-![Figure 3](./media/Figure_11_solution_same_device.png)
-*Figure 3:Age verification solution components, interfaces and protocols – Same Device*
+![Figure 5](./media/Figure_11_solution_same_device.png)
+
+*Figure 5: Age verification solution components, interfaces and protocols – Same Device*
 
 The Cross Device flow means that the User presents their Proof of Age
 attestation to a Relying Party interacting with the User on a different device that the device the Age Verification App
 resides on. In this case the devices should be in proximity to each other to provide protection against certain attacks.
 
-![Figure 4](./media/Figure_12_solution_cross_device.png)
-*Figure 4:Age verification solution components, interfaces and protocols – Cross Device*
+![Figure 6](./media/Figure_12_solution_cross_device.png)
+
+*Figure 6: Age verification solution components, interfaces and protocols – Cross Device*
 
 ## 4.3 Interfaces
 The following interfaces are considered by the Age Verification Solution:
@@ -814,8 +816,8 @@ implemented.
 JM - I don't understand this figure.
 --->
 
-![Figure 3](./media/Figure_3_enrollment_options.png)
-*Figure 3: Enrollment options with and without existing identification.*
+![Figure 7](./media/Figure_3_enrollment_options.png)
+*Figure 7: Enrollment options with and without existing identification.*
 The above architecture diagram is a functional diagram. For examples of physical mappings, see next clause.
 
 ### 4.4.1 Enrollment Methods with existing Identification
@@ -934,8 +936,8 @@ specifications for Machine Readable Travel Documents (MRTDs), including:
   build an extension module for identity and passport reading based on an open-source module which implements the
   interfaces.
 
-![Figure 4](./media/Figure_4_sw_interfaces.png)
-*Figure 4: Enrollment options with and without existing identification.*
+![Figure 8](./media/Figure_4_sw_interfaces.png)
+*Figure 8: Enrollment options with and without existing identification.*
 
 ##### *Relevant technical specifications:*
 
@@ -1082,8 +1084,8 @@ to the eIDAS Dashboard. Their publication should follow the requirements laid ou
 and the Trust Anchor defined therein (Service Digital Identifier) should be used by Relying Parties to validate the
 attestation.
 
-![Figure 5](./media/Figure_5_trusted-list.png)
-*Figure 5: Enrollment options with and without existing identification.*
+![Figure 9](./media/Figure_5_trusted-list.png)
+*Figure 9: Validation of Trust*
 
 The registration of Relying Parties that request age verification, or the registration of Age Verification App Providers
 is not required. 
@@ -1113,8 +1115,8 @@ this document.
 - The Trusted List Provider/Registrar adds the AP’s information and corresponding trust anchor to the Trusted List.
 - For each AP, the Trusted List shall include information about the AP, together with its associated trust anchor.
 
-![Figure 6](./media/Figure_6_trusted-list-1.png)
-*Figure 6: Trusted List proposed approach*
+![Figure 10](./media/Figure_6_trusted-list-1.png)
+*Figure 10: AP-own trust anchor CA*
 
 **Option 2 – AP with centralized trust anchor CA**
 
@@ -1126,8 +1128,8 @@ this document.
   in the AP certificate.
 - The Trusted List shall include only one AV trust anchor.
 
-![Figure 7](./media/Figure_7_trusted-list-2.png)
-*Figure 7: Trusted List proposed approach*
+![Figure 11](./media/Figure_7_trusted-list-2.png)
+*Figure 11: Centralized trust anchor CA*
 
 Comparison table of the options is shown below.
 
@@ -1149,10 +1151,11 @@ functionalities they may want to supplement with commercial offers.
 
 The white label solution will be implemented based on the open source EUDI Wallet Reference implementation libraries.
 
-![Figure 5](./media/Figure_10_solution.png)
-*Figure 5: Solution Overview*
+![Figure 12](./media/Figure_10_solution.png)
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+*Figure 12: Solution Overview*
+
+
 
 ## 6.1 High Level Requirements for the White Label Application
 <!---

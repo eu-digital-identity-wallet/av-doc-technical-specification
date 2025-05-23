@@ -587,6 +587,7 @@ This section lists the requirements to be met by the Proof of Age attestation:
 
 This section lists the requirements to be met by Attestation Providers:
 - An Attestation Provider SHALL implement the protocols specified in Annex A.
+- An Attestation Provider SHALL issue Proof of Age attestations that comply with the data model set in Section 4.5
 - An Attestation Provider SHALL register with the Federation Authority to obtain proper authorization for issuing proof of age
   attestations.
 - An Attestation Provider SHOULD be a qualified or non-qualified trust service provider (TSP) registered in the eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.
@@ -597,10 +598,14 @@ This section lists the requirements to be met by Attestation Providers:
 
 This section lists the requirements to be met by Relying Parties:
 - A Relying Party  SHALL implement the protocols specified in Annex A
+- A Relying party SHALL accept Proof of Age attestations that comply with the data model set in Section 4.5 
 - A Relying Party SHALL validate the authenticity and the integrity of a presented Proof of Age attestation.
-- A Relying Party SHALL validate that the Attestation Provider of a presented Proof of Age attestation is authorized to issue Proof of Age attestations.
+- A Relying Party SHALL validate that the Attestation Provider of a presented Proof of Age attestation is authorized to issue Proof of Age attestations using the Trusted List provided by the Commission.
 - A Relying Party SHALL evaluate that a presented Proof of Age attestation.
 
+## 3.4 Trusted list
+
+- The Commission SHALL deploy and manage Trusted Lists (ETSI) of Attestation Providers
 
 # 4. Architecture
 The age verification solution defined in this document is guided by several key
@@ -1012,6 +1017,7 @@ The attribute set for Proof of Age attestations consists of:
       country. The value is a tstr value.
     - *portrait:* A reproduction of the Proof of Age attestation user's portrait. The value is a bstr value.
 
+
 #### Note on Age Attribute Scope
 
 While the technical architecture and data model (based on ISO/IEC 18013-5 and ISO/IEC 23220-2) inherently support the
@@ -1252,7 +1258,7 @@ lists validation SHALL be provided by the implementers.
 ## 6.4 Trusted list
 
 Attestation Providers' trusted lists (ETSI) SHALL be deployed and managed by the
-Member States.
+Commission.
 
 The white label solution includes a sample trusted list and a validation
 service. The white label application and the Relying Party will validate

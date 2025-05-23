@@ -84,6 +84,9 @@ provider by an Age Verification App Provider to a User seeking to access age-res
 - **Age Verification App Instance**: The  Age Verification App installed and configured on a user’s device.
 - **Age Verification App Provider**: Providers of age verification apps are Member States or organisations making the age verification app available for end users.
 - **Age Verification Solution**: A combination of software, hardware, services, settings, and configurations
+- **Implementer**: Αn individual who is responsible for translating software designs, specifications, 
+or concepts into functional, operational systems. Presumably this is a contractor of the 
+Age Verification App Provider, Proof of Age Attestation Provider or Proof of age verifier. 
 - **Proof of age verifier, Relying Party**: Natural or legal person that rely on the age verification application to verify the user condition of being over certain age.
 - **Trust Provider**: Operator of an entity or mechanism responsible for maintaining a trusted list (whitelist)
   of all legally authorized attestation issuers. This ensures that verifiers and users can validate the legitimacy and
@@ -300,11 +303,9 @@ be adapted to support offline or proximity-based presentations, where attestatio
 
 
 ### 2.2.3 Revocation and Re-Issuance
-<!---
-NF, We do not support revocation and re-issuance. To remove? Yes. Or write why do not have revocation
--->
-
-In its current form, the solution does not support revocation or re-issuance. Adding support for these features would introduce additional complexity, which could hinder the rapid adoption of the solution. 
+In its current form, the solution does not support revocation or re-issuance. 
+Adding support for these features would introduce additional complexity, which could 
+hinder the rapid adoption of the solution. 
 
 ### 2.2.4 Verifiable across Europe
 
@@ -565,7 +566,7 @@ the next sections.*
 
 This section defines requirements, that applies to the Age Verification App:
 
-- The Age Verification App SHALL implement the protocols specified in Annex 4.
+- An Age Verification App SHALL implement the protocols specified in Annex 4.
 - An Age Verification App made available as a mobile application SHOULD be published on the App Stores for Android and iOS operating systems and MAY be published on other App Stores (e.g. Huawei, Samsung).
 - An Age Verification App is provided as a stand-alone app separate from the European Digital Identity Wallet, its Age Verification App Provider SHOULD strive for equivalence with Level of Assurance "Substantial" pursuant to Commission Implementing Regulation (EU) 2015/1502.
 - An Age Verification App MAY include initialisation functionality that is required for the use of the app.
@@ -586,16 +587,16 @@ This section lists the requirements to be met by the Proof of Age attestation:
 
 This section lists the requirements to be met by Attestation Providers:
 - An Attestation Provider SHALL implement the protocols specified in Annex 4.
-- The Attestation Provider SHALL register with the Federation Authority to obtain proper authorization for issuing proof of age
+- An Attestation Provider SHALL register with the Federation Authority to obtain proper authorization for issuing proof of age
   attestations.
-- The Attestation Provider SHOULD be a qualified or non-qualified trust service provider (TSP) registered in the eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.
-- The Attestation Provider SHALL NOT issue a Proof of Age attestation before verifying the attestation subject's age at
+- An Attestation Provider SHOULD be a qualified or non-qualified trust service provider (TSP) registered in the eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.
+- An Attestation Provider SHALL NOT issue a Proof of Age attestation before verifying the attestation subject's age at
   the Level of Assurance 'substantial' or 'high'.
 
 ## 3.4 Relying Party
 
 This section lists the requirements to be met by Relying Parties:
-- A  Relying Party  SHALL implement the protocols specified in Annex 4
+- A Relying Party  SHALL implement the protocols specified in Annex 4
 - A Relying Party SHALL validate the authenticity and the integrity of a presented Proof of Age attestation.
 - A Relying Party SHALL validate that the Attestation Provider of a presented Proof of Age attestation is authorized to issue Proof of Age attestations.
 - A Relying Party SHALL evaluate that a presented Proof of Age attestation.
@@ -714,11 +715,10 @@ resides on. In this case the devices should be in proximity to each other to pro
 ![Figure 4](./media/Figure_12_solution_cross_device.png)
 *Figure 4:Age verification solution components, interfaces and protocols – Cross Device*
 
-## 4.3 Interaction
- The following interactions are considered by the
-Age Verification Solution:
+## 4.3 Interfaces
+The following interfaces are considered by the Age Verification Solution:
 
-### 4.3.1 Authentic Source to Attestation Provider Communication
+### 4.3.1 Authentic Source and Attestation Provider interface
 
 Communication flows between an Authentic Source (e.g., government register, trusted private entity) and an AP
 
@@ -732,12 +732,13 @@ Communication flows between an Authentic Source (e.g., government register, trus
 - **Complexity:** Typically, a separate issuer must be provided for each authentic or trusted third-party data source,
   as each issuer is required to implement a distinct business process tailored to the respective data source.
 
-### 4.3.2 Attestation Provider and Age Verification App Instance interactions
-
+### 4.3.2 Attestation Provider and Age Verification App Instance interface
+This interface is used by the AVI to communicate with the AP in order to receive
+a Proof of Age attestation. 
 
 #### Protocol Implementation
 
-- OpenID4VCI Compliance: AP and AVI communicate through an interface that  implements the OpenID for Verifiable Credential Issuance (OpenID4VCI)
+- OpenID4VCI Compliance: This interface is implemented using the OpenID for Verifiable Credential Issuance (OpenID4VCI)
   protocol, ensuring standardized, interoperable credential exchange across issuers and applications (see also Annex 4).
 - Multi-AP Support: An Age Verification app can interface with any APs supporting OpenID4VCI, enabling users
   to obtain attestations from diverse  providers (e.g., national eID schemes, banks, or mobile operators).
@@ -747,12 +748,13 @@ This implementation aligns with the EU Digital Identity Wallet's Architecture an
 cross-border interoperability while allowing Member States to maintain control over authorized issuers through
 national trusted lists.
 
-### 4.3.3 Age Verification App Instance and Relying Party interactions
-
+### 4.3.3 Age Verification App Instance and Relying Party interface
+This interface empowers RPs to securely request and receive α Proof of Age 
+attestation from an AVI, accommodating both remote and proximity interactions.
 
 #### Protocol Implementation
 
-- OpenID4VP Compliance: The AVI and the RP communicate through an interface that implements the OpenID for Verifiable Presentations (OpenID4VP) protocol,
+- OpenID4VP Compliance: This interface is implemented using the OpenID for Verifiable Presentations (OpenID4VP) protocol,
   ensuring standardized and interoperable presentation of verifiable credentials (see also Annex 4).
 - Multi-Relying Party Support: The verification application can interact with multiple Relying Parties (verifiers),
   presenting any number of Proof of Age attestations as required. All such interactions are conducted exclusively via
@@ -765,7 +767,7 @@ national trusted lists.
 - Flexible Presentation: Users can present one or more Proof of Age attestations to various verifiers, supporting
   diverse use cases and regulatory requirements.
 
-### 4.3.4 Attestation Provider and Trust Provider interactions
+### 4.3.4 Attestation Provider and Trust Provider interface
 
 To distinguish authorized AP from unauthorized one, all APs MUST be registered with the
 EU and included in a centrally maintained trusted list. This registration process ensures compliance with EU regulatory,
@@ -776,7 +778,7 @@ NF, Is the registration interface proprietary?  Shouldn't be provided by the com
 -->
 The registration interface follows a proprietary design.
 
-### 4.3.5 Relying Party to Trust Provider 
+### 4.3.5 Relying Party and Trust Provider interface
 
 An RP can use an HTTP GET Method to retrieve the trusted list.
 
@@ -1171,43 +1173,36 @@ The white label solution will be implemented based on the open source EUDI Walle
 ![Figure 5](./media/Figure_10_solution.png)
 *Figure 5: Solution Overview*
 
-## 6.1	Definitions, Acronyms, and Abbreviations
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
-A list of the abbreviations and acronyms used in this document.
-
-| **Acronym** | **Definition**                                                                                                                                                                                                                                                                                                |
-  |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Implementer | An implementer is an individual who is responsible for                 translating software designs, specifications, or concepts into functional, operational systems. Presumably this is a contractor of the Age Verification App Provider, Proof of      Age Attestation Provider or Proof of age verifier. 
-
-## 6.2 White Label Application
+## 6.1 High Level Requirements for the White Label Application
 <!---
 NF, Needs update. I guess statements like "The credential-offer flow in
 the \[OpenID4VCI\] is not within the scope of the white label solution" are not correct
 -->
-The White label App shall include key functionality that is highlighted in the following section.
+The White label App SHALL include key functionality that is highlighted in the following section.
 
-The white label app shall include an enrollment and issuing functionality to support \[OpenID4VCI\] Authorization Code
-flow as the main method utilizing eID based authentication using delegation to an eIDAS node or a trusted identity
-provider. The credential-offer flow in
-the \[OpenID4VCI\] is not within the scope of the white label solution.
+The white label app SHALL include an enrollment and issuing functionality to support \[OpenID4VCI\] Authorization Code
+and Pre-Authorized Code flow as the main method utilizing eID based authentication using delegation to an eIDAS node or a trusted identity
+provider. 
 
-Additionally, the white label app shall include functionality to scan the ICAO9303 Machine Readable Zone (MRZ) utilizing
+Additionally, the white label app SHALL include functionality to scan the ICAO9303 Machine Readable Zone (MRZ) utilizing
 existing open source library capable of scanning or capturing an image of the data page, enabling extraction of the MRZ,
 and following utilizing existing open source library to read using NFC and with Basic Access Control ICAO9303 passport
-and identity data. Following the app shall be possible to transmit the data to the age verification issuing server. An
+and identity data. Following the app SHALL be possible to transmit the data to the age verification issuing server. An
 interface to obtain travel document results from an external module should replace the aforementioned process,
 subsequently forwarding data to the issuing server for digital signature confirmation as age verification.
 
 Implementers\' additional steps may include:
 
-1. Service to check the authenticity of an ICAO9303 ID/Passport is not included. The implementor shall be responsible
+1. Service to check the authenticity of an ICAO9303 ID/Passport is not included. The implementor SHALL be responsible
    for validating a National eID's and ePassport's authenticity against a national IACA and/or Schengen masterlist. An
    interface to check an issuing authority public certificate will be available in the white label app for this purpose.
 
 2. A liveness and biometrics matching service is not included. Member States may opt to include these features; however,
    the issuing service should connect to it.
 
-Furthermore, the white label app shall include functionality to allow the use of a QR code and/or token following an
+Furthermore, the white label app SHALL include functionality to allow the use of a QR code and/or token following an
 out-of-band identification (e.g. over the counter or through an existing app that has already identified the user with a
 sufficient level of assurance). The QR code and/or token shall be based on the Pre-Authorized Code Flow of OpenID4VCI.
 
@@ -1216,36 +1211,37 @@ the app in binary format.
 
 Implementers\' additional steps may include:
 
-1. The app configuration and UI shall be further protected using code hardening and runtime application self-protection
+1. The app configuration and UI SHALL be further protected using code hardening and runtime application self-protection
    or similar security measures to protect the total application against malicious attacks.
 
 2. The app attestation checks are not included in scope (including anti-root measures, etc.), with implementation
    responsibility resting with the implementers.
 
-The white label app shall include localization and branding capabilities by enhancing the UI per the official languages
+The white label app SHALL include localization and branding capabilities by enhancing the UI per the official languages
 of at least three Member States.
 
 The white label app does not include app back-end services, which are considered out of scope. All the data is stored in
 the device, not in cloud.
 
-The terms and conditions and the privacy notice shall be included by the Implementers, and the white label app shall
+The terms and conditions and the privacy notice SHALL be included by the Implementers, and the white label app SHALL
 provide a placeholder to facilitate this.
 
 The white label app includes key features for remote presentation using \[OpenID4VP\].
 
 The white label app does not include proximity capabilities (ISO 18013-5).
 
-## 6.3 Age Verification Issuing Service
+## 6.2 High Level Requirements for the Age Verification Issuing Service
+The age verification issuing service included in the white label solution can be used by Attestation Providers.
 
-The age verification issuing service included in the white label solution shall support mDoc and follow \[OpenID4VCI\]
-authentication code flow. The issuing service shall support batch issuing for the age over nn attestation.
+The age verification issuing service included in the white label solution SHALL support mDoc and follow \[OpenID4VCI\]
+authentication code flow. The issuing service SHALL support batch issuing for the age over nn attestation.
 
 The claims of the Proof of Age attestation are statically calculated from the enrollment document. No zero-knowledge
 proof is used in the first version. Consequently, when an individual reaches the age of nn, they must obtain a new proof
 of age attestation.
 
-The age verification issuing service shall include connectors for eIDAS node with SAML and OpenID Connect integration
-points for identity providers. Furthermore, an extra module shall be included in the issuing service that shall receive
+The age verification issuing service SHALL include connectors for eIDAS node with SAML and OpenID Connect integration
+points for identity providers. Furthermore, an extra module SHALL be included in the issuing service that SHALL receive
 passport/id data from the white label app to produce the age over nn attestation. The issuing service will also include
 capabilities for Pre-Authorized Code Flow using QR code/token.
 
@@ -1255,38 +1251,41 @@ would need to repeat the enrollment process to
 recalculate the claims. For this reason, refresh tokens are only practical when used in combination with zero-knowledge
 proofs. Additionally, revocation is not included in the first version of the issuing service.
 
-Implementers\' additional steps shall include:
+Implementers\' additional steps SHALL include:
 
 The PKI IACA and Document Signer (ISO18013-5 annex B provisions) are not
 included in the scope, and the Implementer must implement them.
 
+
+
+## 6.3 High Level Requirements for the Age Verification Service
+The age verification issuing service included in the white label solution can be used by Relying Party.
+
+In the toolbox, an age verification service that supports \[OpenID4VP\]
+using mDoc age over nn attestation SHALL be available. The service SHALL
+include an mDoc trust manager to verify the MSO validity and
+authenticity. In order to check the authenticity based on ETSI Trusted
+lists validation SHALL be provided by the implementers.
+
 ## 6.4 Trusted list
 
-Issuers' trusted lists (ETSI) shall be deployed and managed by the
+Attestation Providers' trusted lists (ETSI) SHALL be deployed and managed by the
 Member States.
 
 The white label solution includes a sample trusted list and a validation
 service. The white label application and the Relying Party will validate
 the trusted list using the validation service.
 
-## 6.5 Age Verification Service
-
-In the toolbox, an age verification service that supports \[OpenID4VP\]
-using mDoc age over nn attestation shall be available. The service shall
-include an mDoc trust manager to verify the MSO validity and
-authenticity. In order to check the authenticity based on ETSI Trusted
-lists validation shall be provided by the implementers.
-
-## 6.6 Overview of implementers\' actions for deployment of age verification
+## 6.5 Overview of implementers\' actions for deployment of age verification
 <!---
 NF, Fix the roles
 -->
-Depending on the implementers' roles as an issuer, Relying Party or white label app provider, one or more of the
-following actions shall be performed:
+Depending on the implementers' roles as an AP, RP or white label app provider, one or more of the
+following actions SHALL be performed:
 
 1. Integrate the issuing service to the national and/or other trusted eID services including eIDAS nodes.
 
-2. The Implementers shall Secure, Protect, Deploy and Maintain the services from the Toolbox for
+2. The Implementers SHALL Secure, Protect, Deploy and Maintain the services from the Toolbox for
 
    a. Issuing Service
 
@@ -1295,7 +1294,7 @@ following actions shall be performed:
 3. Finalize app configuration (i.e. translations), compile, secure and publish the Apps from the toolbox.
 
 All configurable features of the white label solution, such as attestation validity time and batch sizes follow the
-recommendations defined in the Architecture and technical Specifications document.
+recommendations defined in this document.
 
 Additional operational, security, performance and integration measures will be provided in the next version of this
 document.

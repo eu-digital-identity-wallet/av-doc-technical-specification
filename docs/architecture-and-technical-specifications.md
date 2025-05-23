@@ -600,12 +600,12 @@ This section lists the requirements to be met by Relying Parties:
 - A Relying Party  SHALL implement the protocols specified in Annex A
 - A Relying party SHALL accept Proof of Age attestations that comply with the data model set in Section 4.5 
 - A Relying Party SHALL validate the authenticity and the integrity of a presented Proof of Age attestation.
-- A Relying Party SHALL validate that the Attestation Provider of a presented Proof of Age attestation is authorized to issue Proof of Age attestations using the Trusted List provided by the Commission.
+- A Relying Party SHALL validate that the Attestation Provider of a presented Proof of Age attestation is authorized to issue Proof of Age attestations using the Trusted List provided by the European Commission.
 - A Relying Party SHALL evaluate that a presented Proof of Age attestation.
 
 ## 3.4 Trusted list
 
-- The Commission SHALL deploy and manage Trusted Lists (ETSI) of Attestation Providers
+- The European Commission SHALL deploy and manage Trusted Lists (ETSI) of Attestation Providers
 
 # 4. Architecture
 The age verification solution defined in this document is guided by several key
@@ -1312,7 +1312,8 @@ We would like to kindly point out that this topic is already addressed in sectio
 there, a separate registration is required in any case. Initially, this registration process is expected to be
 carried out manually. Section 4.5 says:
 
-Proof of Age attestation Providers should be either qualified or non-qualified trust service providers. The Trust Anchor defined in a Trusted List managed by the European Commission and this list should be used by Relying Parties to validate the attestation.
+Proof of Age attestation Providers should be either qualified or non-qualified trust service providers. The Trust Anchor 
+defined in a Trusted List managed by the European Commission and this list should be used by Relying Parties to validate the attestation.
 
 The registration of Relying Parties that request age verification, or the registration of Age Verification App
 Providers is not required. Proof of Age attestation Providers may however set specific conditions as to which apps
@@ -1331,21 +1332,9 @@ In principle, it is mandatory to support at least one enrollment option. For exa
 from the national ID card and providing an issuer that, based on the enrollment data, issues a Proof of Age
 attestation.
 
-The specific data collected during enrollment may vary depending on the option selected. Preferably, the issuer
-should be operated either by the Member State or by a designated contractor. Furthermore, the issuer must be able to
-fulfill the "level of assurance high" requirement-at least for the data flow up to the issuer-since not all necessary
-information (such as "over 18") can be read directly from the ID card. The exact requirements depend on the chosen
+The specific data collected during enrollment may vary depending on the option selected. The exact requirements depend on the chosen
 enrollment method.
 
-It is important to note that the issuer is not permitted to store the personal data. Instead, the issuer should
-calculate whether the user is over 18 based on the date of birth and then issue a Proof of Age attestation that
-contains only a true/false value for the age verification, without including the actual date of birth or other
-personal data.
-
-With a fully implemented EUDI Wallet, where the national ID card has been stored and zero-knowledge proofs are
-utilized, it is no longer necessary to pre-calculate the Proof of Age attestation. Instead, the user can generate the
-proof of age dynamically and securely within the wallet whenever required, without revealing their actual date of
-birth or other personal information.
 
 The user must install an age verification app on their mobile device. This app can either be published by the Member
 State or by an entity that has implemented the EU Age Verification Profile and is recognized by the EU as an Age
@@ -1361,19 +1350,17 @@ This component is responsible for ensuring that the attestation is authentic and
 verifying the digital signature and the integrity of the data. Additionally, it must confirm the actual value of the
 age verification-such as whether the user is over 18 years old-as stated in the attestation. An essential part of the
 verification process is also to check whether the issuer of the attestation is listed on the official EU Trusted List
-for Age Verification Providers, as maintained under the eIDAS Regulation.
+for Age Verification Providers.
 
-To achieve this, the software component must interact with the trust framework based on the trusted lists developed
-and operated according to Article 22 of the eIDAS Regulation. These lists are accessible through the eIDAS Dashboard
-and provide the necessary trust anchors for validation. The Relying Party’s software should use these trusted lists
+To achieve this, the software component must interact with the trust framework. The Relying Party’s software should use these trusted lists
 to automatically validate both the status and the authorization of the issuer.
 
 Open technical specifications and reference implementations, including a white-label validation service and toolbox,
 are being developed to support Relying Parties in integrating these verification capabilities. The verification
 process itself can be performed using standard interfaces of OpenID4VP, such as the Presentation Interface, which
 enables the secure receipt and validation of the Proof of Age attestation from the user's age verification app.
-Importantly, the Relying Party does not need to register or be certified to use the age verification solution, but
-must comply with the technical and trust framework requirements. The attestation only contains the necessary
+Importantly, the Relying Party does not need to register or be certified to use the age verification solution, 
+but must comply with the technical and trust framework requirements included in this document and in Annex A. The attestation only contains the necessary
 information-such as a simple true or false value for the age threshold-thereby ensuring privacy and data minimization
 throughout the process.
 
@@ -1391,18 +1378,18 @@ a basis.
 
 After selecting the technical features and making local adaptations, the app must be published by the Member State
 itself or by a company on its behalf. For this purpose, the publisher must be registered and the app must be certified
-in order to be released in the app store (certified by apple or google for the store).
+in order to be released in the app store (certified by the platform for the store).
 
 **Will the white label app be available in the German language (or other European languages)?**
 
-The beta version to be released next week will only include English. However, the app is already prepared for
+The beta version to will only include English. However, the app is already prepared for
 localization. All UI component texts are stored in a resource file, making it easy to add new languages in the future.
 This will also be described in the documentation in upcoming versions.
 
 For the release planned in June, we expect to provide support for the official languages of the EU Member States that
 receive the in-depth support. Additionally, we are happy to offer German language support for users in Germany.
 
-**Will the white label app support the usage (and technical interfaces) of already existing IDs in Germany? If yes,
+**Will the white label app support the usage (and technical interfaces) of already existing IDs? If yes,
 which existing IDs? What needs to be done to connect the white label app with the interfaces of existing IDs?**
 
 With the upcoming beta version, we will already demonstrate the option to use a national IDP or national eID, as
@@ -1419,7 +1406,7 @@ interfaces independently.
 organizational) that (i) attestation providers can receive and send their attestations from/to the app and (ii)
 online-platforms will be able to accept the white label app via/within their service?**
 
-Within this project, we are delivering a toolbox consisting of various specifications and services. Each Memberstate can
+Within this project, we are delivering a toolbox consisting of various specifications and services. Each Member State can
 then select which services they wish to use.
 
 In addition to the wallet, we will also provide open source reference implementations for both the issuer and verifier.
@@ -1427,8 +1414,8 @@ These components can be used to receive and process a Proof of Age attestation.
 
 If a Relying Party prefers to implement this functionality directly, they can use the reference implementation as
 documentation and make use of the underlying libraries or start its own implementation based on the specifications.
-For the upcoming release of the specification, we plan to propose OpenID4VCI, including batch issuing, for credential
-issuance, OpenID4VP for the presentation process, and mdoc as the data format. This approach ensures interoperability
+We plan propose OpenID4VCI, including batch issuing, for Proof of Age attestation
+issuance, OpenID4VP for the presentation process (see Annex A), and mdoc as the data format. This approach ensures interoperability
 and flexibility for national implementations, while supporting secure and standardized age verification processes across
 the EU.
 
@@ -1436,13 +1423,11 @@ We would also be happy to discuss and propose additional national requirements t
 age verification solutions. Your input and collaboration are welcome, as they are essential for creating solutions that
 meet the diverse needs of all Member States and improves our Age Verification Profile.
 
-**f. Will the white label app initially/automatically follow the app store policies, i.e. Google Play Developer Program
-Policies, Google Developer Distribution Agreements and Apple App Store Review Guidelines (especially provisions with
+**Will the white label app initially/automatically follow the platform's app store policies, especially provisions with
 regard to design/interface/user-friendliness/platform conventions? Who will be accountable for those policies with
 regard to the white label app, the commission or each MS?**
 
-The Age Verification project will only provide an open source software project. Each memberstate is responsible for
-publishing the app. Of course, we strive to comply with the policies of the relevant platforms and to ensure this
+The Age Verification project will only provide an open source software project. Each Member State is fully responsible of the Age Verification App that will be published. Of course, we strive to comply with the policies of the relevant platforms and to ensure this
 through user testing as well.
 
 

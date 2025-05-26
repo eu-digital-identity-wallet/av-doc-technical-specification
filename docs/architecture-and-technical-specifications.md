@@ -576,6 +576,7 @@ This section defines requirements, that applies to the Age Verification App:
 - An Age Verification App SHALL rely when possible on the device's native cryptographic hardware.
   capabilities, such as the Secure Enclave on iOS, or the Trusted Execution Environment (TEE) and Strongbox on Android.
 - An Age Verification Instance SHALL authenticate its User in a reliable manner (e.g. using a password, PIN code, biometric verification, pattern) before presenting the Proof of Age attestation.
+- An Age Verification App SHALL use a Proof of Age attestation only once and then remove it from the batch of the issued attestations. 
 
 ## 3.2 Proof of Age attestation 
 
@@ -588,6 +589,7 @@ This section lists the requirements to be met by the Proof of Age attestation:
 This section lists the requirements to be met by Attestation Providers:
 - An Attestation Provider SHALL implement the protocols specified in Annex A.
 - An Attestation Provider SHALL issue Proof of Age attestations that comply with the data model set in Section 4.5
+- An Attestation Provider SHALL support batch issuance of Proof of Age attestations
 - An Attestation Provider SHALL register with the Federation Authority to obtain proper authorization for issuing proof of age
   attestations.
 - An Attestation Provider SHOULD be a qualified or non-qualified trust service provider (TSP) registered in the eIDAS dashboard as a provider of certificates for electronic signature in accordance with Article 22 of 2014/910.

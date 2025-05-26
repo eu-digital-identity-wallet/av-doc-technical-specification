@@ -420,14 +420,29 @@ Content-Type: application/json
 
 ### Verifiable Presentation
 #### Request
-An authorization request sent from  a RP to the AVI
+An authorization request includes a DCQL query. The following is a DCQL query for requesting
+a Proof of Aget attestation 
+```
+{
+  "credentials": [
+    {
+      "id": "proof_of_age",
+      "format": "mso_mdoc",
+      "meta": {
+        "doctype_value": ["eu.europa.ec.agev10n"]
+      }
+    }
+  ]
+}
+```
+An authorization request sent from  a RP to the AVI. The request includes the DCQL query included in the previous example. 
 ```
 GET /authorize?
   response_type=vp_token
   &response_mode=direct_post
   &client_id=redirect_uri%3Ahttps%3A%2F%2Fclient.example.org%2Fpost
   &redirect_uri=https%3A%2F%2Fclient.example.org%2Fpost
-  &dcql_query=...
+  &dcql_query=%7B%22credentials%22%3A%5B%7B%22id%22%3A%22proof_of_age%22%2C%22format%22%3A%22mso_mdoc%22%2C%22meta%22%3A%7B%22doctype_value%22%3A%5B%22eu.europa.ec.agev10n%22%5D%7D%7D%5D%7D,
   &nonce=n-0S6_WzA2Mj HTTP/1.1
 ```
 #### Reponse

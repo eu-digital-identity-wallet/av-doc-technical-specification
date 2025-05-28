@@ -1,0 +1,17 @@
+---
+title: "European Age Verification Solution"
+subtitle: "Operational, Security, Product and Architecture Specifications of the white label application"
+keywords: [Digital Identity, eIDAS, EUDI, Wallet, Age Verification, Protecting Minors]
+titlepage: true
+lang: en-IE
+documentclass: "scrartcl"
+fontsize: "12pt"
+titlepage-rule-color: "1F3695"
+titlepage-rule-height: "3"
+titlepage-logo: "media/eu-logo.jpg"
+logo-width: 50pt
+block-headings: true
+listings-no-page-break: true
+toc-own-page: true
+...
+

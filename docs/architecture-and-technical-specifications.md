@@ -14,7 +14,7 @@ deliver a cross-border solution that minimises development effort and duplicatio
 among Member States, while fostering synergies.
 
 The structure of this document is based on the relevant IEEE standards, 
-specifically, \[IEEE 830-1998\] for Software Requirements Specifications and \
+specifically, \[IEEE 830-1998\] for Software Requirements Specifications and 
 [ISO/IEC/IEEE 42010:2022\] for Architecture Descriptions, but has been adapted to 
 meet the specific needs and context of this project.
 

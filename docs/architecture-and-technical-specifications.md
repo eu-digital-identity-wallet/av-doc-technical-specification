@@ -1104,6 +1104,8 @@ includes the requested attribute.
 ## 4.5 Trusted List
 * The European Commission SHALL deploy and manage the Trusted List (ETSI) of 
 Attestation Providers.
+   * The Trusted List specifications can be found [here](https://acceptance.eidas.ec.europa.eu/efda/trust-services/browse/av-tl).
+
 
 
 # 5. Age Verification Profile
@@ -1266,14 +1268,14 @@ be provided in the next version of this document.
 
 A next version of the Technical Specifications for Age Verification Solutions will include as an 
 experimental feature the Zero-Knowledge Proof (ZKP) solution described in 
-the paper *"Matteo Frigo and abhi shelat, Anonymous credentials from ECDSA, Cryptology ePrint Archive, Paper 2024/2010, 2024, available at [https://eprint.iacr.org/2024/2010](https://eprint.iacr.org/2024/2010)"*  
-This zkSNARK-based solution was selected through a process where several 
+the paper *"Matteo Frigo and abhi shelat, Anonymous credentials from ECDSA, Cryptology ePrint Archive, Paper 2024/2010, 2024, available at [https://eprint.iacr.org/2024/2010](https://eprint.iacr.org/2024/2010)"*. This
+zkSNARK-based solution was selected through a process where several 
 alternatives were evaluated. This solution requires no changes to the 
 attestation issuance process or to the structure of the Proof of Age 
 credential itself. This backward compatibility allows AVIs to gracefully 
 fall back to traditional protocols in environments where ZKPs are not 
 supported. An individual IETF draft has been submitted, and an open-source
-implementation is expected to be released shortly,
+implementation has been released [here](https://github.com/google/longfellow-zk).
 
 A comparison of the considered technologies and the reason for selecting this solution 
 is provided in [Annex B](annexes/annex-B/annex-B-zkp.md) 

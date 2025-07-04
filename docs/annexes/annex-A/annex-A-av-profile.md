@@ -146,7 +146,9 @@ Note: When using this profile with other cryptosuites, it is recommended to be e
 ## A.8. Zero-Knowledge Proofs
 - AVI SHOULD support the generation of Zero-Knowledge Proofs using the solution 
 detailed in:  *"Matteo Frigo and abhi shelat, Anonymous credentials from ECDSA, 
-Cryptology ePrint Archive, Paper 2024/2010, 2024, available at [https://eprint.iacr.org/2024/2010](https://eprint.iacr.org/2024/2010)"*. Such a proof SHALL demonstrate that:
+Cryptology ePrint Archive, Paper 2024/2010, 2024, available at [https://eprint.iacr.org/2024/2010](https://eprint.iacr.org/2024/2010)"*. 
+An open-source implementation of this solution has been released [here](https://github.com/google/longfellow-zk).
+Such a proof SHALL demonstrate that:
   - The Proof of Age attestation includes a signature that can be verified using the public key of the AP  
   - The Proof of Age attestation includes the requested attribute and its value is true
   - The AVI can generate a signature of the nonce that is verifiable using the 

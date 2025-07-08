@@ -1104,8 +1104,6 @@ includes the requested attribute.
 ## 4.5 Trusted List
 * The European Commission SHALL deploy and manage the Trusted List (ETSI) of 
 Attestation Providers.
-   * The Trusted List specifications can be found [here](https://acceptance.eidas.ec.europa.eu/efda/trust-services/browse/av-tl).
-
 
 
 # 5. Age Verification Profile

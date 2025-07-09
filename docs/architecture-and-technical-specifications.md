@@ -1,8 +1,8 @@
 # Operational, Security, Product, and Architecture Specifications
 
-# 1. Introduction
+## 1. Introduction
 
-## 1.1 Purpose of this document
+### 1.1 Purpose of this document
 
 The purpose of this document is to provide a comprehensive specification that 
 combines a Software Requirements Specification (SRS) and an Architecture 
@@ -27,7 +27,7 @@ Section 4 "Age Verification Solution high level requirements" of this document
 includes normative requirements for the Proof of Age attestation,  Age Verification
 Apps, Attestation Providers, Relying Parties, and Trusted Lists.  
 
-## 1.2 Scope of this development
+### 1.2 Scope of this development
 This document defines the structural and functional aspects of the age 
 verification solution for online services. It details the key components, 
 interfaces, and interactions within the age verification ecosystem, providing a 
@@ -63,9 +63,7 @@ operational systems required for an enrolment, as this is subject to
 country-specific requirements. It serves as a reference for the harmonised 
 implementation of age verification solutions across the European Union.
 
-This specification builds upon the Architecture and Reference Framework ([ARF]
-(https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/))  
-for the European Digital Identity (EUDI) Wallets, adopting the same foundational 
+This specification builds upon the Architecture and Reference Framework ([ARF](https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/)) for the European Digital Identity (EUDI) Wallets, adopting the same foundational 
 technical standards and design principles to ensure interoperability, security, 
 and privacy within the EU digital identity ecosystem. However, it defines only a 
 subset of the requirements and functionalities compared to a full EUDI Wallet 
@@ -73,13 +71,13 @@ implementation, focusing specifically on the needs of age verification solutions
 The objective is to provide a compatible architecture that facilitates seamless 
 integration with EUDI Wallets as the ecosystem evolves.
 
-## 1.3 Definitions, Acronyms and Abbreviations
+### 1.3 Definitions, Acronyms and Abbreviations
 For the purposes of the present document, the terms and definitions given in EU 
 Digital Identity Architecture and Reference Framework and the following apply. A 
 term defined in the present document takes precedence over the definition of the 
 same term, if any, in EU Digital Identity Architecture and Reference Framework.
 
-### 1.3.1 Definitions
+#### 1.3.1 Definitions
 For the purposes of the present document, the following terms and definitions 
 apply:
 
@@ -121,7 +119,7 @@ This ensures that Relying Parties and Users can validate the legitimacy and
 authorisation of entities participating in the ecosystem.  
 * **User**: A User who is in control of an Age Verification App Instance.
 
-### 1.3.2 Acronyms and Abbreviations
+#### 1.3.2 Acronyms and Abbreviations
 For the purposes of the present document, the following abbreviations and 
 acronyms apply:
 
@@ -145,7 +143,7 @@ acronyms apply:
 | WB | Web Browser (or web app) |
 | ZKP | Zero Knowledge Proof |
 
-## 1.4 Conventions
+### 1.4 Conventions
 The terms "SHALL," "SHALL NOT," "MAY", "SHOULD," and "SHOULD NOT" in this 
 document are to be interpreted as defined in RFC 2119 (Key words for use in 
 RFCs to Indicate Requirement Levels). Their meanings are as follows:
@@ -170,13 +168,13 @@ not required.
 These keywords are used throughout this document to clarify the level of 
 obligation associated with each requirement.
 
-## 1.5 References
+### 1.5 References
 References are classified as either specific (identified by date of 
 publication and/or version number) or non-specific. For specific references, 
 only the cited version is applicable. For non-specific references, the most 
 recent version of the referenced document (including any amendments) shall apply.
 
-### 1.5.1 Normative References
+#### 1.5.1 Normative References
 The following referenced documents are essential for the application of this document.
 
 | Item Reference | Standard name/details |
@@ -187,7 +185,7 @@ The following referenced documents are essential for the application of this doc
 | [W3C Digital Credentials API] | Caceres, M., Cappalli, T., Goto, S. *et al,* "[Digital Credentials API](https://w3c-fedid.github.io/digital-credentials/)", Draft Community Group Report |
 
 
-### 1.5.2 Informative References
+#### 1.5.2 Informative References
 The documents listed below are not required for the implementation of this 
 document; however, they provide additional guidance and context on specific 
 subject areas.
@@ -203,7 +201,7 @@ subject areas.
 | \[ISO/IEC CD TS 23220-4\] | [OISO/IEC CD TS 23220-4: Cards and security devices for personal identification — Building blocks for identity management via mobile devices. Part 4: Protocols and services for operational phase.](https://www.iso.org/standard/86785.html) |
 | \[IETF RFC 2119\] | [Key words for use in RFCs to Indicate Requirement Levels](https://datatracker.ietf.org/doc/html/rfc2119) |
 | \[IEEE 830-1998\] | [Recommended Practice for Software Requirements Specifications](https://standards.ieee.org/ieee/830/1222/) |
-| \[ISO 42010-2022\] | [Software, systems and enterprise — Architecture description](https://www.iso.org/standard/74393.html) |
+| \[ISO/IEC/IEEE 42010:2022\] | [Software, systems and enterprise — Architecture description](https://www.iso.org/standard/74393.html) |
 
 ## 2 Overall Description of the Age Verification Solution
 The primary objective is to develop an EU-wide solution to age verification 
@@ -264,7 +262,7 @@ age verification, this initiative will empower users, online services, and
 regulators to uphold digital safety and inclusivity while ensuring compliance 
 with Union law.
 
-## 2.1 Perspective of the Age Verification Solution
+### 2.1 Perspective of the Age Verification Solution
 Once Proof of Age attestations are issued, they can be presented and verified 
 by online services in a simple, secure, and privacy-preserving manner. This 
 capability is supported by the following elements:
@@ -298,13 +296,13 @@ foundation for long-term sustainability and interoperability. The Age
 Verification Profile defined in Annex A is designed to be forward-compatible 
 with future EUDI Wallets. 
 
-## 2.2 Functions of the Age Verification Solution
+### 2.2 Functions of the Age Verification Solution
 The Age Verification Solution provides a set of key functional capabilities 
 that support the issuance, presentation, and verification of Proof of Age 
 attestations across the European Union. The following subsections describe 
 the key capabilities that support this functionality.
 
-### 2.2.1 Flexible Enrolment Methods
+#### 2.2.1 Flexible Enrolment Methods
 A primary function of the solution is the issuance of Proof of Age 
 attestations that can be used across the European Union. These attestations 
 enable individuals to demonstrate that they meet a specific age threshold, 
@@ -331,7 +329,7 @@ enrolment options they offer within the age verification solution. This
 flexibility acknowledges the diversity of national identification systems, 
 regulatory environments, and user needs across the European Union.
 
-### 2.2.2 Presentation of a Proof of Age attestation
+#### 2.2.2 Presentation of a Proof of Age attestation
 The solution enables users to present their Proof of Age attestation to 
 Relying Parties, primarily for online use cases. The system is optimised for 
 secure and privacy-preserving online presentation, allowing users to prove 
@@ -339,19 +337,19 @@ their eligibility without disclosing unnecessary personal information. The
 solution can in principle also be adapted to support offline or 
 proximity-based presentations.
 
-### 2.2.3 Revocation and Re-Issuance
+#### 2.2.3 Revocation and Re-Issuance
 In its current form, the solution does not support revocation or re-issuance. 
 Adding support for these features would introduce additional complexity, 
 which could hinder the rapid adoption of the solution.
 
-### 2.2.4 Verifiable across Member States
+#### 2.2.4 Verifiable across Member States
 A Trusted List is maintained as part of the solution, allowing Relying 
 Parties and Users to validate which entities are legally authorized to issue 
 Proof of Age attestations. This enhances trust and interoperability across 
 Member States by ensuring that only recognised authorities participate in the 
 issuance process.
 
-### 2.2.5 Extensibility
+#### 2.2.5 Extensibility
 While the current implementation focuses on the "over 18" age threshold, the 
 technical architecture supports extension to other age groups as required by 
 regulatory or business needs. The same applies also to additional enrolment 
@@ -359,7 +357,7 @@ options. The only prerequisite is the availability of a suitable enrolment
 process for the target age group, which can be also adapted or conducted 
 on-site if necessary.
 
-## 2.4 User Journey
+### 2.3 User Journey
 To enable online age verification, the User is required to install an AV app 
 on their mobile device. This AV app allows the User to securely and reliably 
 present proof of age without disclosing any unnecessary personal information. 
@@ -480,7 +478,7 @@ should be utilised to ensure secure access while enabling the User to choose
 a pseudonym, preserving privacy. Risks in case of the device sharing should 
 be considered.
 
-## 2.5 Design principles
+### 2.4 Design principles
 
 To enable rapid and reliable deployment of the age verification solution, 
 the solution adheres to the following approach:
@@ -565,10 +563,10 @@ attestation issuance procedures or human intervention, are available for
 cases where individuals cannot use the mainstream procedure, for example due 
 to a lack of necessary identity documents or electronic identification means.
 
-## 2.6 Assumptions and Dependencies
+### 2.5 Assumptions and Dependencies
 This specification operates under the following foundational assumptions:
 
-### 2.6.1 Legal Compliance in Member States
+#### 2.5.1 Legal Compliance in Member States
 It is assumed that EU Member States have established appropriate legal 
 frameworks to authorise the collection and processing of data required for 
 issuing Proof of Age attestations. This includes compliance with GDPR, the 
@@ -576,7 +574,7 @@ Digital Services Act (DSA), and national laws governing identity
 verification and age-restricted services. The enrolment methods (e.g., eID, 
 passport scans) rely on these legal bases to ensure lawful data handling.
 
-### 2.6.2 Deployment and national adaptations
+#### 2.5.2 Deployment and national adaptations
 Member States or third-party entities are responsible for deploying the age 
 verification solution in their jurisdictions. The solution is provided as a 
 white-label, open-source implementation, enabling customisation to meet 
@@ -589,13 +587,13 @@ and security standards (e.g., certification of Attestation Provider,
 encryption protocols). The specification provides modular components to 
 facilitate these adaptations without compromising interoperability.
 
-### 2.6.3 Open-Source Implementation
+#### 2.5.3 Open-Source Implementation
 The project exclusively provides an open-source reference implementation via 
 public repositories (e.g., published on GitHub). Member States and third 
 parties are responsible for hosting, maintaining, and adapting the solution 
 to their infrastructure.
 
-### 2.6.4 Alignment with EU Digital Identity Architecture
+#### 2.5.4 Alignment with EU Digital Identity Architecture
 The solution assumes ongoing development of the EU Digital Identity Wallet's 
 Architecture and Reference Framework ([ARF](https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/)). 
 By adhering to the [ARF](https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/)'s 
@@ -603,7 +601,7 @@ evolving specifications, the age verification solution ensures
 interoperability with future EU Digital Identity Wallets and leverages 
 synergies in trust frameworks, cryptographic standards, and governance models.
 
-## 2.7 Key differences between the Age Verification application and the Age Verification functionality in the EUDI Wallet
+### 2.6 Key differences between the Age Verification application and the Age Verification functionality in the EUDI Wallet
 The Age Verification solution is intended to bridge the gap until the EUDI 
 Wallets become available by the end of 2026, enabling the incorporation of 
 the age verification functionality in them. This section describes the key 
@@ -628,14 +626,14 @@ facilitated by relying on identity proofing process comparable to LoA high.
 The AV app is a stand-alone application that provides only the minimum 
 functions. In case of authentication to the national eIDAS node, only the 
 age verification attestation is stored. In this application no other ID data 
-is stored than the ones described in section 3.4. 
+is stored than the ones described in section 4.1. 
 
 
 ![Figure 3](./media/Figure_9_auth_national_eidas.png)
 
 *Figure 3: Authenticating to a national eIDAS node to receive the age verification attestation. Additional issuing options are available and analytically presented in the next sections.*
 
-# 3. Architecture
+## 3. Architecture
 The age verification solution defined in this document is guided by several
 key objectives. First and foremost, the solution is intended to support age 
 verification for access to online services, which is identified as a 
@@ -686,7 +684,7 @@ In summary, the defined technical architecture design aims to balance
 regulatory compliance and practical deployment considerations, while 
 remaining adaptable for future enhancements and broader use cases.
 
-## 3.1 Interactions
+### 3.1 Interactions
 * The User initiates an age verification process by enrolling with an 
 Attestation Provider (AP), which collects the necessary evidence from 
 authentic sources or trusted 3rd party private data sources.
@@ -723,10 +721,10 @@ certain attacks.
 
 *Figure 5: Age verification solution components, interfaces and protocols - Cross Device*
 
-## 3.2 Interfaces
+### 3.2 Interfaces
 The following interfaces are implemented by the Age Verification Solution:
 
-### 3.2.1 Authentic Source and Attestation Provider interface
+#### 3.2.1 Authentic Source and Attestation Provider interface
 Communication between an Authentic Source (e.g., government register or 
 trusted private entity) and an Attestation Provider occurs via a proprietary 
 interface, enabling customization to meet organizational or national needs. 
@@ -734,7 +732,7 @@ Integration supports modern RESTful HTTPS APIs as well as adapters for
 legacy systems. Each Attestation Provider typically implements a distinct 
 business process for every data source, adding complexity to integration.
 
-### 3.2.2 Attestation Provider and Age Verification App Instance interface
+#### 3.2.2 Attestation Provider and Age Verification App Instance interface
 This interface is used by the AVI to communicate with the AP to receive a 
 Proof of Age attestation. This interface may be implemented using
 the protocols specified in Annex A, ensuring 
@@ -748,23 +746,23 @@ This implementation aligns with the EU Digital Identity Wallet's
 Architecture and Reference Framework ([ARF](https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/)), 
 ensuring cross-border interoperability. 
 
-### 3.2.3 Age Verification App Instance and Relying Party interface
+#### 3.2.3 Age Verification App Instance and Relying Party interface
 This interface empowers RPs to securely request and receive a Proof of Age 
 attestation from an AVI.
 This interface is implemented using
 the protocols specified in Annex A, ensuring standardised and 
 interoperable presentation of verifiable credentials.
 
-### 3.2.4 Attestation Provider and Trust Provider interface
+#### 3.2.4 Attestation Provider and Trust Provider interface
 To distinguish an authorised AP from an unauthorised one, all APs MUST be 
 registered with the EU and included in a centrally maintained trusted list. 
 
 The registration interface follows a proprietary design.
 
-### 3.2.5 Relying Party and Trust Provider interface
+#### 3.2.5 Relying Party and Trust Provider interface
 An RP can use an HTTP GET Method to retrieve the trusted list.
 
-## 3.3 Supported Enrolment Configurations
+### 3.3 Supported Enrolment Configurations
 To achieve Level of Assurance "Substantial", the enrolment process must 
 provide a reasonable degree of confidence in the claimed identity, balancing 
 security with usability. The identity proofing must rely on notified eID 
@@ -803,7 +801,7 @@ least one of the options must be implemented.
 The above architecture diagram is a functional diagram. For examples of
 physical mappings, see next clause.
 
-### 3.3.1 Enrolment Methods with existing Identification
+#### 3.3.1 Enrolment Methods with existing Identification
 To achieve Level of Assurance "Substantial", enrolment processes can 
 effectively leverage existing identification mechanisms that have already 
 been verified to meet substantial (or higher) assurance levels. This 
@@ -861,7 +859,7 @@ proofing and cryptographic protocols.
 * The eIDAS node [technical documentation](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eIDAS+eID+Profile) is publicly available as is the [open-source code for the application](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eIDAS-Node+version+2.8). A web service designed to include the *age\_over\_nn* attribute has been developed and is available on the EUDI Wallet GitHub space (see [issuer](https://github.com/eu-digital-identity-wallet/eudi-srv-pid-issuer) and [web issuer](https://github.com/eu-digital-identity-wallet/eudi-srv-web-issuing-eudiw-py)).  
 * Specifications of national electronic identification schemes published by their providers.
 
-### 3.3.2 Enrolment Methods without existing Identification
+#### 3.3.2 Enrolment Methods without existing Identification
 In the approaches below, the AVI shall connect to the AP, providing 
 identification information included in a physical identity card of passport.
 
@@ -939,21 +937,21 @@ verification proof within the application.
 
 ***Relevant technical specifications:***
 
-* OpenID for Verifiable Credential Issuance ( Section [Pre-Authorized Code Flow](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow))3.5 [Pre-Authorized Code Flow](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow))
+* OpenID for Verifiable Credential Issuance ( Section 3.5 [Pre-Authorized Code Flow](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow))
 
 
 
-## 3.5 Procedures
-### 3.5.1 Issuing of Proof of Age batches
+## 3.4 Procedures
+#### 3.4.1 Issuing of Proof of Age batches
 Since Proof of Age Attestations are designed for single use, the system must 
 support the issuance of attestations in batches. It is recommended that each 
 batch consist of thirty (30) attestations.
 
-### 3.5.2 Re-Issuance of Proof of Age Attestations
+#### 3.4.2 Re-Issuance of Proof of Age Attestations
 The re-issuance process requires re-identification of the User at least 
 every 3 months. 
 
-### 3.5.3 Attestation revocation and validity period
+#### 3.4.3 Attestation revocation and validity period
 Attestation revocation is not required for age verification purposes. 
 Implementing revocation mechanisms would significantly increase the 
 complexity for both Proof of Age Attestation providers and Relying Parties.
@@ -964,7 +962,7 @@ months from the date of issuance. If a revocation mechanism is required, a
 status list may be utilized as an effective solution for managing the 
 revocation status of attestations.
 
-### 3.5.4 Validation of Trust
+#### 3.4.4 Validation of Trust
 The trust framework for the Proof of Age attestation is based on trusted 
 lists developed and operated pursuant to Article 22 of the eIDAS Regulation. 
 The trusted lists are available on the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/home). 
@@ -1001,7 +999,7 @@ corresponding trust anchor to the Trusted List.
 
 *Figure 9: AP-own trust anchor CA*
 
-# 4. Age Verification Solution high level requirements
+## 4. Age Verification Solution high level requirements
 (This section is normative)
 
 This section includes normative requirements for Age Verification solutions. It
@@ -1009,12 +1007,12 @@ specifies the Proof of Age attestation data model, as well as requirements that
 apply to Age Verification Apps, Attestation Providers, Relying Parties, and Trusted Lists.
 
 
-## 4.1 Proof of Age attestation
+### 4.1 Proof of Age attestation
 The data model for the Proof of Age attestation is defined as a profile of 
 the attribute schema specified in ISO/IEC 18013-5 (Mobile Driving Licence \[mDL\] Application) 
 and ISO/IEC 23220-2 A Proof of Age attestation SHALL comply with this data model
 
-### 4.1.1 Attribute Set
+#### 4.1.1 Attribute Set
 The attribute set for Proof of Age attestations consists of:
 
 | Attribute Identifier | Definition | Presence in Issuance | Presence in verification | Encoding format |
@@ -1040,7 +1038,7 @@ Extending the solution to additional age thresholds would require:
 Future iterations of this specification MAY incorporate additional age 
 thresholds as standardised use cases emerge.
 
-## 4.2 Age Verification App
+### 4.2 Age Verification App
 This section defines requirements that apply to the Age Verification App:
 
 * An Age Verification App SHALL implement the protocols specified in Annex A for 
@@ -1069,9 +1067,10 @@ presenting the Proof of Age attestation. An Age Verification App SHOULD
 incorporate further authentication factors as needed.
 * An Age Verification App SHALL use a Proof of Age attestation only once and 
 then remove it from the batch of the issued attestations.
+* Provider of an Age Verification App compliant with these specifications SHALL inform the Commission about the Age Verification App prior to its publication in the application stores.
+* The Commission SHALL maintain a list of Age Verification Apps compliant with these specifications on its website.
 
-
-## 4.3 Attestation Provider
+### 4.3 Attestation Provider
 This section lists the requirements to be met by Attestation Providers:
 
 * An Attestation Provider MAY implement the protocols specified in Annex A
@@ -1082,9 +1081,10 @@ the data model set in Section 4.1
 * An Attestation Provider SHALL register in a Trusted List.
 * An Attestation Provider SHALL NOT issue a Proof of Age attestation before 
 verifying the attestation subject's age at the Level of Assurance 'substantial' or 'high'.  
+* An Attestation Provider SHALL NOT issue Proof of Age attestations to any apps not listed on the list of Age Verification Apps maintained by the Commission.
+* It is RECOMMENDED that an Attestation Provider also acts as the provider of an Age Verification App to which it issues attestations.
 
-
-## 4.4 Relying Party
+### 4.4 Relying Party
 This section lists the requirements to be met by Relying Parties:
 
 * A Relying Party SHALL implement the protocols specified in Annex A
@@ -1101,17 +1101,15 @@ attestations using the Trusted List provided by the European Commission.
 * A Relying Party SHALL evaluate that a presented Proof of Age attestation
 includes the requested attribute.
 
-## 4.5 Trusted List
+### 4.5 Trusted List
 * The European Commission SHALL deploy and manage the Trusted List (ETSI) of 
 Attestation Providers.
-   * The Trusted List specifications can be found [here](https://acceptance.eidas.ec.europa.eu/efda/trust-services/browse/av-tl).
 
 
-
-# 5. Age Verification Profile
+## 5. Age Verification Profile
 An age verification profile is defined in Annex A.
 
-# 6. Features of the White-Label Toolbox
+## 6. Features of the White-Label Toolbox
 This chapter provides an overview on the features of the Age Verification 
 White Label Solution. The white label solution is a toolbox and offers Age 
 Verification App Providers, Attestation Providers and Relying Parties the 
@@ -1127,7 +1125,7 @@ Wallet Reference implementation libraries.
 
 *Figure 10: Solution Overview*
 
-## 6.1 High Level Requirements for the White Label Application
+### 6.1 High Level Requirements for the White Label Application
 The White label App SHALL include key functionality that is highlighted in 
 the following section.
 
@@ -1193,7 +1191,7 @@ the protocols specified in Annex A.
 
 The white label app does not include proximity capabilities (ISO 18013-5).
 
-## 6.2 High Level Requirements for the Age Verification Issuing Service
+### 6.2 High Level Requirements for the Age Verification Issuing Service
 The age verification issuing service included in the white label solution 
 can be used by Attestation Providers.
 
@@ -1222,7 +1220,7 @@ when used in combination with zero-knowledge proofs. Additionally,
 revocation is not included in the first version of the issuing service.
 
 
-## 6.3 High Level Requirements for the Age Verification Service
+### 6.3 High Level Requirements for the Age Verification Service
 The age verification issuing service included in the white label solution 
 can be used by Relying Party.
 
@@ -1233,7 +1231,7 @@ include an mDoc trust manager to verify the MSO validity and authenticity.
 In order to check the authenticity based on ETSI Trusted lists validation 
 SHALL be provided by the implementers.
 
-## 6.4 Trusted list
+### 6.4 Trusted list
 Attestation Providers' trusted lists (ETSI) SHALL be deployed and managed by 
 the  Commission.
 
@@ -1241,7 +1239,7 @@ The white label solution includes a sample trusted list and a validation
 service. The white label application and the Relying Party will validate the 
 trusted list using the validation service.
 
-## 6.5 Overview of implementers' actions for deployment of age verification
+### 6.5 Overview of implementers' actions for deployment of age verification
 Depending on the implementers' roles as an AP, RP or white label app 
 provider, one or more of the following actions SHALL be performed:
 
@@ -1263,8 +1261,8 @@ document.
 Additional operational, security, performance and integration measures will 
 be provided in the next version of this document.
 
-# 7. Experimental features
-## 7.1 Zero-Knowledge Proofs
+## 7. Experimental features
+### 7.1 Zero-Knowledge Proofs
 
 A next version of the Technical Specifications for Age Verification Solutions will include as an 
 experimental feature the Zero-Knowledge Proof (ZKP) solution described in 
@@ -1280,7 +1278,7 @@ implementation has been released [here](https://github.com/google/longfellow-zk)
 A comparison of the considered technologies and the reason for selecting this solution 
 is provided in [Annex B](annexes/annex-B/annex-B-zkp.md) 
 
-### 7.1.1 Overview
+#### 7.1.1 Overview
 
 The considered solution is based on a program expressed in the form of an 
 arithmetic circuit. This circuit receives a secret input, referred to as the 

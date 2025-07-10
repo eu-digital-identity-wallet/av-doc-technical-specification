@@ -941,7 +941,7 @@ verification proof within the application.
 
 
 
-## 3.4 Procedures
+### 3.4 Procedures
 #### 3.4.1 Issuing of Proof of Age batches
 Since Proof of Age Attestations are designed for single use, the system must 
 support the issuance of attestations in batches. It is recommended that each 
@@ -1048,16 +1048,10 @@ in Annex A for Proof of Age attestation issuance.
 * An Age Verification App made available as a mobile application SHOULD be 
 published on the App Stores for Android and iOS operating systems and MAY be 
 published on other App Stores (e.g. Huawei, Samsung).
-* An Age Verification App is provided as a standalone app separate from a 
-European Digital Identity Wallet, its Age Verification App Provider SHOULD 
-strive for equivalence with Level of Assurance "Substantial" pursuant to 
-Commission Implementing Regulation (EU) 2015/1502.
 * An Age Verification App MAY include initialisation functionality that is 
 required for the use of the app.
 * An Age Verification App MAY verify that an Attestation Provider is included on 
 the age verification trust list and is therefore authorised.
-* An Age Verification App SHALL NOT store any attestation other than the Proof 
-of Age attestation.
 * An Age Verification App SHALL rely on the device's native cryptographic 
 hardware. capabilities, such as the Secure Enclave on iOS, or the Trusted 
 Execution Environment (TEE) and Strongbox on Android, when they are available.

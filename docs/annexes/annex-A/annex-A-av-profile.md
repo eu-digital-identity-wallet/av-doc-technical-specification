@@ -22,9 +22,10 @@ the EUDI Wallet libraries. These functionalities will be developed and integrate
 incrementally over the course of the project. 
 
 The profile uses OpenID for Verifiable Credential Issuance [OID4VCI] for issuance
-of Proof of Age attestations, and OpenID for Verifiable Presentations [OID4VP] 
-and W3C Digital Credentials API [W3C Digital Credentials API] for presentation 
-of Proof of Age attestations, respectively. The attestation format used is ISO mDoc [ISO18013-5]. 
+of Proof of Age attestations. Furthermore, for the presentation of Proof of Age
+attestations, the profile uses  the W3C Digital Credentials API [W3C Digital Credentials API] as specified in
+ISO/IEC TS 18013-7, Annex C, as well as OpenID for Verifiable Presentations [OID4VP] 
+as a fallback mechanism.  The attestation format used is ISO mDoc [ISO18013-5]. 
 
 A full list of the open standards used in this profile can be found in Overview of 
 the Open Standards Requirements. 
@@ -81,7 +82,7 @@ The following items are out of scope for the current version of this document, b
 - Device bound Proof of Age attestations.
 - Proof of Age attestation presentation using proximity.
 - Profile of OpenID4VCI to issue ISO mDoc [ISO.18013-5] is defined in ISO 23220-3.
-- ISO mDoc specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API 
+
 
 ### Standards Requirements
 This specification enables interoperable implementations of the following flows:
@@ -91,12 +92,13 @@ Implementations of this specification do not have to implement all of the flows 
 A parameter that is listed as optional to be implemented in a specification that is 
 being profiled (i.e., OpenID4VCI, OpenID4VP and ISO mDoc) remains optional unless it is stated otherwise in this specification.
 
-## A.4 OpenID for Verifiable Credential Issuance
+## A.4 Proof of Age Attestation Issuance
+### OpenID for Verifiable Credential Issuance
 * Both AVI and AP MUST support and use [RFC7636] with S256 as the code challenge method
 * Both AVI and AP MUST support and use authorization code flow
 
 
-### Credential Offer
+#### Credential Offer
 - As a way to invoke the AVI, at least a custom URL scheme av:// MUST be supported. 
 - The Grant Type `authorization_code` MUST be used as defined in Section 4.1.1 in [OID4VCI]
 - The Grant Type `pre-authorized_code` MUST be used as defined in Section 4.1.1 in [OID4VCI]
@@ -106,24 +108,35 @@ use the `credential_configuration_ids` parameter which MUST be an array with a s
 grant type `authorization_code` is used and in the scope Token Request parameter when 
 grant type `pre-authorized_code` is used. 
 
-### Authorization Endpoint
+#### Authorization Endpoint
 - The AVI MUST use the scope parameter with value `proof_of_age`
 - The AVI MUST provide the `code_challenge` as per [RFC7636]
 
 
-### Token Endpoint
+#### Token Endpoint
 - The AVI MUST provide the `code_verifier` as per [RFC7636] when the Grant Type `authorization_code`
 is used. 
 
 
-### Credential Endpoint
+#### Credential Endpoint
 - The AVI MUST use the `proofs` parameter providing an array of proofs of type JWT.
 
 
-### AP Metadata
+#### AP Metadata
 TBD
 
-## A.5. OpenID for Verifiable Presentations profile Requirements
+## A.5 Proof of Age attestation presentation
+The default method for the presentation of a Proof of Age attestation is the 
+W3C Digital Credentials API. OpenID for Verifiable Presentations is used as 
+a fallback mechanism
+
+### W3C Digital Credentials API
+The W3C Digital Credentials API is used as specified in ISO/IEC TS 18013-7, Annex C
+
+### OpenID for Verifiable Presentations profile Requirements
+OpenID for Verifiable Presentations is used as a fallback mechanism when W3C
+Digital Credentials API is not available.
+
 - As a way to invoke the Age Verification App, at least a custom URL scheme av:// MUST be supported.
 - Response type MUST be `vp_token`
 - `response_mode` MUST be `direct_post`
@@ -133,17 +146,15 @@ TBD
 - The DCQL query and response as defined in Section 6 of [OID4VP] MUST be used
 
 
-## A.6 W3C Digital Credentials API
-**Note** The Age Verification Profile will prioritize adopting ISO/IEC TS 18013-7, Annex C; accordingly, this section will be revised.
 
 
 
-## A.7. Crypto Suites
+## A.6. Crypto Suites
 All entities MUST support P-256 (secp256r1) as a key type with ES256 JWT algorithm for signing and signature validation whenever this profile requires to do so.
 SHA256 MUST be supported by all the entities as the hash algorithm to generate and validate the digests in the MDOC VC.
 Note: When using this profile with other cryptosuites, it is recommended to be explicit about which entity is required to support which curve for signing and/or signature validation
 
-## A.8. Zero-Knowledge Proofs
+## A.7. Zero-Knowledge Proofs
 - AVI SHOULD support the generation of Zero-Knowledge Proofs using the solution 
 detailed in:  *"Matteo Frigo and abhi shelat, Anonymous credentials from ECDSA, 
 Cryptology ePrint Archive, Paper 2024/2010, 2024, available at [https://eprint.iacr.org/2024/2010](https://eprint.iacr.org/2024/2010)"*. 
@@ -158,10 +169,10 @@ Such a proof SHALL demonstrate that:
 - RP SHOULD be able to verify these Zero-Knowledge Proofs.
 
 
-## A.9. Security Considerations
+## A.8. Security Considerations
 The security considerations in [OID4VCI] and [OID4VP] apply when compatible with Level of Assurance substantial only.
 
-## A.10. Comparison with other profiles
+## A.9. Comparison with other profiles
 This section is non-normative 
 
 Since this age verification profile aims at achieving equivalence to Level of Assurance (LoA) substantial there is more flexibility to use faster go to market approaches using the protocols that are mentioned in the EUDI ARF but adopt configuration and profile parameters that will make implementers work easier and simpler without compromising the scope and the business needs of the Age Verification solution.
@@ -218,7 +229,7 @@ certificate.
 
 
 
-## A.11 Examples
+## A.10 Examples
 The following section includes non-normative examples
 ### Proof of Age attestation
 A Proof of Age attestation in ISO mDoc. 

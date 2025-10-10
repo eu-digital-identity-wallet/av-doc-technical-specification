@@ -508,7 +508,9 @@ driven by the following design principles:
   technologies that inherently restrict data exposure and safeguard user 
   privacy. Domain-specific identifiers, or pseudonyms, are used to enable 
   users to avoid relying on the same unique identifier when interacting with 
-  online services.
+  online services. Furthermore, these specifications do not require the Attestation 
+  Provider to store any permanent information related to a 
+  Proof of Age Attestation.
 
   * **Unlinkability:** The goal of the solution is to prevent user profiling 
   and tracking by avoiding linkable transactions. Initially, the solution 
@@ -860,8 +862,11 @@ proofing and cryptographic protocols.
 * Specifications of national electronic identification schemes published by their providers.
 
 #### 3.3.2 Enrolment Methods without existing Identification
-In the approaches below, the AVI shall connect to the AP, providing 
-identification information included in a physical identity card of passport.
+In the approach below, an AVI shall collect and verify 
+identification information included in a physical identity card of passport,
+connect to the AP, and request a Proof of Age  attestations providing a proof that
+it is legitimate AVI. Using this approach, the AVI does not transmit any
+user-related personal information to the AP. 
 
 **Identity Cards and Passports (ICAO 9303\)**
 
@@ -874,6 +879,7 @@ Documents (MRTDs), including:
 * Other ICAO-aligned credentials with integrated circuit chips (contactless ICs)
 
 **Technical Requirements:**
+An Age Verification App shall support the following:
 
 1. Document Reading
 
@@ -894,8 +900,19 @@ Documents (MRTDs), including:
 3. Age Attestation Mechanism
 
    * Extract birthdate from MRZ (positions 7-14 in TD3 docs)  
-   * Generate tamper-evident attestation payload containing the age\_over\_18 claim.  
-   * Enforce cryptographic binding between attestation and biometric session data
+   * Request from the operating system a tamper-evident attestation of 
+   AVI properties
+
+
+**Authentication Workflow**
+
+* The user initiates enrolment by selecting the type of identity document. 
+* The AVI reads the document and extracts the age of the user 
+* The AVI obtains an attestation from the operating system that describes the
+AVI and its context
+* The AVI requests a Proof-of-Age attestation from the AP using OID4VCI and
+the [Wallet Attestation](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#section-13.3)
+authentication method. 
 
 **Implementation Considerations:**
 
@@ -945,7 +962,12 @@ verification proof within the application.
 #### 3.4.1 Issuing of Proof of Age batches
 Since Proof of Age Attestations are designed for single use, the system must 
 support the issuance of attestations in batches. It is recommended that each 
-batch consist of thirty (30) attestations.
+batch consist of thirty (30) attestations. Since the timestamps in the 
+`ValidityInfo` structure of the mdoc encoding of a Proof of Age Attestation can provide 
+linkability clues, the Attestation Provider should set these timestamps with a 
+precision that limits the linkability information. For this reason the ISO/IEC 18013-5
+recommendation should be followed, i.e., setting the `hh`, `mm` and `ss` information to 
+the same value on each Proof of Age Attestation.
 
 #### 3.4.2 Re-Issuance of Proof of Age Attestations
 The re-issuance process requires re-identification of the User at least 
@@ -1018,8 +1040,9 @@ The attribute set for Proof of Age attestations consists of:
 | Attribute Identifier | Definition | Presence in Issuance | Presence in verification | Encoding format |
 | :---- | :---- | :---- | :---- | :---- |
 | age\_over\_18 | This attribute is present in all Proof of Age attestations and indicates whether the user is above 18\. | Mandatory | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested) | bool |
-| portrait | A reproduction of the Proof of Age attestation user's portrait. It will be used only for future proximity flows | Optional | Not allowed in remote presentation flows Optional in proximity flows | bstr  |
-| age\_over\_NN | Confirming whether the Proof of Age attestation user is currently over NN years of age. Multiple entries MAY be provided as separate attributes. Supported values of NN: 13, 15, 16, 21, 23, 25, 27, 28, 40, 60, 65, 67\. Age statements for other values of NN are not supported by this schema. | Optional | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested)  | bool |
+| age\_over\_NN | Confirming whether the Proof of Age attestation user is currently over NN years of age. Multiple entries MAY be provided as separate attributes. | Optional | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested)  | bool |
+
+A Proof of Age Attestation SHALL NOT include any other attribute.
 
 **Note on Age Attribute Scope**
 
@@ -1035,8 +1058,10 @@ Extending the solution to additional age thresholds would require:
 
 1. Alignment with jurisdictional legal frameworks governing the specific age-based restrictions.
 
-Future iterations of this specification MAY incorporate additional age 
-thresholds as standardised use cases emerge.
+Section 7.2.5  of the ISO 18013-5 specification 'Age attestation: nearest “true” 
+attestation above request' may be considered in implementations making use of 
+the optional age_over_NN attribute.
+
 
 ### 4.2 Age Verification App
 This section defines requirements that apply to the Age Verification App:
@@ -1072,6 +1097,8 @@ for  Proof of Age attestation issuance.
 * An Attestation Provider SHALL issue Proof of Age attestations that comply with 
 the data model set in Section 4.1
 * An Attestation Provider SHALL support batch issuance of Proof of Age attestations
+* An Attestation Provider SHALL set the timestamp included in the `ValidityInfo` structure with a 
+precision that limits the linkability information
 * An Attestation Provider SHALL register in a Trusted List.
 * An Attestation Provider SHALL NOT issue a Proof of Age attestation before 
 verifying the attestation subject's age at the Level of Assurance 'substantial' or 'high'.  
@@ -1131,7 +1158,7 @@ eIDAS node or a trusted identity provider.
 Additionally, the white label app SHALL include functionality to scan the 
 ICAO9303 Machine Readable Zone (MRZ) utilizing existing open source library 
 capable of scanning or capturing an image of the data page, enabling 
-extraction of the MRZ, and following utilizing existing open source library 
+extraction of the MRZ, and following utilizing existing open source library
 to read using NFC and with Basic Access Control ICAO9303 passport and 
 identity data. Following the app SHALL be possible to transmit the data to 
 the age verification issuing server. An interface to obtain travel document 
@@ -1279,7 +1306,7 @@ arithmetic circuit. This circuit receives a secret input, referred to as the
 witness, which can be for example a Proof of Age attestation, as well as a 
 public statement. The circuit performs a calculation and outputs true if 
 certain conditions hold (e.g., "the Proof of Age attestation includes the 
-age\_over\_18 attribute"). An AVI can then generate a ZKP which proves that 
+age\_over\_18 attribute and its value is true"). An AVI can then generate a ZKP which proves that 
 "the AVI knows a witness (i.e., the Proof of Age attestation), which when 
 provided as input to a certain circuit using the provided statement, the 
 circuit outputs true". A circuit for the Age Verification solution would 
@@ -1287,11 +1314,19 @@ have the following configuration:
 
 **Witness:** A Proof of Age attestation
 
-**Public parameters:** The public key of the AP, an attribute *attr*, a nonce
+**Public parameters:** The public key of the AP, the session transcipt, 
+the age\_over\_18 attribute, the current date.
+
 
 **Output**: The circuit outputs true if the following conditions hold:
 
 * The Proof of Age attestation includes a signature that can be verified using the public key of the AP  
-* The Proof of Age attestation includes the attribute *attr*  
-* The AVI can generate a signature of the nonce that can be verified using the public key included in the Proof of attestation  
+* The Proof of Age attestation includes age\_over\_18 attribute with value equal to true
+* There  exists mdoc authentication data and can be verified using the deviceKey 
+included in the mobile security object (MSO) of a Proof of Age attestation (
+deviceKey is descrined in  section  9.1.2.4 of [ISO/IEC 18013-5\])
 * The Proof of Age attestation is within its validity period.
+
+![Figure 11](./media/zkp.png)
+
+*Figure 11, high-level overview of the zkp lib*

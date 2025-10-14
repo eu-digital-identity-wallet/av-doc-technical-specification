@@ -181,7 +181,7 @@ The following referenced documents are essential for the application of this doc
 | :---- | :---- |
 | \[ISO/IEC 18013-5\] | [ISO/IEC 18013-5:2021: Personal identification — ISO-compliant driving licence. Part 5: Mobile driving licence (mDL) application. Edition 1, 2021\.](https://www.iso.org/standard/69084.html) |
 | \[ISO/IEC 18013-7\] | [ISO/IEC TS 18013-7:2025: Personal identification — ISO-compliant driving licence. Part 7: Mobile driving licence (mDL) add-on functions. Edition 2, 2025\.](https://www.iso.org/standard/91154.html) |
-| \[OpenID4VP\] | [OpenID for Verifiable Presentations](https://openid.net/specs/openid-4-verifiable-presentations-1_0-24.html) |
+| \[OpenID4VP\] | [OpenID for Verifiable Presentations](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html) |
 | [W3C Digital Credentials API] | Caceres, M., Cappalli, T., Goto, S. *et al,* "[Digital Credentials API](https://w3c-fedid.github.io/digital-credentials/)", Draft Community Group Report |
 
 

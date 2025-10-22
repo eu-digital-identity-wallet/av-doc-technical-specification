@@ -1031,13 +1031,17 @@ apply to Age Verification Apps, Attestation Providers, Relying Parties, and Trus
 
 ### 4.1 Proof of Age attestation
 The data model for the Proof of Age attestation is defined as a profile of 
-the attribute schema specified in ISO/IEC 18013-5 (Mobile Driving Licence \[mDL\] Application) 
-and ISO/IEC 23220-2 A Proof of Age attestation SHALL comply with this data model
+the attribute schema specified in \[ISO/IEC 18013-5\] 
+and \[ISO/IEC 23220-2\]. A Proof of Age attestation SHALL comply with this data model.
 
-#### 4.1.1 Attribute Set
-The attribute set for Proof of Age attestations consists of:
+#### 4.1.1 Document type
+The document type for Proof of Age attestation SHALL be `eu.europa.ec.av.1`.
 
-| Attribute Identifier | Definition | Presence in Issuance | Presence in verification | Encoding format |
+#### 4.1.2 Attribute set
+The Proof of Age attestation attribute set SHALL be composed of attributes defined in the following 
+Table. All attributes belong to namespace `eu.europa.ec.av.1`
+
+| Identifier | Meaning | Presence in Issuance | Presence in verification | Encoding format |
 | :---- | :---- | :---- | :---- | :---- |
 | age\_over\_18 | This attribute is present in all Proof of Age attestations and indicates whether the user is above 18\. | Mandatory | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested) | bool |
 | age\_over\_NN | Confirming whether the Proof of Age attestation user is currently over NN years of age. Multiple entries MAY be provided as separate attributes. | Optional | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested)  | bool |
@@ -1046,8 +1050,8 @@ A Proof of Age Attestation SHALL NOT include any other attribute.
 
 **Note on Age Attribute Scope**
 
-While the technical architecture and data model (based on ISO/IEC 18013-5 
-and ISO/IEC 23220-2) inherently support the age\_over\_NN attribute schema 
+While the technical architecture and data model (based on \[ISO/IEC 18013-5\] 
+and \[ISO/IEC 23220-2\]) inherently support the age\_over\_NN attribute schema 
 for arbitrary age thresholds (e.g., age\_over\_14, age\_over\_65), this 
 specification explicitly focuses on age\_over\_18 to address the most common 
 regulatory requirement for age-restricted online services in the EU.
@@ -1058,7 +1062,7 @@ Extending the solution to additional age thresholds would require:
 
 1. Alignment with jurisdictional legal frameworks governing the specific age-based restrictions.
 
-Section 7.2.5  of the ISO 18013-5 specification 'Age attestation: nearest “true” 
+Section 7.2.5 \[ISO/IEC 18013-5\] of  specification 'Age attestation: nearest “true” 
 attestation above request' may be considered in implementations making use of 
 the optional age_over_NN attribute.
 

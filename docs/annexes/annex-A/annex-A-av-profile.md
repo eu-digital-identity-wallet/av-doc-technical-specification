@@ -24,7 +24,7 @@ incrementally over the course of the project.
 The profile uses OpenID for Verifiable Credential Issuance [OID4VCI] for issuance
 of Proof of Age attestations. Furthermore, for the presentation of Proof of Age
 attestations, the profile uses  the W3C Digital Credentials API [W3C Digital Credentials API] as specified in
-ISO/IEC TS 18013-7, Annex C, as well as OpenID for Verifiable Presentations [OID4VP] 
+\[ISO/IEC 18013-7\], Annex C, as well as OpenID for Verifiable Presentations [OID4VP] 
 as a fallback mechanism.  The attestation format used is ISO mDoc [ISO18013-5]. 
 
 A full list of the open standards used in this profile can be found in Overview of 
@@ -131,7 +131,29 @@ W3C Digital Credentials API. OpenID for Verifiable Presentations is used as
 a fallback mechanism
 
 ### W3C Digital Credentials API
-The W3C Digital Credentials API is used as specified in ISO/IEC TS 18013-7, Annex C
+The W3C Digital Credentials API is used as specified in \[ISO/IEC 18013-7\], Annex C.
+Particularly, the Relying Party builds  
+a request which consists of two parts: `encryptionInfo` and `deviceRequest`
+
+#### Encryption info
+`encryptionInfo` is the base64-url without padding encoding of the cbor 
+encoded `EncryptionInfo` object defined below
+
+```cddl
+EncryptionInfo = [
+  "dcapi", 
+  EncryptionParameters
+]
+
+EncryptionParameters = {
+  "nonce" : bstr,
+  "recipientPublicKey" : COSE_Key
+}
+```
+
+#### Device Request
+`deviceRequest` is the base64-url without padding encoding of the cbor encoded 
+`DeviceRequest` defined in \[ISO/IEC 18013-5\] §8.3.2.1.2.1  
 
 ### OpenID for Verifiable Presentations profile Requirements
 OpenID for Verifiable Presentations is used as a fallback mechanism when W3C
@@ -146,7 +168,8 @@ Digital Credentials API is not available.
 - The DCQL query and response as defined in Section 6 of [OID4VP] MUST be used
 
 
-
+#### Request Authentication
+Request authentication is not required and therefore is out of scope of this profile
 
 
 ## A.6. Crypto Suites
@@ -222,10 +245,7 @@ existence of a trust list of RPs. For this reason, the Age Verification solution
 uses the simpler `redirect_uri` scheme.  An alternative could be the use of `x509_san_dns`
 together with the Web PKI, however, any malicious entity can obtain a valid Web PKI
 certificate. 
-
-
-#### W3C Digital Credentials API
-- The Age Verification solution will use ISO/IEC TS 18013-7, Annex C. 
+ 
 
 
 
@@ -441,7 +461,114 @@ Content-Type: application/json
 }
 ```
 
-### Verifiable Presentation
+### W3C Digital Credentials API
+#### Request
+A Relying Party invokes the W3C Digital Credentials API using the following 
+javascript code:
+```
+{
+    "requests": [{
+        "data": {
+            "deviceRequest": "omd2ZXJzaW9uYzEuMGtkb2NSZXF1ZXN0c4GhbGl0ZW1zUmVxdWVzdNgYWEeiZ2RvY1R5cGVxZXUuZXVyb3BhLmVjLmF2LjFqbmFtZVNwYWNlc6FxZXUuZXVyb3BhLmVjLmF2LjGha2FnZV9vdmVyXzE49A",
+            "encryptionInfo": "gmVkY2FwaaJlbm9uY2VQOnVKMx__eBi_NnHCNCvb73JyZWNpcGllbnRQdWJsaWNLZXmkAQIgASFYIJsu3MOn4IszjLtICCwJRiSQ7LJw0NrAJGeF8XU_xRwgIlggAs-QiNamy7cfETW7vPrT2gPFQxr1Z8KXAkHCkPfU0Hs"
+        },
+        "protocol": "org-iso-mdoc"
+    }]
+}
+```
+The `deviceRequest` using diagnostic notation is the following
+
+```
+{
+    "version": "1.0",
+    "docRequests": [{
+        "itemsRequest": 24( << {
+            "docType": "eu.europa.ec.av.1",
+            "nameSpaces": {
+                "eu.europa.ec.av.1": {
+                    "age_over_18": false
+                }
+            }
+        } >> )
+    }]
+}
+```
+
+The following is an example of a Digital Credentials API response:
+
+```
+{
+    "response": "gmVkY2FwaaJjZW5jWEEEONmxnQqVSpJ2lR-YnxMBuJbHaMKH5afodSgFD_wHl1L15u8lPXlgFEHGM3CgNb42TV69HMIih6iA-BOz0vKQDWpjaXBoZXJUZXh0WQbYM91Fv7yfrr5J6AA27jovhsckt_aLlmQOwph3Uz1cB71rud4gcATy5HEsMF0-b47vzhDr4yZApVJ0WlRV3H7LfZFq6q1sW0ABNigxR77nyHNbpJApXGQO1faAMiEusPiaU9Hu9chlSzuVm81wGlnq8Y-7TB8a0_LxuGjj-uo9dpi7tHW8RBFXLBFi-CVs-05yNkw_ljITOiyfiVEEcpZRAZ_sC_jeKBNiYgAECCLs1pccvAAPlBI_sfScMLpHtSOxu5ouEdclnxYTcwidoXpV7kI9LZbLfRDNOPtwIG4oDPD2pYH7nyfnTua1p9VbJjQXcY_4cF5-pR-bDzFwK-G7s0EmYawfdku0uPuhjobflEalkahvyXeap7L4c2mluFxITKViHqMxA42jh4HiL_wLaLxdx_WVeT-_-KIUpz6we-I_y4MTvjAxXLvhrgkoOcoFDXrfnHZrJoXRkc3A8JOAfh6311JBZ8QVrlYzBNNYwP62RvaxwcEFs2-sNzOEhgiD75MbSIZDB5uwZMz-v5N6Q9I1unxx9WhqvFQdUtPETrJaWi5xfqohvhPtE_NjplNc5bo3443aGbgtXXpveRqT0lAiN09xAMwMSX4DrGyoaiQy7ZT6edyO3j00TxSPUyTk4Uh_RObf7aTPiipUSjPYRjgaE9ZIGqAhZwbITp5YJHmKXIfJglRzYMhnk4cdAkkP95BFgX111be3lZeJB_0zyYIcTkkVC_--QljTBaBxdujVLS9r9OqQ2nMS0mbTxDduy1pr31_Pl7Na0qnAzNBwUb9hEEDQ6fmHNcpCW5AjLaB-xi-878C0upzWQdvvIU_Fji8xpQzwk26oPZfAEV8jd-ZSa63IbmQW3Vw5pZpPhx2_swZRMbLsCPwq0E7azKs6RQ7XwZDflf3QkJERrbu9FMZzwXClXquJ9n5tEm-UntN5FoNE6U9Hj7QAVjvu058o3iE0mJDm7FVHGBhxClv6CecME5gpPlaKKjMZw-KmDeIQDpx2DMEoL4ueFAzqn5xoA5ZLyVpl19HlD1a3SSxV1Ul0hsMv20F47tA4vbY238EMq8wDsxGLJbWqVv3jfDMg1nTsvX0wpPoAFRvCbVlhN284mJyf8ndz4dRhp5TKuEroT8bX9h8hBgd3MtXPvWhurSTRdf21AYt3iefmBaCAqH4gVvyXelw7mNetdCmt4jrSEO4sMgIzRRkpgxSv-CE6V-MtVoQribCAJdC1V-oWcA4eNslbKX-6vs2cE8Zn4lj96uIMY-pu5i_aJWv3CeGKVuiKIuV1TKag8_UM1uWPTkXkgGFcFsrjhugKqT6pIzgl7ogafm5QoxXPA_wbveVN2JlBUef4p39HYRLQA72SJ8sS_7H1NUE4LRDghasLmMbF123Iexw0U0FP90byd30hiAT60sxeufUy5YZHCstZwHneDnKP6NhkvrCflq4VxYh3zP0CP1AvPrjCFq2vuAb2fl5owrAf1Vio1AD0d7pYySQ69Aai9KXR93BbduxLd2SA-ZOB6aVvEbJiU90QgCUrGETVi61H-sY-UfkC8B0an_F7FWs7NNQKjNv0UO4sRbVTvA_u97WkNXow62zwPsiz2XFrQPqrPnjPcBQld5FUj89P4mtHHYlRiNFBJu78e9s7iGrhdi0fmo7KVNlkd1Vd85hLQxdmAOsIG-JAYcCYEcyF1w7ehM78QI7L7h-fuGe7d2kzQEF_XF2vQ7U_RE1M0X6sYG-vfLGay1OxpDCVRzPyjl0f8uIMdhkEyKoJJiXX888G_XQ9D3N7TMYUjtI4j8f84XULfK1_-YGVHy2T7k0p0sQl0RX8_-zKB2Z75UAbZX6aBKf3bdGEX2ka9TSGvTurXyyyqHc4RUojnlvlyqwEdPjG_Y4CXzJYLmyc8q21ntn_Is_u_SBt5GDn3CXoKJki_W3xumX9mqR6MEsSXq_KpdsrYqyDQtjnBK2J_N-x3xTIPx9teWk8h7H7w3v5TFiR1jmd8SEWIjImN9hv2DRSjsyzuPnoIZvWo5IkU6tGVPiH55hKFUTsyrjHyIvSvVgpRO1H9NgkornJy4-w_Rp5Rv6BihgYfGRIyP0HkVNsvPIXIypIZhTWhK1SCKKCjifmkAt64La_E2WlyWKdEK2ljWJOCSWoQP5H5KwWc5sl4rqwCwUYPh6lKTS101FrqUgyo3Sm_79hlFZ0z39TpWpuxLp5suzmOkaRh2kPVQtq1Wb74u9V7q1U8N38ZO_YxJtrNMoILdwZo7sF1Itey1_-bv_vTRyuC-kmwePW32BqcYN4v03fx-u9muzFI6Vc4F7KffQEqoO6pZ2i5n2oYC6_MC7L7y79"
+}
+```
+
+The corresponding `deviceResponse` using diagnostic notation is the following:
+
+```
+{
+    "version": "1.0",
+    "documents": [{
+        "docType": "eu.europa.ec.av.1",
+        "issuerSigned": {
+            "nameSpaces": {
+                "eu.europa.ec.av.1": [24( << {
+                    "random": h '10A62906DC911999D321A80129332814837B29377910C9366BB4619E1F17034B',
+                    "digestID": 0,
+                    "elementValue": true,
+                    "elementIdentifier": "age_over_18"
+                } >> )]
+            },
+            "issuerAuth": [ << {
+                1: -7
+            } >> , {
+                33: h '308202BD30820263A00302010202147076C1D015EABC3FD67B3FD7AA78A6CFE3CD2F85300A06082A8648CE3D04030230693126302406035504030C1D41676520566572696669636174696F6E2049737375657220434120303131323030060355040A0C2941676520566572696669636174696F6E205265666572656E636520496D706C656D656E746174696F6E310B3009060355040613024555301E170D3235303730313130353731315A170D3236303932343130353731305A30653122302006035504030C1941676520566572696669636174696F6E204453202D2030303131323030060355040A0C2941676520566572696669636174696F6E205265666572656E636520496D706C656D656E746174696F6E310B30090603550406130245553059301306072A8648CE3D020106082A8648CE3D030107034200046789E96E797E2E04F7F3CBB54A12410412410DB000FB6D63DC977D8B5D35A4F93B71F297D9D308BA2E955E8563AFA0604833AAE10ECB1AAEFBE4159B5B8B9057A381EC3081E9301F0603551D23041830168014CB7095804C991EDC6D0B7CFEEBE041CA22542ED830160603551D250101FF040C300A06082B8102020000010230440603551D1F043D303B3039A037A035863368747470733A2F2F6973737565722E616765766572696669636174696F6E2E6465762F706B692F45555F43415F30312E63726C301D0603551D0E04160414FF1BBA97B2CA7EF5AEA3301486F1FBC98B4598FA300E0603551D0F0101FF04040302078030390603551D12043230300603551D1204293027822568747470733A2F2F636F6D6D697373696F6E2E6575726F70612E65752F696E6465785F656E300A06082A8648CE3D040302034800304502204AAF5B867E6F1202E0F4924DE8B689319471F9CE6B3B9CB7355FA68A014E2637022100DDB326B3C089DF558F5732EAAA5E87C0D5D5140624602F3598AFDABF180DB66A'
+            }, << 24( << {
+                "status": {
+                    "status_list": {
+                        "idx": 450,
+                        "uri": "https://issuer.eudiw.dev/token_status_list/AV/eu.europa.ec.av.1/3f560b19-f432-4f8d-bda8-a29c2bfacf52"
+                    },
+                    "identifier_list": {
+                        "id": "450",
+                        "uri": "https://issuer.eudiw.dev/identifier_list/AV/eu.europa.ec.av.1/3f560b19-f432-4f8d-bda8-a29c2bfacf52"
+                    }
+                },
+                "docType": "eu.europa.ec.av.1",
+                "version": "1.0",
+                "validityInfo": {
+                    "signed": 0("2025-10-20T16:02:52Z"),
+                    "validFrom": 0("2025-10-20T16:02:52Z"),
+                    "validUntil": 0("2026-01-18T00:00:00Z")
+                },
+                "valueDigests": {
+                    "eu.europa.ec.av.1": {
+                        0: h 'C22B017A42FCAFB134154F2D1322E376782C64E74543B698ADDC0ADC3E0F75D7'
+                    }
+                },
+                "deviceKeyInfo": {
+                    "deviceKey": {
+                        1: 2,
+                        -1: 1,
+                        -2: h '799175CC6CE08CDD34BFE6D3F909D5C8E5E30DD251B59B57B33D7448E9E61838',
+                        -3: h '53FE63B0B795E3CA0723FA1DF04B229B73D5859C63E73AFBCE9EB957BD0A3F36'
+                    }
+                },
+                "digestAlgorithm": "SHA-256"
+            } >> ) >> , h '5931DA1B0ADD466A78708873FEE0E6504BE7FE79609A88874E9F17A693CB5F123A5DA9D33438B3C6527369DA6D071A3F23D357811A9A75DBA5A0B932A29E72B3']
+        },
+        "deviceSigned": {
+            "nameSpaces": 24( << {} >> ),
+            "deviceAuth": {
+                "deviceSignature": [ << {
+                    1: -7
+                } >> , {}, null, h '117259AB19D451229E4C40948ED5517FD1F4C3D8984825E7DE86ED37CAB4AC7FF10855281F21256611AE769B109B4F0C92E9F4E740182E6C6519216A0AA715A4']
+            }
+        }
+    }],
+    "status": 0
+}
+```
+### OpenID for Verifiable Presentations
 #### Request
 
 An authorization request includes a DCQL query. The following is a DCQL query for requesting a Proof of Age attestation 
@@ -452,7 +579,7 @@ An authorization request includes a DCQL query. The following is a DCQL query fo
       "id": "proof_of_age", 
       "format": "mso_mdoc", 
       "meta": { 
-        "doctype_value": ["eu.europa.ec.av.1 "] 
+        "doctype_value": "eu.europa.ec.av.1 "
       }, "claims": [ 
          {"path": ["eu.europa.ec.av.1 ", "age_over_18"]}      
        ] 

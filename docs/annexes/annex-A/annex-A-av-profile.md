@@ -132,10 +132,12 @@ a fallback mechanism
 
 ### W3C Digital Credentials API
 The W3C Digital Credentials API is used as specified in \[ISO/IEC 18013-7\], Annex C.
-Particularly, the Relying Party builds  
-a request which consists of two parts: `encryptionInfo` and `deviceRequest`
 
-#### Encryption info
+#### Request
+The Relying Party builds a request which consists of two parts: `encryptionInfo` 
+and `deviceRequest`. 
+
+**Encryption info** 
 `encryptionInfo` is the base64-url without padding encoding of the cbor 
 encoded `EncryptionInfo` object defined below
 
@@ -151,9 +153,32 @@ EncryptionParameters = {
 }
 ```
 
-#### Device Request
+**Device Request**
 `deviceRequest` is the base64-url without padding encoding of the cbor encoded 
 `DeviceRequest` defined in \[ISO/IEC 18013-5\] §8.3.2.1.2.1  
+
+#### Response
+The response is the base64-url without padding encoding of the cbor 
+encoded `EncryptedResponse` object defined below
+
+```cddl
+EncryptedResponse = [
+  "dcapi", 
+  EncryptedResponseData
+]
+EncryptedResponseData = {
+  "enc" : bstr,
+  "cipherText" : bstr
+}
+```
+
+`enc` is the public key used for the generation of the ciphertext, which is used
+in the decryption process, and `cipherText` is the encrypted response, which is
+a `DeviceResponse`, defined in Section 8.3.2.1.2.3 of ISO/IEC 18013-5, encrypted
+using Hybrid Public Key Encryption (HPKE) defined in RFC 9180. 
+
+#### Reader Authentication
+Reader authentication is not required and therefore is out of scope of this profile
 
 ### OpenID for Verifiable Presentations profile Requirements
 OpenID for Verifiable Presentations is used as a fallback mechanism when W3C
@@ -166,10 +191,10 @@ Digital Credentials API is not available.
 - The client identifier scheme MUST be `redirect_uri` followed by the `response_uri`
 - A request MUST specify the nonce parameter
 - The DCQL query and response as defined in Section 6 of [OID4VP] MUST be used
+- The `state` parameter as defined in Section 4.1.1 of [OID4VP] is optional
 
-
-#### Request Authentication
-Request authentication is not required and therefore is out of scope of this profile
+#### Client Authentication
+Client authentication is not required and therefore is out of scope of this profile
 
 
 ## A.6. Crypto Suites
@@ -464,7 +489,7 @@ Content-Type: application/json
 ### W3C Digital Credentials API
 #### Request
 A Relying Party invokes the W3C Digital Credentials API using the following 
-javascript code:
+Digital Credential Request:
 ```
 {
     "requests": [{

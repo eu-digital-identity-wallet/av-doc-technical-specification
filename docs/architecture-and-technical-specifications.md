@@ -194,6 +194,9 @@ subject areas.
 | :---- | :---- |
 | \[ARF\] | [EU Digital Identity Architecture and Reference Framework](https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/1.10.0/)|
 |\[OpenID4VCI\]  | [OpenID for Verifiable Credential Issuance](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html) |
+| \[ETSI TS 119 612\] | [Electronic Signatures and Trust Infrastructures (ESI); Trusted Lists v2.4.1](https://www.etsi.org/deliver/etsi_ts/119600_119699/119612/02.04.01_60/ts_119612v020401p.pdf)|
+| \[ETSI EN 319 411-1\] | [Electronic Signatures and Infrastructures (ESI);
+Policy and security requirements for Trust Service Providers issuing certificates; Part 1: General requirements v1.4.1](https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.04.01_60/en_31941101v010401p.pdf)
 | \[HAIP\] | [OpenID4VC High Assurance Interoperability Profile with SD-JWT VC](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) |
 | \[OIDC\] | [Final: OpenID Connect Core 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-core-1_0.html) |
 | \[ISO/IEC 23220-2\] | [ISO/IEC TS 23220-2:2024: Cards and security devices for personal identification — Building blocks for identity management via mobile devices. Part 2: Data objects and encoding rules for generic eID systems. Edition 1, 2024\.](https://www.iso.org/standard/86782.html) |
@@ -987,10 +990,14 @@ revocation status of attestations.
 #### 3.4.4 Validation of Trust
 The trust framework for the Proof of Age attestation is based on trusted 
 lists developed and operated pursuant to Article 22 of the eIDAS Regulation. 
-The trusted lists are available on the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/home). 
-Proof of Age Attestation Providers should be published in a trusted list that is made available to the eIDAS Dashboard. The Trust Anchor (Service 
-Digital Identifier) should be used by Relying Parties to validate the 
-attestation.
+The trusted lists are available on the [eIDAS Dashboard](https://eidas.ec.europa.eu/efda/trust-services/browse/av-tl),
+which is implemented according to \[ETSI TS 119 612\]. The technical
+specifications of Age Verification Trusted List can be found
+[here](https://eidas.ec.europa.eu/efda/trust-services/browse/av-tl)  
+Proof of Age Attestation Providers will be published in a trusted list that is made available 
+to the eIDAS Dashboard. The Trust Anchor (Service 
+Digital Identifier) shall be used by Relying Parties to validate the 
+attestation. A Relying Party can trust all Attestation Providers on the list.
 
 ![Figure 8](./media/Figure_5_trusted-list.png)
 
@@ -1005,16 +1012,21 @@ Providers may set similar conditions regarding Relying Parties.
 
 **Trusted List solution for the Proof of Age Attestation Providers (AP)**
 
- A Proof of Age Attestation Provider (AP) SHALL use its own dedicated trust 
- anchor CA.  Particularly:
+A Proof of Age Attestation Provider (AP) SHALL either acquire a document signer 
+certificate compliant with ETSI EN 319 411-1 NCP policy from a certified QTSP or
+operate its own trust anchor CA compliant with ETSI EN 319 411-1 NCP policy, 
+dedicated to the issuance of document signer certificates for signing proof of 
+age attestations.
 
-* The AP (or a CA acting on its behalf) manages the PKI infrastructure - 
-including software, hardware, and HSM -, establishes a trust anchor CA, 
+* The AP (or a QTSP acting on its behalf) manages the PKI infrastructure - 
+including software, hardware, and HSM - establishes a trust anchor CA, 
 generates a key pair, and issues a certificate for signing or sealing the 
 Proof of Age attestation. 
-
+* The trust anchor CA shall comply \[ETSI EN 319 411-1\] under the scope NCP
 * The Trusted List Provider/Registrar adds the AP's information and 
-corresponding trust anchor to the Trusted List.  
+corresponding trust anchor to the Trusted List. The registration is handled by 
+authorised Member States representatives. The trusted list is updated accordingly 
+and published by the Commission.
 * For each AP, the Trusted List shall include information about the AP, together with its associated trust anchor.
 
 ![Figure 9](./media/Figure_6_trusted-list-1.png)

@@ -798,7 +798,8 @@ GET /authorize?
   &client_id=redirect_uri%3Ahttps%3A%2F%2Fverifier-backend.ageverification.dev%2Fwallet%2Fdirect_post%2FX2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg
   &response_uri=https%3A%2F%2Fverifier-backend.ageverification.dev%2Fwallet%2Fdirect_post%2FX2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg
   &dcql_query=%7B%22credentials%22%3A%5B%7B%22id%22%3A%22proof_of_age%22%2C%22format%22%3A%22mso_mdoc%22%2C%22meta%22%3A%7B%22doctype_value%22%3A%22eu.europa.ec.av.1%22%7D%2C%22claims%22%3A%5B%7B%22path%22%3A%5B%22eu.europa.ec.av.1%22%2C%22age_over_18%22%5D%7D%5D%7D%5D%7D
-  &nonce=a541f48f-e31c-4244-9b10-86af3150d454&state=X2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg HTTP/1.1
+  &nonce=a541f48f-e31c-4244-9b10-86af3150d454
+  &state=X2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg HTTP/1.1
 ```
 
 #### Response
@@ -809,7 +810,8 @@ POST /post HTTP/1.1
 Host: verifier-backend.ageverification.dev
 Content-Type: application/x-www-form-urlencoded
 
-  vp_token=...
+  vp_token=...&
+  state=X2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg
 ```
 
 The following is the content of the VP Token:

@@ -197,7 +197,7 @@ subject areas.
 | \[ETSI TS 119 612\] | [Electronic Signatures and Trust Infrastructures (ESI); Trusted Lists v2.4.1](https://www.etsi.org/deliver/etsi_ts/119600_119699/119612/02.04.01_60/ts_119612v020401p.pdf)|
 | \[ETSI EN 319 411-1\] | [Electronic Signatures and Infrastructures (ESI);
 Policy and security requirements for Trust Service Providers issuing certificates; Part 1: General requirements v1.4.1](https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.04.01_60/en_31941101v010401p.pdf)
-| \[HAIP\] | [OpenID4VC High Assurance Interoperability Profile with SD-JWT VC](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) |
+| \[HAIP\] | [OpenID4VC High Assurance Interoperability Profile 1.0](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) |
 | \[OIDC\] | [Final: OpenID Connect Core 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-core-1_0.html) |
 | \[ISO/IEC 23220-2\] | [ISO/IEC TS 23220-2:2024: Cards and security devices for personal identification — Building blocks for identity management via mobile devices. Part 2: Data objects and encoding rules for generic eID systems. Edition 1, 2024\.](https://www.iso.org/standard/86782.html) |
 | \[ISO/IEC CD TS 23220-3\] | ISO/IEC CD TS 23220-3: Cards and security devices for personal identification — Building blocks for identity management via mobile devices. Part 3: Protocols and services for issuing phase |
@@ -1270,7 +1270,7 @@ SHALL be provided by the implementers.
 
 ### 6.4 Trusted list
 Attestation Providers' trusted lists (ETSI) SHALL be deployed and managed by 
-the  Commission.
+the Commission.
 
 The white label solution includes a sample trusted list and a validation 
 service. The white label application and the Relying Party will validate the 
@@ -1330,7 +1330,7 @@ have the following configuration:
 
 **Witness:** A Proof of Age attestation
 
-**Public parameters:** The public key of the AP, the session transcipt, 
+**Public parameters:** The public key of the AP, the session transcript, 
 the age\_over\_18 attribute, the current date.
 
 

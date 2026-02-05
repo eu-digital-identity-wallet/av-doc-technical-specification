@@ -545,7 +545,7 @@ The following is an example of a Digital Credentials API response:
 }
 ```
 
-The corresponding `deviceResponse` using diagnostic notation is the following:
+The corresponding `DeviceResponse` using diagnostic notation is the following:
 
 ```cddl
 {
@@ -597,10 +597,13 @@ The corresponding `deviceResponse` using diagnostic notation is the following:
 
 ```
 
-#### Session Transcript
+The Session Transcript for the above response is the following:
+
 ```
 83f6f68265646361706958204a292708fcf38ad55a7969f1c97ead9decf7756b7e9d8cfee942fe9f31b8db0a
 ```
+
+The corresponding CDDL representation of the Session Transcript is the following:
 
 ```cddl
 [
@@ -723,7 +726,7 @@ The following is an example of a Digital Credentials API response:
 }
 ```
 
-The corresponding `deviceResponse` using diagnostic notation is the following:
+The corresponding `DeviceResponse` using diagnostic notation is the following:
 ```cddl
 {
   "version": "1.0",
@@ -754,11 +757,13 @@ The corresponding `deviceResponse` using diagnostic notation is the following:
 }
 ```
 
-#### Session Transcript
+The Session Transcript for the above response is the following:
 
 ```
 83f6f68265646361706958202afa2a72d5d109d8dad677ecdeec5173cf386f028602a2328ad94a728da8a994
 ```
+
+The corresponding CDDL representation of the Session Transcript is the following:
 
 ```cddl
 [
@@ -774,31 +779,40 @@ The corresponding `deviceResponse` using diagnostic notation is the following:
 ### OpenID for Verifiable Presentations
 #### Request
 
-An authorization request includes a DCQL query. The following is a DCQL query for requesting a Proof of Age attestation: 
-```
-{ 
-  "credentials": [ 
-    { 
-      "id": "proof_of_age", 
-      "format": "mso_mdoc", 
-      "meta": { 
-        "doctype_value": "eu.europa.ec.av.1 "
-      }, "claims": [ 
-         {"path": ["eu.europa.ec.av.1 ", "age_over_18"]}      
-       ] 
-    } 
-  ] 
+An Authorization Request includes a DCQL query. The following is a DCQL query for requesting a Proof of Age attestation: 
+
+```json
+{
+  "credentials": [
+    {
+      "id": "proof_of_age",
+      "format": "mso_mdoc",
+      "meta": {
+        "doctype_value": "eu.europa.ec.av.1"
+      },
+      "claims": [
+        {
+          "path": [
+            "eu.europa.ec.av.1",
+            "age_over_18"
+          ]
+        }
+      ]
+    }
+  ]
 }
 ```
-An authorization request sent from an RP to the AVI. The request includes the DCQL query included in the previous example. 
+
+An Authorization Request sent from an RP to the AVI. The request includes the DCQL query included in the previous example.
+
 ```
 GET /authorize?
   response_type=vp_token
   &response_mode=direct_post
-  &client_id=redirect_uri%3Ahttps%3A%2F%2Fclient.example.org%2Fpost
-  &response_uri=https%3A%2F%2Fclient.example.org%2Fpost
-  &dcql_query=%7B%22credentials%22%3A%5B%7B%22id%22%3A%22proof_of_age%22%2C%22format%22%3A%22mso_mdoc%22%2C%22meta%22%3A%7B%22doctype_value%22%3A%5B%22eu.europa.ec.av.1 %22%5D%7D%2C%22claims%22%3A%5B%7B%22path%22%3A%5B%22eu.europa.ec.av.1 %22%2C%22age_over_18%22%5D%7D%5D%7D%5D%7D
-  &nonce=n-0S6_WzA2Mj HTTP/1.1
+  &client_id=redirect_uri%3Ahttps%3A%2F%2Fverifier-backend.ageverification.dev%2Fwallet%2Fdirect_post%2FX2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg
+  &response_uri=https%3A%2F%2Fverifier-backend.ageverification.dev%2Fwallet%2Fdirect_post%2FX2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg
+  &dcql_query=%7B%22credentials%22%3A%5B%7B%22id%22%3A%22proof_of_age%22%2C%22format%22%3A%22mso_mdoc%22%2C%22meta%22%3A%7B%22doctype_value%22%3A%22eu.europa.ec.av.1%22%7D%2C%22claims%22%3A%5B%7B%22path%22%3A%5B%22eu.europa.ec.av.1%22%2C%22age_over_18%22%5D%7D%5D%7D%5D%7D
+  &nonce=a541f48f-e31c-4244-9b10-86af3150d454&state=X2b8D86wXoyQIzFcIC3o8vpq_ebw_u2Ulzjx0JrcmNNYlaNGb2cf0GYubMlwWM2XD0UWL8Zhz1z0RfimJd3oKg HTTP/1.1
 ```
 
 #### Response
@@ -806,8 +820,89 @@ A response sent from the AVI to the RP:
 
 ```
 POST /post HTTP/1.1
-Host: client.example.org
+Host: verifier-backend.ageverification.dev
 Content-Type: application/x-www-form-urlencoded
 
-  vp_token=..
+  vp_token=...
+```
+
+The following is the content of the VP Token:
+
+```json
+{
+  "proof_of_age": [
+    "o2d2ZXJzaW9uYzEuMGlkb2N1bWVudHOBo2dkb2NUeXBlcWV1LmV1cm9wYS5lYy5hdi4xbGlzc3VlclNpZ25lZKJqbmFtZVNwYWNlc6FxZXUuZXVyb3BhLmVjLmF2LjGB2BhYYKRoZGlnZXN0SUQAZnJhbmRvbVggsE66dma5arpjDx0y7RcpOmCT_lOYq9HJlOJ0h9_fTP9xZWxlbWVudElkZW50aWZpZXJrYWdlX292ZXJfMThsZWxlbWVudFZhbHVl9Wppc3N1ZXJBdXRohEOhASahGCFZAsEwggK9MIICY6ADAgECAhRwdsHQFeq8P9Z7P9eqeKbP480vhTAKBggqhkjOPQQDAjBpMSYwJAYDVQQDDB1BZ2UgVmVyaWZpY2F0aW9uIElzc3VlciBDQSAwMTEyMDAGA1UECgwpQWdlIFZlcmlmaWNhdGlvbiBSZWZlcmVuY2UgSW1wbGVtZW50YXRpb24xCzAJBgNVBAYTAkVVMB4XDTI1MDcwMTEwNTcxMVoXDTI2MDkyNDEwNTcxMFowZTEiMCAGA1UEAwwZQWdlIFZlcmlmaWNhdGlvbiBEUyAtIDAwMTEyMDAGA1UECgwpQWdlIFZlcmlmaWNhdGlvbiBSZWZlcmVuY2UgSW1wbGVtZW50YXRpb24xCzAJBgNVBAYTAkVVMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZ4npbnl-LgT388u1ShJBBBJBDbAA-21j3Jd9i101pPk7cfKX2dMIui6VXoVjr6BgSDOq4Q7LGq775BWbW4uQV6OB7DCB6TAfBgNVHSMEGDAWgBTLcJWATJke3G0LfP7r4EHKIlQu2DAWBgNVHSUBAf8EDDAKBggrgQICAAABAjBEBgNVHR8EPTA7MDmgN6A1hjNodHRwczovL2lzc3Vlci5hZ2V2ZXJpZmljYXRpb24uZGV2L3BraS9FVV9DQV8wMS5jcmwwHQYDVR0OBBYEFP8bupeyyn71rqMwFIbx-8mLRZj6MA4GA1UdDwEB_wQEAwIHgDA5BgNVHRIEMjAwBgNVHRIEKTAngiVodHRwczovL2NvbW1pc3Npb24uZXVyb3BhLmV1L2luZGV4X2VuMAoGCCqGSM49BAMCA0gAMEUCIEqvW4Z-bxIC4PSSTei2iTGUcfnOazuctzVfpooBTiY3AiEA3bMms8CJ31WPVzLqql6HwNXVFAYkYC81mK_avxgNtmpZAVjYGFkBU6ZnZG9jVHlwZXFldS5ldXJvcGEuZWMuYXYuMWd2ZXJzaW9uYzEuMGx2YWxpZGl0eUluZm-jZnNpZ25lZMB0MjAyNi0wMi0wNVQwMDowMDowMFppdmFsaWRGcm9twHQyMDI2LTAyLTA1VDAwOjAwOjAwWmp2YWxpZFVudGlswHQyMDI2LTA1LTA2VDAwOjAwOjAwWmx2YWx1ZURpZ2VzdHOhcWV1LmV1cm9wYS5lYy5hdi4xoQBYINnnIeVoImnxUHadPLft5g9brTw5NiSKDMgxasoA6sUnbWRldmljZUtleUluZm-haWRldmljZUtleaQBAiABIVggfF_NUSbw5rySuQVoMRhjTnPbgjF6txpNJFNcCd4E1TsiWCBUUJItFB1pN6wdAjTMZ1yeNBemeTv7-GhJP9X5sUGp8m9kaWdlc3RBbGdvcml0aG1nU0hBLTI1NlhA8nKJweTxmtJK8s6wPRdFiVUoMwWA-2YA0Yrbl4LVGwS3oaMq6K8YZ2AW_UsjOhivJXLaNMN7IGA8XJ4zNghLa2xkZXZpY2VTaWduZWSiam5hbWVTcGFjZXPYGEGgamRldmljZUF1dGihb2RldmljZVNpZ25hdHVyZYRDoQEmoPZYQH5z2MDTO76cJTP1l0lgWi4TxjCAwWn3LpwcTwcagauTkXqVp-jJfkjZCZa10UwbftWlmHLNprN7DpgmYXhDFT9mc3RhdHVzAA"
+  ]
+}
+```
+
+The corresponding `DeviceResponse` using diagnostic notation is the following:
+
+```cddl
+{
+  "version": "1.0",
+  "documents": [
+    {
+      "docType": "eu.europa.ec.av.1",
+      "issuerSigned": {
+        "nameSpaces": {
+          "eu.europa.ec.av.1": [
+            24(<<
+              {
+                "digestID": 0,
+                "random": h'b04eba7666b96aba630f1d32ed17293a6093fe5398abd1c994e27487dfdf4cff',
+                "elementIdentifier": "age_over_18",
+                "elementValue": true
+              }
+            >>)
+          ]
+        },
+        "issuerAuth": [
+          h'a10126',
+          {
+            33: h'308202bd30820263a00302010202147076c1d015eabc3fd67b3fd7aa78a6cfe3cd2f85300a06082a8648ce3d04030230693126302406035504030c1d41676520566572696669636174696f6e2049737375657220434120303131323030060355040a0c2941676520566572696669636174696f6e205265666572656e636520496d706c656d656e746174696f6e310b3009060355040613024555301e170d3235303730313130353731315a170d3236303932343130353731305a30653122302006035504030c1941676520566572696669636174696f6e204453202d2030303131323030060355040a0c2941676520566572696669636174696f6e205265666572656e636520496d706c656d656e746174696f6e310b30090603550406130245553059301306072a8648ce3d020106082a8648ce3d030107034200046789e96e797e2e04f7f3cbb54a12410412410db000fb6d63dc977d8b5d35a4f93b71f297d9d308ba2e955e8563afa0604833aae10ecb1aaefbe4159b5b8b9057a381ec3081e9301f0603551d23041830168014cb7095804c991edc6d0b7cfeebe041ca22542ed830160603551d250101ff040c300a06082b8102020000010230440603551d1f043d303b3039a037a035863368747470733a2f2f6973737565722e616765766572696669636174696f6e2e6465762f706b692f45555f43415f30312e63726c301d0603551d0e04160414ff1bba97b2ca7ef5aea3301486f1fbc98b4598fa300e0603551d0f0101ff04040302078030390603551d12043230300603551d1204293027822568747470733a2f2f636f6d6d697373696f6e2e6575726f70612e65752f696e6465785f656e300a06082a8648ce3d040302034800304502204aaf5b867e6f1202e0f4924de8b689319471f9ce6b3b9cb7355fa68a014e2637022100ddb326b3c089df558f5732eaaa5e87c0d5d5140624602f3598afdabf180db66a'
+          },
+          h'd818590153a667646f63547970657165752e6575726f70612e65632e61762e316776657273696f6e63312e306c76616c6964697479496e666fa3667369676e6564c074323032362d30322d30355430303a30303a30305a6976616c696446726f6dc074323032362d30322d30355430303a30303a30305a6a76616c6964556e74696cc074323032362d30352d30365430303a30303a30305a6c76616c756544696765737473a17165752e6575726f70612e65632e61762e31a1005820d9e721e5682269f150769d3cb7ede60f5bad3c3936248a0cc8316aca00eac5276d6465766963654b6579496e666fa1696465766963654b6579a4010220012158207c5fcd5126f0e6bc92b905683118634e73db82317ab71a4d24535c09de04d53b2258205450922d141d6937ac1d0234cc675c9e3417a6793bfbf868493fd5f9b141a9f26f646967657374416c676f726974686d675348412d323536',
+          h'f27289c1e4f19ad24af2ceb03d1745895528330580fb6600d18adb9782d51b04b7a1a32ae8af18676016fd4b233a18af2572da34c37b20603c5c9e3336084b6b'
+        ]
+      },
+      "deviceSigned": {
+        "nameSpaces": 24(<<
+          {
+          }
+        >>),
+        "deviceAuth": {
+          "deviceSignature": [
+            h'a10126',
+            {
+            },
+            null,
+            h'7e73d8c0d33bbe9c2533f59749605a2e13c63080c169f72e9c1c4f071a81ab93917a95a7e8c97e48d90996b5d14c1b7ed5a59872cda6b37b0e9826617843153f'
+          ]
+        }
+      }
+    }
+  ],
+  "status": 0
+}
+
+```
+
+The Session Transcript for the above response is the following:
+
+``` 
+83f6f682714f70656e494434565048616e646f76657258205d5454853ef21216f8c5dfe774aeb35029cf2e860bbe59aaf79afce879897331
+```
+
+The corresponding CDDL representation of the Session Transcript is the following:
+
+```cddl
+[
+  null,
+  null,
+  [
+    "OpenID4VPHandover",
+    h'5d5454853ef21216f8c5dfe774aeb35029cf2e860bbe59aaf79afce879897331'
+  ]
+]
 ```

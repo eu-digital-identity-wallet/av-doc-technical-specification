@@ -249,27 +249,13 @@ For this reason, the Age Verification solution does not use this approach.
 No difference 
 
 #### OpenID for Verifiable Presentations
-Most differences compared to HAIP arise from the Age Verification solution’s reliance 
-on TLS and the Web PKI for authenticating RPs and establishing secure communication 
-channels. Similarly, when the Digital Credentials API is used, both the operating 
-system and the browser are considered trusted components. As a result, an additional 
-layer of authentication and encryption is deemed unnecessary. In more detail:
+Most differences compared to HAIP arise from the Age Verification solution's reliance on TLS and the Web PKI for authenticating RPs and establishing secure communication channels. Similarly, when the W3C Digital Credentials API is used, both the operating system and the browser are considered trusted components. As a result, an additional layer of authentication and encryption is deemed unnecessary.
 
-- HAIP requires encrypted responses (using `direct_post.jwt`). The threat model 
-of the Age Verification solution does not include malicious CAs. For this reason,   
-direct_post is used. 
-- HAIP uses JAR [RFC 9101] to protect the 
-integrity of the authorization request. However, its effectiveness depends on the 
-existence of a trust list of RPs. In the absence of such a list—as is the case with 
-the Age Verification solution—an attacker could obtain a valid certificate and 
-substitute a legitimate JAR with a malicious one, thereby undermining its intended 
-security benefits. For this reason, the Age Verification solution does not use JAR
-- HAIP `x509_san_dns` and `verifier_attestation` as a client authentication
-scheme. As in the case of JAR: the effectiveness of these schemes depends on the
-existence of a trust list of RPs. For this reason, the Age Verification solution
-uses the simpler `redirect_uri` scheme.  An alternative could be the use of `x509_san_dns`
-together with the Web PKI, however, any malicious entity can obtain a valid Web PKI
-certificate.
+In more detail:
+
+- HAIP profiles the use of encrypted authorization responses using `direct_post.jwt`. The threat model of the Age Verification solution does not include malicious CAs. For this reason,`direct_post` response mode is used.
+- HAIP profiles the use of JWT Secured Authorization Requests (JAR, [RFC 9101]) to protect the integrity of the authorization request. However, its effectiveness depends on the existence of a trust list of RPs. In the absence of such a list—as is the case with the Age Verification solution—an attacker could obtain a valid certificate and substitute a legitimate JAR with a malicious one, thereby undermining its intended security benefits. For this reason, the Age Verification solution does not use JAR.
+- HAIP allows the use of stronger RP client identification and authentication mechanisms as defined in OpenID for Verifiable Presentations. The Age Verification solution instead uses the simpler `redirect_uri` client identifier scheme. This choice reflects the absence of trusted RP lists and the reliance on TLS and the Web PKI in the assumed threat model.
 
 ## A.10 Examples
 The following section includes non-normative examples.

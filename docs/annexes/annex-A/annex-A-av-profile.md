@@ -92,7 +92,45 @@ Implementations of this specification do not have to implement all of the flows 
 A parameter that is listed as optional to be implemented in a specification that is 
 being profiled (i.e., OpenID4VCI, OpenID4VP and ISO mDoc) remains optional unless it is stated otherwise in this specification.
 
-## A.4 Proof of Age Attestation Issuance
+## A.4 Proof of Age attestation Data Model
+The data model for the Proof of Age attestation is defined as a profile of
+the attribute schema specified in \[ISO/IEC 18013-5\]
+and \[ISO/IEC 23220-2\]. A Proof of Age attestation SHALL comply with this data model.
+
+#### 4.1.1 Document type
+The document type for Proof of Age attestation SHALL be `eu.europa.ec.av.1`.
+
+#### 4.1.2 Attribute set
+The Proof of Age attestation attribute set SHALL be composed of attributes defined in the following
+Table. All attributes belong to namespace `eu.europa.ec.av.1`
+
+| Identifier | Meaning | Presence in Issuance | Presence in verification | Encoding format |
+| :---- | :---- | :---- | :---- | :---- |
+| age\_over\_18 | This attribute is present in all Proof of Age attestations and indicates whether the user is above 18\. | Mandatory | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested) | bool |
+| age\_over\_NN | Confirming whether the Proof of Age attestation user is currently over NN years of age. Multiple entries MAY be provided as separate attributes. | Optional | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested)  | bool |
+
+A Proof of Age Attestation SHALL NOT include any other attribute.
+
+**Note on Age Attribute Scope**
+
+While the technical architecture and data model (based on \[ISO/IEC 18013-5\]
+and \[ISO/IEC 23220-2\]) inherently support the age\_over\_NN attribute schema
+for arbitrary age thresholds (e.g., age\_over\_14, age\_over\_65), this
+specification explicitly focuses on age\_over\_18 to address the most common
+regulatory requirement for age-restricted online services in the EU.
+
+Extending the solution to additional age thresholds would require:
+
+1. Validation of enrolment methods for the target age group.
+
+2. Alignment with jurisdictional legal frameworks governing the specific age-based restrictions.
+
+Section 7.2.5 \[ISO/IEC 18013-5\] of specification 'Age attestation: nearest “true”
+attestation above request' may be considered in implementations making use of
+the optional age_over_NN attribute.
+
+
+## A.5. Proof of Age Attestation Issuance
 ### OpenID for Verifiable Credential Issuance
 * Both AVI and AP MUST support and use [RFC7636] with S256 as the code challenge method
 * Both AVI and AP MUST support and use authorization code flow
@@ -125,7 +163,7 @@ is used.
 #### AP Metadata
 TBD
 
-## A.5 Proof of Age attestation presentation
+## A.6. Proof of Age attestation presentation
 The default method for the presentation of a Proof of Age attestation is the 
 W3C Digital Credentials API. OpenID for Verifiable Presentations is used as 
 a fallback mechanism.
@@ -197,14 +235,14 @@ Digital Credentials API is not available.
 Client authentication is not required and is therefore out of scope of this profile.
 
 
-## A.6. Crypto Suites
+## A.7. Crypto Suites
 All entities MUST support P-256 (secp256r1) as a key type with ES256 JWT algorithm for signing and signature validation 
 whenever this profile requires to do so.
 SHA256 MUST be supported by all the entities as the hash algorithm to generate and validate the digests in the MDOC VC.
 Note: When using this profile with other cryptosuites, it is recommended to be explicit about which entity is required 
 to support which curve for signing and/or signature validation.
 
-## A.7. Zero-Knowledge Proofs
+## A.8. Zero-Knowledge Proofs
 - AVI SHOULD support the generation of Zero-Knowledge Proofs using the solution 
 detailed in: *"Matteo Frigo and abhi shelat, Anonymous credentials from ECDSA, 
 Cryptology ePrint Archive, Paper 2024/2010, 2024, available at [https://eprint.iacr.org/2024/2010](https://eprint.iacr.org/2024/2010)"*. 
@@ -218,10 +256,10 @@ public key included in the Proof of attestation
 - RP SHOULD be able to verify these Zero-Knowledge Proofs.
 
 
-## A.8. Security Considerations
+## A.9. Security Considerations
 The security considerations in [OID4VCI] and [OID4VP] apply when compatible with Level of Assurance substantial only.
 
-## A.9. Comparison with other profiles
+## A.10. Comparison with other profiles
 This section is non-normative 
 
 Since this age verification profile aims at achieving equivalence to Level of Assurance (LoA) substantial there is more flexibility to use faster go to market approaches using the protocols that are mentioned in the EUDI ARF but adopt configuration and profile parameters that will make implementers work easier and simpler without compromising the scope and the business needs of the Age Verification solution.
@@ -257,7 +295,7 @@ In more detail:
 - HAIP profiles the use of JWT Secured Authorization Requests (JAR, [RFC 9101]) to protect the integrity of the authorization request. However, its effectiveness depends on the existence of a trust list of RPs. In the absence of such a list—as is the case with the Age Verification solution—an attacker could obtain a valid certificate and substitute a legitimate JAR with a malicious one, thereby undermining its intended security benefits. For this reason, the Age Verification solution does not use JAR.
 - HAIP allows the use of stronger RP client identification and authentication mechanisms as defined in OpenID for Verifiable Presentations. The Age Verification solution instead uses the simpler `redirect_uri` client identifier scheme. This choice reflects the absence of trusted RP lists and the reliance on TLS and the Web PKI in the assumed threat model.
 
-## A.10 Examples
+## A.11. Examples
 The following section includes non-normative examples.
 
 ### Proof of Age attestation

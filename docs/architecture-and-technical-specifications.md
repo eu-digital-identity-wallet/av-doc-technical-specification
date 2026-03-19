@@ -197,7 +197,7 @@ subject areas.
 | \[ETSI TS 119 612\] | [Electronic Signatures and Trust Infrastructures (ESI); Trusted Lists v2.4.1](https://www.etsi.org/deliver/etsi_ts/119600_119699/119612/02.04.01_60/ts_119612v020401p.pdf)|
 | \[ETSI EN 319 411-1\] | [Electronic Signatures and Infrastructures (ESI);
 Policy and security requirements for Trust Service Providers issuing certificates; Part 1: General requirements v1.4.1](https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.04.01_60/en_31941101v010401p.pdf)
-| \[HAIP\] | [OpenID4VC High Assurance Interoperability Profile with SD-JWT VC](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) |
+| \[HAIP\] | [OpenID4VC High Assurance Interoperability Profile 1.0](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) |
 | \[OIDC\] | [Final: OpenID Connect Core 1.0 incorporating errata set 2](https://openid.net/specs/openid-connect-core-1_0.html) |
 | \[ISO/IEC 23220-2\] | [ISO/IEC TS 23220-2:2024: Cards and security devices for personal identification — Building blocks for identity management via mobile devices. Part 2: Data objects and encoding rules for generic eID systems. Edition 1, 2024\.](https://www.iso.org/standard/86782.html) |
 | \[ISO/IEC CD TS 23220-3\] | ISO/IEC CD TS 23220-3: Cards and security devices for personal identification — Building blocks for identity management via mobile devices. Part 3: Protocols and services for issuing phase |
@@ -296,7 +296,7 @@ deployment and adoption of age verification solutions.
 By ensuring compliance with the standards outlined in the EU Digital Identity 
 Architecture and Reference Framework (ARF), this solution establishes a 
 foundation for long-term sustainability and interoperability. The Age 
-Verification Profile defined in Annex A is designed to be forward-compatible 
+Verification Profile defined in [Annex A](annexes/annex-A/annex-A-av-profile.md) is designed to be forward-compatible 
 with future EUDI Wallets. 
 
 ### 2.2 Functions of the Age Verification Solution
@@ -740,11 +740,11 @@ business process for every data source, adding complexity to integration.
 #### 3.2.2 Attestation Provider and Age Verification App Instance interface
 This interface is used by the AVI to communicate with the AP to receive a 
 Proof of Age attestation. This interface may be implemented using
-the protocols specified in Annex A, ensuring 
+the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md), ensuring 
 standardised, interoperable credential exchange across Attestation Providers 
 and Age Verification App Instances, An Age Verification App Instance can interface with any 
 APs supporting
-the protocols specified in Annex A, enabling Users to obtain Proof of Age 
+the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md), enabling Users to obtain Proof of Age 
 attestations from diverse providers (e.g., national eID schemes, banks, or 
 mobile operators).
 This implementation aligns with the EU Digital Identity Wallet's 
@@ -755,7 +755,7 @@ ensuring cross-border interoperability.
 This interface empowers RPs to securely request and receive a Proof of Age 
 attestation from an AVI.
 This interface is implemented using
-the protocols specified in Annex A, ensuring standardised and 
+the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md), ensuring standardised and 
 interoperable presentation of verifiable credentials.
 
 #### 3.2.4 Attestation Provider and Trust Provider interface
@@ -1042,50 +1042,16 @@ apply to Age Verification Apps, Attestation Providers, Relying Parties, and Trus
 
 
 ### 4.1 Proof of Age attestation
-The data model for the Proof of Age attestation is defined as a profile of 
-the attribute schema specified in \[ISO/IEC 18013-5\] 
-and \[ISO/IEC 23220-2\]. A Proof of Age attestation SHALL comply with this data model.
-
-#### 4.1.1 Document type
-The document type for Proof of Age attestation SHALL be `eu.europa.ec.av.1`.
-
-#### 4.1.2 Attribute set
-The Proof of Age attestation attribute set SHALL be composed of attributes defined in the following 
-Table. All attributes belong to namespace `eu.europa.ec.av.1`
-
-| Identifier | Meaning | Presence in Issuance | Presence in verification | Encoding format |
-| :---- | :---- | :---- | :---- | :---- |
-| age\_over\_18 | This attribute is present in all Proof of Age attestations and indicates whether the user is above 18\. | Mandatory | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested) | bool |
-| age\_over\_NN | Confirming whether the Proof of Age attestation user is currently over NN years of age. Multiple entries MAY be provided as separate attributes. | Optional | Conditional mandatory (either age\_over\_18 or one of age\_over\_NN attributes SHALL be requested)  | bool |
-
-A Proof of Age Attestation SHALL NOT include any other attribute.
-
-**Note on Age Attribute Scope**
-
-While the technical architecture and data model (based on \[ISO/IEC 18013-5\] 
-and \[ISO/IEC 23220-2\]) inherently support the age\_over\_NN attribute schema 
-for arbitrary age thresholds (e.g., age\_over\_14, age\_over\_65), this 
-specification explicitly focuses on age\_over\_18 to address the most common 
-regulatory requirement for age-restricted online services in the EU.
-
-Extending the solution to additional age thresholds would require:
-
-1. Validation of enrolment methods for the target age group.
-
-1. Alignment with jurisdictional legal frameworks governing the specific age-based restrictions.
-
-Section 7.2.5 \[ISO/IEC 18013-5\] of  specification 'Age attestation: nearest “true” 
-attestation above request' may be considered in implementations making use of 
-the optional age_over_NN attribute.
+The Proof of Age attestation data model is defined in [Annex A](annexes/annex-A/annex-A-av-profile.md).
 
 
 ### 4.2 Age Verification App
 This section defines requirements that apply to the Age Verification App:
 
-* An Age Verification App SHALL implement the protocols specified in Annex A for 
+* An Age Verification App SHALL implement the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md) for 
 Proof of Age attestation presentation, SHOULD implement the Zero-Knowledge Proof
-mechanism specified in Annex A, and MAY implement the protocols specified 
-in Annex A for Proof of Age attestation issuance. 
+mechanism specified in [Annex A](annexes/annex-A/annex-A-av-profile.md), and MAY implement the protocols specified 
+in [Annex A](annexes/annex-A/annex-A-av-profile.md) for Proof of Age attestation issuance. 
 * An Age Verification App made available as a mobile application SHOULD be 
 published on the App Stores for Android and iOS operating systems and MAY be 
 published on other App Stores (e.g. Huawei, Samsung).
@@ -1108,13 +1074,13 @@ then remove it from the batch of the issued attestations.
 ### 4.3 Attestation Provider
 This section lists the requirements to be met by Attestation Providers:
 
-* An Attestation Provider MAY implement the protocols specified in Annex A
-for  Proof of Age attestation issuance.  
+* An Attestation Provider MAY implement the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md)
+for Proof of Age attestation issuance.  
 * An Attestation Provider SHALL issue Proof of Age attestations that comply with 
-the data model set in Section 4.1
-* An Attestation Provider SHALL support batch issuance of Proof of Age attestations
+the data model set in Section 4.1.
+* An Attestation Provider SHALL support batch issuance of Proof of Age attestations.
 * An Attestation Provider SHALL set the timestamp included in the `ValidityInfo` structure with a 
-precision that limits the linkability information
+precision that limits the linkability information.
 * An Attestation Provider SHALL register in a Trusted List.
 * An Attestation Provider SHALL NOT issue a Proof of Age attestation before 
 verifying the attestation subject's age at the Level of Assurance 'substantial' or 'high'.  
@@ -1124,10 +1090,10 @@ verifying the attestation subject's age at the Level of Assurance 'substantial' 
 ### 4.4 Relying Party
 This section lists the requirements to be met by Relying Parties:
 
-* A Relying Party SHALL implement the protocols specified in Annex A
-for  Proof of Age attestation presentation.
+* A Relying Party SHALL implement the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md)
+for Proof of Age attestation presentation.
 * A Relying Party SHOULD implement the Zero-Knowledge Proof
-verification mechanism specified in Annex A
+verification mechanism specified in [Annex A](annexes/annex-A/annex-A-av-profile.md)
 * A Relying party SHALL accept Proof of Age attestations that comply with 
 the data model set in Section 4.1.
 * A Relying Party SHALL validate the authenticity and the integrity of a 
@@ -1144,7 +1110,7 @@ Attestation Providers.
 
 
 ## 5. Age Verification Profile
-An age verification profile is defined in Annex A.
+An age verification profile is defined in [Annex A](annexes/annex-A/annex-A-av-profile.md).
 
 ## 6. Features of the White-Label Toolbox
 This chapter provides an overview on the features of the Age Verification 
@@ -1167,7 +1133,7 @@ The White label App SHALL include key functionality that is highlighted in
 the following section.
 
 The white label app SHALL include an enrolment and issuing functionality to 
-support the protocols specified in Annex A as 
+support the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md) as 
 the main method utilizing eID based authentication using delegation to an 
 eIDAS node or a trusted identity provider.
 
@@ -1224,7 +1190,7 @@ Implementers, and the white label app SHALL provide a placeholder to
 facilitate this.
 
 The white label app includes key features for remote presentation using
-the protocols specified in Annex A.
+the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md).
 
 The white label app does not include proximity capabilities (ISO 18013-5).
 
@@ -1234,7 +1200,7 @@ can be used by Attestation Providers.
 
 The age verification issuing service included in the white label solution 
 SHALL support mDoc and follow
-the protocols specified in Annex A. The 
+the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md). The 
 issuing service SHALL support batch issuing for the age over nn attestation.
 
 The claims of the Proof of Age attestation are statically calculated from 
@@ -1262,7 +1228,7 @@ The age verification issuing service included in the white label solution
 can be used by Relying Party.
 
 In the toolbox, an age verification service that supports 
-the protocols specified in Annex A 
+the protocols specified in [Annex A](annexes/annex-A/annex-A-av-profile.md) 
 using mDoc age over nn attestation SHALL be available. The service SHALL 
 include an mDoc trust manager to verify the MSO validity and authenticity. 
 In order to check the authenticity based on ETSI Trusted lists validation 
@@ -1270,7 +1236,7 @@ SHALL be provided by the implementers.
 
 ### 6.4 Trusted list
 Attestation Providers' trusted lists (ETSI) SHALL be deployed and managed by 
-the  Commission.
+the Commission.
 
 The white label solution includes a sample trusted list and a validation 
 service. The white label application and the Relying Party will validate the 
@@ -1330,7 +1296,7 @@ have the following configuration:
 
 **Witness:** A Proof of Age attestation
 
-**Public parameters:** The public key of the AP, the session transcipt, 
+**Public parameters:** The public key of the AP, the session transcript, 
 the age\_over\_18 attribute, the current date.
 
 
@@ -1338,9 +1304,9 @@ the age\_over\_18 attribute, the current date.
 
 * The Proof of Age attestation includes a signature that can be verified using the public key of the AP  
 * The Proof of Age attestation includes age\_over\_18 attribute with value equal to true
-* There  exists mdoc authentication data and can be verified using the deviceKey 
+* There exists mdoc authentication data and can be verified using the deviceKey 
 included in the mobile security object (MSO) of a Proof of Age attestation (
-deviceKey is descrined in  section  9.1.2.4 of [ISO/IEC 18013-5\])
+deviceKey is described in section 9.1.2.4 of [ISO/IEC 18013-5\])
 * The Proof of Age attestation is within its validity period.
 
 ![Figure 11](./media/zkp.png)

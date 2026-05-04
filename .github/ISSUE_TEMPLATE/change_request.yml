@@ -1,0 +1,87 @@
+name: Technical specification change
+description: Propose a change, clarification, or addition to the technical specification
+title: "[Spec]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose changes, clarifications, corrections, or additions to the technical specification.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Briefly describe the proposed specification change.
+      placeholder: What should be changed, added, clarified, or removed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-text
+    attributes:
+      label: Current specification text
+      description: Quote or link to the current section, if applicable.
+      placeholder: Paste the current text or provide a section/link.
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed-change
+    attributes:
+      label: Proposed change
+      description: Describe the exact proposed wording, requirement, behavior, or structure.
+      placeholder: What should the specification say instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Explain why this change is needed.
+      placeholder: What problem does this solve? What ambiguity or gap does it address?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change-type
+    attributes:
+      label: Change type
+      description: What kind of specification issue is this?
+      options:
+        - Clarification
+        - New requirement
+        - Requirement change
+        - Requirement removal
+        - Editorial correction
+        - Structural/documentation change
+        - Open question
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Describe expected impact on implementation, compatibility, testing, certification, or documentation.
+      placeholder: Who or what is affected by this change?
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: List any alternative wording, approaches, or interpretations considered.
+      placeholder: Optional.
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Add links to related issues, pull requests, standards, decisions, or external documents.
+      placeholder: Optional.
+    validations:
+      required: false

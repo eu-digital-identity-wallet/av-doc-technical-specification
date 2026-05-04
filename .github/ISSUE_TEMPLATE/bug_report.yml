@@ -1,0 +1,81 @@
+name: Bug Report
+description: Report a reproducible issue in the codebase.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Bug report
+        This template is intended for reporting **reproducible issues in the codebase**. Please provide enough detail so the problem can be understood and investigated.
+
+        > [!NOTE]
+        > GitHub issues are intended for technical issues with the specifications or open source code of the EU AV solution. You are welcome to discuss other topics in our [GitHub discussion forum](https://github.com/eu-digital-identity-wallet/av-doc-technical-specification/discussions) for the solution. Alternatively if you are a journalist, please raise your comments with the Commission's spokesperson service here: [Commission's spokespersons' service - European Commission](https://commission.europa.eu/about/contact/press-services/press-contacts/commissions-spokespersons-service_en). If you are a citizen or professional not working for a media organisation, you can [contact the EU directly](https://european-union.europa.eu/contact-eu_en).
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Explain how to recreate the issue.
+      placeholder: |
+        1. Go to '...'
+        2. Run '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: e.g. Ubuntu 22.04, Windows 11, macOS
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / Commit
+      placeholder: e.g. v1.0.4 or commit hash
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser (if applicable)
+      placeholder: e.g. Chrome 120, Firefox 121
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Add any other context, logs, or screenshots here (drag and drop files to upload them).
+    validations:
+      required: false

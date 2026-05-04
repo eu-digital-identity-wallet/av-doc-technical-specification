@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Not a bug? Head to the discussion forum
+  - name: Questions and general discussion
     url: https://github.com/eu-digital-identity-wallet/av-doc-technical-specification/discussions
-    about: Please ask and answer general questions here.
+    about: Ask questions, discuss interpretations, or raise topics that are not concrete specification change proposals.

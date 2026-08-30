@@ -1,19 +1,9 @@
 # Contributing to the technical specifications of the Age Verification Solution
 
-Contributions are welcome to enhance and refine the specifications. If you would like to contribute to this repository, please follow the contribution guidelines and submit a pull request.
+## Contribution rules
 
-## How to Contribute
-1. Fork the repository and create your changes on a separate branch.
-2. Submit a pull request targeting the main branch.
-3. Your pull request will be reviewed and, if approved, merged.
+You can only contribute if your contribution is useful, which is defined as *your contribution either improving the specification* while following the general anonymity & privacy-respecting spirit of it, or atleast not *degrading the existing privacy and anonymity level of it*.
 
-## Guidelines
-- Follow the existing style and conventions.
-- Document any additions or changes to the text.
-- Proofread your work thoroughly before submitting a pull request.
-- Keep each pull request focused on a single change or fix.
+Your contribution will be rejected if it introduces any element that weakens any of the anonymity and privacy protections of this specification.
 
-## License
-
-By contributing to [the technical specifications of the Age Verification Solution](README.md), you agree that your contributions will
-be licensed under the [Project's License](LICENSE).
+This is not the GSM specification, if you want to introduce backdoors or weaken privacy and anonymity, then join the GSM Alliance or the IETF and make your dangerous anti-user suggestions there instead of in this repository.
